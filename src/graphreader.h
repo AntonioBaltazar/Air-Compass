@@ -4,6 +4,7 @@
 #include "graph.h"
 
 namespace GraphReader {
+    void test();
     void load_graph(std::string _file_name, Graph& _graph);
 };
 
