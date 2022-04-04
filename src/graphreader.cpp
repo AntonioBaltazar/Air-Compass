@@ -24,7 +24,7 @@ void GraphReader::load_graph(std::string _file_name, Graph& _graph) {
 
     // Init vertices
     for (int i = 0; i < _graph.get_nb_vertices(); i++)
-        _graph.get_vertices().push_back(Vertice());
+        _graph.get_vertices().push_back(Vertice(i));
 
     // Reading all edges
     int src(0), dist(0), weight(0);

@@ -13,6 +13,7 @@ class Vertice {
     public:
         // Constructors & Destructor
         Vertice() {}
+        Vertice(int _number) : m_number(_number) {}
         ~Vertice() {}
 
         // Getters
@@ -24,6 +25,7 @@ class Vertice {
         // Setters
         void set_number(int _number) { m_number = _number; }
         void set_visited(bool _visited) { m_visited = _visited; }
+        void display();
 };
 
 class Graph {
@@ -48,6 +50,7 @@ class Graph {
         void set_oriented(bool _oriented) { m_oriented = _oriented; }
 
         // Methods
+        void display();
 };
 
 #endif // AIRPORT_H_INCLUDED

@@ -21,7 +21,7 @@ void antonio() {
 void martin() {
     Graph g;
     GraphReader::load_graph("graph.txt", g);
-    AerialNetwork test;
+    g.display();
 }
 
 void arnaud() {
