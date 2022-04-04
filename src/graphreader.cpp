@@ -27,7 +27,8 @@ void GraphReader::load_graph(std::string _file_name, Graph& _graph) {
     for (int i = 0; i < size; i++) {
         
     }
-
+    
+    
 
 }
 
