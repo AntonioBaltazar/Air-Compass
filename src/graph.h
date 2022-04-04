@@ -2,11 +2,13 @@
 #define GRAPH_H_INCLUDED
 
 #include <vector>
+#include "airport.h"
 
 class Vertice {
     private:
         int m_number;
         bool m_visited;
+        Airport m_airport;
     public:
         // Constructors & Destructor
         Vertice() {}
@@ -15,6 +17,7 @@ class Vertice {
         // Getters
         int get_number() const { return m_number; }
         bool is_visited() const { return m_visited; }
+        Airport& get_airport() { return m_airport; }
 
         // Setters
         void set_number(int _number) { m_number = _number; }

@@ -18,5 +18,7 @@ int main(int argc, char *argv[]) {
     //     test[i].display();
     
     GraphReader::test();
+    Graph g;
+    GraphReader::load_graph("graph.txt", g);
     return 0;
 }
