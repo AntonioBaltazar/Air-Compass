@@ -1,33 +1,33 @@
-/*
-1. type avion (A320...)
-2. 1:long 2:moyen 3:court courrier
-3. Capacité reservoir
-4. Consommation
-5. Autonomie
-6. Nb de places
-*/
-
+Airbus-A380
+1
+310000
+1575
+15200
+525
+Boeing-707
+1
+90200
+567
+11185
+189
 Airbus-A320
 2
 24210
 360
 5700
 180
-
 Boeing-737
 2
 18000
 297
 1353
 135
-
 ATR-72
 3
 6250
 144
 1600
 72
-
 Q-400
 3
 6500

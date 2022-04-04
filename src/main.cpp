@@ -9,8 +9,14 @@ using namespace std;
 using namespace GraphReader;
 
 int main(int argc, char *argv[]) {
-    cout << "Hello World!";
-    cout << "bizarre";
+    
+    vector<Airplane> test;
+
+    test=read_plane();
+    
+    // for(int i=0; i<6;i++)
+    //     test[i].display();
+    
     GraphReader::test();
     Graph g;
     GraphReader::load_graph("graph.txt", g);
