@@ -12,5 +12,7 @@ int main(int argc, char *argv[]) {
     cout << "Hello World!";
     cout << "bizarre";
     GraphReader::test();
+    Graph g;
+    GraphReader::load_graph("graph.txt", g);
     return 0;
 }
