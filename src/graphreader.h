@@ -14,6 +14,6 @@ namespace GraphReader {
     void load_graph(std::string _file_name, Graph& _graph);
 };
 
-std::vector<Airplane> read_plane();
+std::vector<Airplane> read_plane_file();
 
 #endif // GRAPHREADER_H_INCLUDED

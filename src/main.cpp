@@ -4,21 +4,22 @@
 #include "airport.h"
 #include "graph.h"
 #include "graphreader.h"
+#include "aerialnetwork.h"
+#include "travel.h"
 
 using namespace std;
 using namespace GraphReader;
 
 int main(int argc, char *argv[]) {
     
-    vector<Airplane> bank;
+    AerialNetwork test;
+    
+    test.create_fleet();
+   
 
-    bank=read_plane();
+    for (int i = 0; i < 5; i++)
+        test.get_fleet()[i].display();
     
-    for(int i=0; i<6;i++)
-        bank[i].display();
     
-    GraphReader::test();
-    Graph g;
-    GraphReader::load_graph("graph.txt", g);
     return 0;
 }
