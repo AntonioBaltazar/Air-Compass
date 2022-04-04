@@ -16,6 +16,9 @@ class Airport {
     public:
         // Constructors & Destructor
         Airport() {}
+        Airport(std::string _name, std::string _city, GPS _location, int _nb_runway, int _nb_parking, int _delay_between_flights, int _standby_flight_time, int _delay_parking_to_runway, int _delay_landing, int _delay_anticollision)
+            : m_name(_name), m_city(_city), m_location(_location), m_nb_runway(_nb_runway), m_nb_parking(_nb_parking), m_delay_between_flights(_delay_between_flights), m_standby_flight_time(_standby_flight_time),
+            m_delay_parking_to_runway(_delay_parking_to_runway), m_delay_landing(_delay_landing), m_delay_anticollision(_delay_anticollision) {}
         ~Airport() {}
 
         // Getters

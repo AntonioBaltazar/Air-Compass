@@ -11,7 +11,8 @@ using namespace std;
 using namespace GraphReader;
 
 int main(int argc, char *argv[]) {
-    
+    Graph g;
+    GraphReader::load_graph("graph.txt", g);
     AerialNetwork test;
     
     test.create_fleet();

@@ -40,19 +40,8 @@ void GraphReader::load_graph(std::string _file_name, Graph& _graph) {
     for (int i = 0; i < _graph.get_nb_vertices(); i++) {
         getline(ifs, _str);
         vector<string> _strs = deserialize(_str);
-        Airport ap;
-        ap.set_name(_strs[0]);
-        ap.set_city(_strs[1]);
-        ap.get_location().latitude = stod(_strs[2]);
-        ap.get_location().longtitude = stod(_strs[3]);
-        ap.set_nb_runway(stoi(_strs[4]));
-        ap.set_nb_parking(stoi(_strs[5]));
-        ap.set_delay_between_flights(stoi(_strs[6]));
-        ap.set_delay_parking_to_runway(stoi(_strs[7]));
-        ap.set_delay_anticollision(stoi(_strs[8]));
-        ap.set_delay_landing(stoi(_strs[9]));
-        ap.set_standby_flight_time(stoi(_strs[10]));     
-        _graph.get_vertices()[i].get_airport() = ap;
+        _graph.get_vertices()[i].get_airport() = Airport(_strs[0], _strs[1], {stod(_strs[2]), stod(_strs[3])}, stoi(_strs[4]), stoi(_strs[5]),
+        stoi(_strs[6]), stoi(_strs[7]), stoi(_strs[8]), stoi(_strs[9]), stoi(_strs[10]));
     }
 }
 
