@@ -24,6 +24,8 @@ void GraphReader::load_graph(std::string _file_name, Graph& _graph) {
     fget_int(ifs, "Error", {&oriented, &order, &size});
     std::cout << "debugging : " << oriented << " " << order << " " << size;
 
+    fget_int(ifs, "Error", {&oriented, &order, &size});
+    std::cout << "debugging : " << oriented << " " << order << " " << size;
     _graph.set_oriented(oriented);
     _graph.set_nb_vertices(order);
     
@@ -38,9 +40,7 @@ void GraphReader::load_graph(std::string _file_name, Graph& _graph) {
 void GraphReader::fget_int(ifstream& _ifs, std::string _error, vector<int*> _args) {
     for (auto& _arg : _args) {
         _ifs >> *_arg;
-        if (_ifs.fail()) 
-            throw runtime_error(_error);
-
+        if (_ifs.fail()) throw runtime_error(_error);
     }
 }
 
