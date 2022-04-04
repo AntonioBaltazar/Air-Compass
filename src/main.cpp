@@ -14,8 +14,8 @@ int main(int argc, char *argv[]) {
 
     test=read_plane();
     
-    // for(int i=0; i<6;i++)
-    //     test[i].display();
+    for(int i=0; i<6;i++)
+        test[i].display();
     
     GraphReader::test();
     Graph g;
