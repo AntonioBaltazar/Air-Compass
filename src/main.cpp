@@ -10,12 +10,12 @@ using namespace GraphReader;
 
 int main(int argc, char *argv[]) {
     
-    vector<Airplane> test;
+    vector<Airplane> bank;
 
-    test=read_plane();
+    bank=read_plane();
     
     for(int i=0; i<6;i++)
-        test[i].display();
+        bank[i].display();
     
     GraphReader::test();
     Graph g;
