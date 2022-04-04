@@ -15,6 +15,6 @@ namespace GraphReader {
     std::vector<std::string> deserialize(std::string _str);
 };
 
-std::vector<Airplane> read_plane();
+std::vector<Airplane> read_plane_file();
 
 #endif // GRAPHREADER_H_INCLUDED

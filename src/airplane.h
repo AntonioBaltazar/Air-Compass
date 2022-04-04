@@ -1,6 +1,9 @@
 #ifndef AIRPLANE_H_INCLUDED
 #define AIRPLANE_H_INCLUDED
 
+#include "airport.h"
+#include <iostream>
+
 enum class AirplaneType { Short, Medium, Long };
 
 class Airplane {
@@ -11,6 +14,8 @@ class Airplane {
         int m_fuel_capacity;
         int m_autonomy;
         int m_nb_seats;
+        Airport m_current_airport;
+        int m_id;
 
     public:
         // Constructors & Destructor
@@ -24,7 +29,9 @@ class Airplane {
         int get_fuel_capacity() const { return m_fuel_capacity; }
         int get_autonomy() const { return m_autonomy; }
         int get_nb_seats() const { return m_nb_seats; }
-        
+        Airport get_current_airport() const { return m_current_airport; } 
+        int get_id() const { return m_id ; };
+       
         // Setters
         void set_name(std::string _name) { m_name = _name; }
         void set_type(AirplaneType _type) { m_type = _type; }
@@ -32,6 +39,8 @@ class Airplane {
         void set_fuel_capacity(int _fuel_capacity) { m_fuel_capacity = _fuel_capacity; }
         void set_autonomy(int _autonomy) { m_autonomy = _autonomy; }
         void set_nb_seats(int _nb_seats) { m_nb_seats = _nb_seats; }
+        void set_current_airport(Airport _current_airport) { m_current_airport = _current_airport; }
+        void set_id(int _id) { m_id = _id ; };
 
         // Methods
         void display();

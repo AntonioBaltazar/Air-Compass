@@ -1,6 +1,8 @@
 #ifndef AIRPORT_H_INCLUDED
 #define AIRPORT_H_INCLUDED
 
+#include <iostream>
+
 struct GPS {
     double latitude;
     double longtitude;
