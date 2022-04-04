@@ -2,6 +2,7 @@
 #include "graphreader.h"
 
 using namespace GraphReader;
+using namespace std;
 void GraphReader::test() {
     cout << "debugging";
 }

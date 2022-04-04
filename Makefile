@@ -15,7 +15,7 @@ CXXFLAGS	:= -std=c++20 -Wall -Wextra -g
 LFLAGS =
 
 # define output directory
-OUTPUT	:= output
+OUTPUT	:= /Users/marti/Documents/programming/Air-Compass
 
 # define source directory
 SRC		:= src

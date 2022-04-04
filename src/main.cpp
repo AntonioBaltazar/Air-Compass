@@ -10,6 +10,7 @@ using namespace GraphReader;
 
 int main(int argc, char *argv[]) {
     cout << "Hello World!";
+    cout << "bizarre";
     GraphReader::test();
     return 0;
 }

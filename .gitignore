@@ -1,2 +1,8 @@
 main.exe
 .vscode/
+*.d
+/obj
+/output
+src/*.o
+Makefile
+*.exe
