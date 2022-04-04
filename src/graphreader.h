@@ -12,6 +12,7 @@ namespace GraphReader {
     void test();
     void fget_int(std::ifstream& _ifs, std::string _error, std::vector<int*> _args);
     void load_graph(std::string _file_name, Graph& _graph);
+    std::vector<std::string> deserialize(std::string _str);
 };
 
 std::vector<Airplane> read_plane();

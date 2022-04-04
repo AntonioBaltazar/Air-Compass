@@ -9,6 +9,7 @@ class Vertice {
         int m_number;
         bool m_visited;
         Airport m_airport;
+        std::vector<std::pair<Vertice*, int>> m_adjacent;
     public:
         // Constructors & Destructor
         Vertice() {}
@@ -18,6 +19,7 @@ class Vertice {
         int get_number() const { return m_number; }
         bool is_visited() const { return m_visited; }
         Airport& get_airport() { return m_airport; }
+        std::vector<std::pair<Vertice*, int>>& get_adjacent() { return m_adjacent; }
 
         // Setters
         void set_number(int _number) { m_number = _number; }
