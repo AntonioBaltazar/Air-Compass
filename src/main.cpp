@@ -8,15 +8,14 @@
 #include "aerialnetwork.h"
 #include "travel.h"
 #include "game.h"
+#include "graphicelement.h"
+#include <SDL2/SDL_ttf.h>
 
 using namespace std;
 using namespace GraphReader;
 
 void antonio() {
-    AerialNetwork test;
-    test.create_fleet();
-    for (int i = 0; i < 5; i++)
-        test.get_fleet()[i].display();
+    handle_event();
 }
 
 void martin() {

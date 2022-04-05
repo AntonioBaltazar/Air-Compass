@@ -48,7 +48,7 @@ void Airplane::choose(){
             cout <<"Write a real name of the place " << endl;
             cin >> name;
     }
-    while( test == 1 );
+    while( test < 1 );
 
 
     
