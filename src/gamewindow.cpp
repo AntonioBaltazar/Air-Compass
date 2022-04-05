@@ -34,32 +34,16 @@ bool GameWindow::close() {
 }
 
 void GameWindow::run(std::string _path_image) {
-     SDL_Surface* image = IMG_Load("rsc/map.bmp");
-     SDL_Surface* image2 = IMG_Load("rsc/mario.bmp");
     if (!init()) printf("Failed to initialize!\n");
-    else {
-        //SDL_BlitSurface(image, NULL, getSurface(), NULL);
+    else
         SDL_UpdateWindowSurface(getWindow());
-    }
     
-    Ressource rsc1("rsc/map.bmp", 2*480, 480, 0, 0);
-    Ressource rsc2("rsc/mario.bmp", 2*480, 480, 0, 0);
-    SDL_Rect src1{0, 0, 0, 0};
-    SDL_Rect dst1{ 0, 0, 400, 300 };
-    SDL_Rect src2{ 0, 0, 0, 0 };
-    SDL_Rect dst2{ getWidth()- 240, getHeight() - 100, 240, 100};
-    src2.x = src1.w / 2 - 30;
-    src2.y = src1.h / 2 - 50;
-    src2.w = 50;
-    src2.h = 50;
-
-   
-    SDL_Texture* t1 = SDL_CreateTextureFromSurface(getRender(), image);
-    SDL_Texture* t2 = SDL_CreateTextureFromSurface(getRender(), image2);
-    SDL_FreeSurface(image);
-
-    SDL_QueryTexture(t1, nullptr, nullptr, &src1.w, &src1.h);
-    //SDL_QueryTexture(t1, nullptr, nullptr, &src1.w, &src1.h);
+    vector<pair<SDL_Texture*, SDL_Rect>> textures;
+    for (auto& el : getRessources()) {
+        textures.push_back(make_pair(SDL_CreateTextureFromSurface(getRender(), el.getSurface()),
+            SDL_Rect{ el.getX(), el.getY(), el.getWidth(), el.getHeight() }));
+        SDL_FreeSurface(el.getSurface());
+    }
 
     SDL_Event events;
     bool isOpen{true};
@@ -72,11 +56,13 @@ void GameWindow::run(std::string _path_image) {
                 default: break;
             }
         }
+        
         SDL_SetRenderDrawColor(getRender(), 0, 0, 0, 255); 
         SDL_RenderClear(getRender());
 
-        SDL_RenderCopy(getRender(), t1, NULL, NULL);
-        SDL_RenderCopy(getRender(), t2, NULL, &dst2);
+        // Appending differents ressources
+        for (auto& el : textures)
+            SDL_RenderCopy(getRender(), el.first, NULL, &el.second);
 
         SDL_RenderPresent(getRender());  
  
