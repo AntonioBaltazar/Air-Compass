@@ -8,7 +8,7 @@ using namespace std;
 
 void Game::start() {
 
-    GameWindow gwin("AirCompass", 640, 480);
+    GameWindow gwin("AirCompass", 2*480, 480);
     gwin.run("rsc/map.bmp");
 
 }   
