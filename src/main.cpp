@@ -1,12 +1,13 @@
 #include <iostream>
 #include <vector>
+#include <ncurses.h>
 #include "airplane.h"
 #include "airport.h"
 #include "graph.h"
 #include "graphreader.h"
 #include "aerialnetwork.h"
 #include "travel.h"
-#include <ncurses.h>
+#include "game.h"
 
 using namespace std;
 using namespace GraphReader;
@@ -19,9 +20,8 @@ void antonio() {
 }
 
 void martin() {
-    Graph g;
-    GraphReader::load_graph("graph.txt", g);
-    g.display();
+    Game g;
+    g.start();
 }
 
 void arnaud() {
