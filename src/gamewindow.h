@@ -13,11 +13,17 @@ class Ressource {
         std::string m_path;
     public: 
         Ressource(std::string _path, int _width, int _height, int _x, int _y) : m_path(_path), m_width(_width), m_height(_height), m_init_x(_x), m_init_y(_y) {
-            m_ressource = IMG_Load(m_path.c_str());
+            setSurface(IMG_Load(m_path.c_str()));
         }
+
+        int getWidth() const { return m_width; }
+        int getHeight() const { return m_height; }
+        int getX() const { return m_init_x; }
+        int getY() const { return m_init_y; }
+
         ~Ressource() {}
         SDL_Surface* getSurface() { return m_ressource; }
-  
+        void setSurface(SDL_Surface* _surface) { m_ressource = _surface; }
 };
 
 class GameWindow {
@@ -42,12 +48,14 @@ class GameWindow {
         int getHeight() const { return m_screen_height; }
         SDL_Surface* getSurface() const { return m_surface; }
         std::string getWindowName() const { return  m_window_name; }
+        std::vector<Ressource>& getRessources() { return m_ressources; }
 
         // Setters
         void setWindow(SDL_Window* _window) { m_window = _window; }
  
         void setRender(SDL_Renderer* _render) { m_render = _render;}
         void setSurface(SDL_Surface* _surface) { m_surface = _surface; }
+    
 
         // Methods
         bool init();
