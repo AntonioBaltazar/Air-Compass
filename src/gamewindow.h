@@ -5,11 +5,11 @@
 
 class GameWindow {
     private:
+        std::string m_window_name;
         int m_screen_width, m_screen_height;
         SDL_Window* m_window = NULL;
         SDL_Surface* m_surface = NULL;
         SDL_Surface* m_image = NULL;
-        std::string m_window_name;
     public:
         // Constructors & Destructor
         GameWindow(std::string _window_name, int _screen_width, int _screen_height) : 
@@ -34,6 +34,7 @@ class GameWindow {
         bool loadMedia(std::string _path_image);
         bool close();
         void run(std::string _path_image);
+        SDL_Surface* resizeImage(int w,int h,SDL_Surface* src);
 };
 
 #endif // GAMEWINDOW_H_INCLUDED

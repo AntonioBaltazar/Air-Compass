@@ -42,7 +42,19 @@ void GameWindow::run(std::string _path_image) {
         else {
             SDL_BlitSurface(getImage(), NULL, getSurface(), NULL);
             SDL_UpdateWindowSurface(getWindow());
-            SDL_Delay(2000);
+        }
+    }
+
+    SDL_Event events;
+    bool isOpen{true};
+    while (isOpen) {
+        while (SDL_PollEvent(&events)) {
+            switch (events.type) {
+                case SDL_QUIT:
+                        isOpen = false;
+                    break;
+                default: break;
+            }
         }
     }
     close();
