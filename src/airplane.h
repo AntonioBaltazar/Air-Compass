@@ -16,6 +16,9 @@ class Airplane {
         int m_nb_seats;
         Airport m_current_airport;
         int m_id;
+        Airport m_start;
+        Airport m_destination;
+
 
     public:
         // Constructors & Destructor
@@ -31,6 +34,8 @@ class Airplane {
         int get_nb_seats() const { return m_nb_seats; }
         Airport get_current_airport() const { return m_current_airport; } 
         int get_id() const { return m_id ; };
+        Airport get_destination() const { return m_destination ; }
+
        
         // Setters
         void set_name(std::string _name) { m_name = _name; }
@@ -41,9 +46,11 @@ class Airplane {
         void set_nb_seats(int _nb_seats) { m_nb_seats = _nb_seats; }
         void set_current_airport(Airport _current_airport) { m_current_airport = _current_airport; }
         void set_id(int _id) { m_id = _id ; };
+        
 
         // Methods
         void display();
+        void choose();
 };
 
 #endif // AIRPLANE_H_INCLUDED

@@ -17,3 +17,39 @@ void Airplane::display(){
     cout << "Nb seats : " << get_nb_seats() << endl;
     
 }
+
+void Airplane::choose(){
+
+    int test=0;
+    string name;
+    cout << endl;
+    cout << " Write the name of the plane" << endl;
+    cin >> name;
+    do{
+        if( name == "Airbus-A380")
+            test++;
+        
+        if( name == "Boeing-707")
+            test++;
+
+        if( name == "Airbus-A320")
+            test++;
+        
+        if( name == "Boeing-737")
+            test++;
+        
+        if( name == "ATR-72")
+            test++;
+        
+        if( name == "Q-400")
+            test++;
+
+        if (test == 0 )
+            cout <<"Write a real name of the place " << endl;
+            cin >> name;
+    }
+    while( test == 1 );
+
+
+    
+}

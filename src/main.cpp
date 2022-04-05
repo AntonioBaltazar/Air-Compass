@@ -25,6 +25,8 @@ void martin() {
 }
 
 void arnaud() {
+    Airplane t;
+    t.choose();
 
 }
 
