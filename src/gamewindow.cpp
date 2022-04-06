@@ -44,6 +44,19 @@ void GameWindow::updateTextures() {
             SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getWidth(), el.getHeight()}));
 }
 
+void GameWindow::updateTexture(std::string _path) {
+    Ressource* tmp = NULL;
+    int i = 0;
+    for (auto& el : getRessources()) 
+        if (el.getPath() == _path) {
+            tmp = &el;
+            i++;
+        }
+    if (tmp == NULL) return;
+    getTextures()[i] = make_pair(SDL_CreateTextureFromSurface(getRender(), tmp->getSurface()), 
+            SDL_Rect{tmp->getRelativeX(), tmp->getRelativeY(), tmp->getWidth(), tmp->getHeight()});
+}
+
 void GameWindow::menu()
 {
     if(!init()) cout << "Failed to initialize !\n";
@@ -105,8 +118,7 @@ void GameWindow::menu()
 
 void GameWindow::cursor_move(int choice){
     m_ressources[1].setY(m_ressources[1].getY() + 30);
-    updateTextures();
-    SDL_Log("Ok");
+    updateTexture("rsc/cursor.png");
 }
 
 void GameWindow::run(std::string _path_image) {
