@@ -77,14 +77,18 @@ void GameWindow::menu()
 
                 case SDL_MOUSEBUTTONDOWN:
                     if (events.button.button == SDL_BUTTON_LEFT) {   // Left clic
-                        cursor_move();
+                        cursor_move(+1);
                         choice++;
+                    }
+                    if (events.button.button == SDL_BUTTON_RIGHT) {   // Left clic
+                        cursor_move(-1);
+                        choice--;
                     } 
 
                 default: break;
 
-                SDL_Log("Choice = %d",choice);
             }
+                SDL_Log("Choice = %d",choice);
         }
 
         SDL_SetRenderDrawColor(getRender(), 0, 0, 0, 255); 
@@ -99,9 +103,8 @@ void GameWindow::menu()
 
 }
 
-void GameWindow::cursor_move()
-{
-    m_ressources[1].setY(m_ressources[1].getY() + 10);
+void GameWindow::cursor_move(int choice){
+    m_ressources[1].setY(m_ressources[1].getY() + 30);
     updateTextures();
     SDL_Log("Ok");
 }

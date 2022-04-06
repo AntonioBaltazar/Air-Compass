@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <vector>
+#include <iostream>
 
 enum class Display { TOP_LEFT, TOP_RIGHT, CENTER, BOTTOM_LEFT, BOTTOM_RIGHT};
 
@@ -113,7 +114,7 @@ class GameWindow {
         bool loadMedia(std::string _path_image);
         void close();
         void menu();
-        void cursor_move();
+        void cursor_move(int choice);
         void run(std::string _path_image);
 
         void addRessource(Ressource _rsc) { m_ressources.push_back(_rsc); }
