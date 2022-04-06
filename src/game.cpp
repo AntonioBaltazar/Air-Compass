@@ -10,20 +10,20 @@ void Game::start() {
 
     GameWindow gwin("AirCompass", 1333, 900);
 
-    gwin.addRessource(Ressource("rsc/realmap.jpg", 1333, 900, 0, 0));
+    gwin.addRessource(Ressource("rsc/realmap.jpg", Display::TOP_LEFT, 1333, 900, 0, 0, false));
 
     // Paris
-    gwin.addRessource(Ressource("rsc/airport.gif", 63, 48, 672 - 63/2, 357 - 48/2));
+    gwin.addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 672, 357));
     // New York
-    gwin.addRessource(Ressource("rsc/airport.gif", 63, 48, 346 - 63/2, 400 - 48/2));
+    gwin.addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 346, 400));
     // Sydney
-    gwin.addRessource(Ressource("rsc/airport.gif", 63, 48, 1279 - 63/2, 760 - 48/2));
+    gwin.addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 1279, 760));
     //Shanghai
-    gwin.addRessource(Ressource("rsc/airport.gif", 63, 48, 1160 - 63/2, 446 - 48/2));
+    gwin.addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 1160, 446));
     // Johannesbourg
-    gwin.addRessource(Ressource("rsc/airport.gif", 63, 48, 775 - 63/2, 700 - 48/2));
+    gwin.addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 775, 700));
     // Sao Paulo
-    gwin.addRessource(Ressource("rsc/airport.gif", 63, 48, 469 - 63/2, 705 - 48/2));
+    gwin.addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 469, 705));
    
     gwin.run("rsc/map.bmp");
 

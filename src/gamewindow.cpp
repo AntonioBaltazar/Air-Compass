@@ -40,8 +40,8 @@ void GameWindow::run(std::string _path_image) {
     
     vector<pair<SDL_Texture*, SDL_Rect>> textures;
     for (auto& el : getRessources()) {
-        textures.push_back(make_pair(SDL_CreateTextureFromSurface(getRender(), el.getSurface()),
-            SDL_Rect{ el.getX(), el.getY(), el.getWidth(), el.getHeight() }));
+        textures.push_back(make_pair(SDL_CreateTextureFromSurface(getRender(), el.getSurface()), 
+            SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getWidth(), el.getHeight()}));
         SDL_FreeSurface(el.getSurface());
     }
 
@@ -54,7 +54,11 @@ void GameWindow::run(std::string _path_image) {
                     isOpen = false;
                     break;
                 case SDL_MOUSEMOTION:
-                    SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
+                    //SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
+                    if (isRessourceClicked(events.motion.x, events.motion.y)) 
+                        SDL_Log("Element surpasse");
+                    else
+                        SDL_Log("rien");
                     //if(mouse_coordinates(events,50,100,10,15)) SDL_Log("On y est !");
                     //else SDL_Log("On n'y est pas...");
                     break;
@@ -74,6 +78,14 @@ void GameWindow::run(std::string _path_image) {
  
     }
     close();
+}
+
+bool GameWindow::isRessourceClicked(int _x, int _y) {
+    for (auto& el : getRessources())
+        if (el.isClickable())
+            if (_x >= el.getRelativeX() && _x < el.getRelativeX() + el.getWidth() && _y >= el.getRelativeY() && _y < el.getRelativeY() + el.getHeight())
+                return true;
+    return false;
 }
 
 void DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius) { 

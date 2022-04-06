@@ -5,21 +5,62 @@
 #include <SDL2/SDL_image.h>
 #include <vector>
 
+enum class Display { TOP_LEFT, TOP_RIGHT, CENTER, BOTTOM_LEFT, BOTTOM_RIGHT};
+
 class Ressource {
     private: 
         SDL_Surface* m_ressource = NULL;
         int m_width, m_height;
         int m_init_x, m_init_y;
+        int m_relative_x, m_relative_y;
         std::string m_path;
+        Display m_display;
+        bool m_clickable = true;
+
     public: 
-        Ressource(std::string _path, int _width, int _height, int _x, int _y) : m_path(_path), m_width(_width), m_height(_height), m_init_x(_x), m_init_y(_y) {
-            setSurface(IMG_Load(m_path.c_str()));
+        Ressource(std::string _path, Display _display, int _width, int _height, int _x, int _y) : m_path(_path), m_display(_display), m_width(_width), m_height(_height), m_init_x(_x), m_init_y(_y) {
+            init();
+        }
+        Ressource(std::string _path, Display _display, int _width, int _height, int _x, int _y, bool _clickable) : m_path(_path), m_display(_display), m_width(_width), m_height(_height), m_init_x(_x), m_init_y(_y), m_clickable(_clickable) {
+            init();
         }
 
+        void init() {
+            setSurface(IMG_Load(getPath().c_str()));
+            switch (getDisplay()) {
+                case Display::CENTER:
+                    m_relative_x = getX() - getWidth()/2;
+                    m_relative_y = getY() - getHeight()/2;
+                    break;
+                case Display::TOP_LEFT:
+                    m_relative_x  = getX();
+                    m_relative_y = getY();
+                    break;
+                case Display::TOP_RIGHT:
+                    m_relative_x  = getX() + getWidth();
+                    m_relative_y = getY();
+                    break;
+                case Display::BOTTOM_LEFT:
+                    m_relative_x  = getX();
+                    m_relative_y = getY() + getHeight();
+                    break;
+                case Display::BOTTOM_RIGHT:
+                    m_relative_x  = getX() + getWidth();
+                    m_relative_y = getY() + getHeight();
+                    break;
+                default: break;
+            }
+        }
+
+        std::string getPath() const { return m_path; }
         int getWidth() const { return m_width; }
         int getHeight() const { return m_height; }
         int getX() const { return m_init_x; }
         int getY() const { return m_init_y; }
+        int getRelativeX() const { return m_init_x; }
+        int getRelativeY() const { return m_init_y; }
+        bool isClickable() const { return m_clickable; }
+        Display getDisplay() const { return m_display; }
 
         ~Ressource() {}
         SDL_Surface* getSurface() { return m_ressource; }
@@ -64,6 +105,7 @@ class GameWindow {
         void run(std::string _path_image);
 
         void addRessource(Ressource _rsc) { m_ressources.push_back(_rsc); }
+        bool isRessourceClicked(int _x, int _y);
    
 };
 
