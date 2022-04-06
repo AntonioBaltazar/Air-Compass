@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include "gamewindow.h"
 
 using namespace std;
@@ -72,9 +73,9 @@ void GameWindow::menu()
     bool open{true};
     while (open) {
         while (SDL_PollEvent(&events)) {
+            if(choice > 4) choice = 0;
+            if(choice > 0) choice = 4;
             switch (events.type) {
-                if(choice > 4) choice = 0;
-                if(choice > 0) choice = 4;
                 
                 case SDL_QUIT:        // If window's closed we quit sdl mode 
                     open = false;
@@ -89,12 +90,18 @@ void GameWindow::menu()
 
                 case SDL_MOUSEBUTTONDOWN:
                     if (events.button.button == SDL_BUTTON_LEFT) {   // Left clic
-                        cursor_move();
+                        cursor_move(+1);
                         choice++;
+                    }
+                    if (events.button.button == SDL_BUTTON_RIGHT) {   // Left clic
+                        cursor_move(-1);
+                        choice--;
                     } 
 
                 default: break;
+
             }
+                SDL_Log("Choice = %d",choice);
         }
 
         SDL_SetRenderDrawColor(getRender(), 0, 0, 0, 255); 
@@ -109,11 +116,13 @@ void GameWindow::menu()
 
 }
 
-void GameWindow::cursor_move()
-{
-    m_ressources[1].setY(m_ressources[1].getY() + 10);
+void GameWindow::cursor_move(int choice){
+    if(choice == 1)
+        m_ressources[1].setY(m_ressources[1].getY() + 40);
+    if(choice == -1)
+        m_ressources[1].setY(m_ressources[1].getY() - 40);
+
     updateTexture("rsc/cursor.png");
-    SDL_Log("Ok");
 }
 
 void GameWindow::run(std::string _path_image) {
