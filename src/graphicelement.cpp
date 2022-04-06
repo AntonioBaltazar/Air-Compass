@@ -60,3 +60,23 @@ void handle_event()
     SDL_Quit();
 }
 
+int menu_graphic()
+{
+     if (SDL_Init(SDL_INIT_VIDEO) < 0)     
+    {         
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());         
+        return EXIT_FAILURE;     
+    }       
+    SDL_Window* pWindow{ nullptr }; // ma fenêtre 
+    SDL_Renderer* pRenderer{ nullptr }; // mon rendu
+    if (SDL_CreateWindowAndRenderer(800, 600, SDL_WINDOW_SHOWN, &pWindow, &pRenderer) < 0)     
+    {         
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());         
+        SDL_Quit();         
+        return EXIT_FAILURE;     
+    }           
+    SDL_DestroyRenderer(pRenderer);     
+    SDL_DestroyWindow(pWindow);     
+    SDL_Quit();     
+    return EXIT_SUCCESS; 
+}
