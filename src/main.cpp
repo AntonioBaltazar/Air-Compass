@@ -9,13 +9,16 @@
 #include "travel.h"
 #include "game.h"
 #include "graphicelement.h"
+#include "gamewindow.h"
 #include <SDL2/SDL_ttf.h>
 
 using namespace std;
 using namespace GraphReader;
 
 void antonio() {
-    handle_event();
+    GameWindow menu("AirCompass", 1333, 900);
+
+    menu.menu();
 }
 
 void martin() {
@@ -31,25 +34,27 @@ void arnaud() {
 
 int main(int argc, char *argv[]) {
 
-    while(1) {
-        cout << "\n\n\nAirCompass : \n[1] Tonio\n[2] Martin\n[3] Arnaud\n[4] Quitter";
-        int c = getc(stdin);
+    int choice = 0;
 
-        switch(c) {
-            case 49:
+    do
+    {
+        cout << "\n\n\nAirCompass : \n[1] Tonio\n[2] Martin\n[3] Arnaud\n[4] Quitter\n ->";
+        cin >> choice;
+        switch(choice) {
+            case 1:
                 antonio();
                 break;
-            case 50:
+            case 2:
                 martin();
                 break;
-            case 51:
+            case 3:
                 arnaud();
                 break;
-            case 52:
+            case 4:
                 return 0;
             default: break;
         }
-    }
+    } while (choice == 0);
 
     return 0;
 }

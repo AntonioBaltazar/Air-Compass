@@ -27,10 +27,74 @@ bool GameWindow::init() {
     return true;
 }
 
-bool GameWindow::close() {
+void GameWindow::close() {
     SDL_DestroyWindow(getWindow());
     setWindow(NULL);
     SDL_Quit();
+}
+
+void GameWindow::menu()
+{
+    if(!init()) cout << "Failed to initialize !\n";
+    else  SDL_UpdateWindowSurface(getWindow());
+    int choice = 0;
+    
+    addRessource(Ressource("rsc/menu.jpg",Display::TOP_LEFT, 1333, 900, 0, 0, false));
+    addRessource(Ressource("rsc/cursor.png",Display::CENTER, 37, 30, 300, 400, false));
+
+    vector<pair<SDL_Texture*, SDL_Rect>> textures;
+    for (auto& el : getRessources()) {
+        textures.push_back(make_pair(SDL_CreateTextureFromSurface(getRender(), el.getSurface()), 
+                                    SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getWidth(), el.getHeight()}));
+        SDL_FreeSurface(el.getSurface());
+    }
+    
+    // Events managing
+    SDL_Event events;
+    bool open{true};
+    while (open) {
+        while (SDL_PollEvent(&events)) {
+            switch (events.type) {
+                if(choice > 4) choice = 0;
+                if(choice > 0) choice = 4;
+                
+                case SDL_QUIT:        // If window's closed we quit sdl mode 
+                    open = false;
+                    break;
+
+                case SDL_KEYDOWN:     // Key has been pressed  
+                    // If it's escape key then we also quit sdl mode
+                    if(events.key.keysym.scancode == SDL_SCANCODE_ESCAPE) open = SDL_FALSE;
+                    if(events.key.keysym.scancode == SDL_SCANCODE_UP)   choice++;
+                    if(events.key.keysym.scancode == SDL_SCANCODE_DOWN) choice--;
+                    break;
+
+                case SDL_MOUSEBUTTONDOWN:
+                    if (events.button.button == SDL_BUTTON_LEFT) {   // Left clic
+                        cursor_move();
+                        choice++;
+                    } 
+
+                default: break;
+            }
+        }
+
+        SDL_SetRenderDrawColor(getRender(), 0, 0, 0, 255); 
+        SDL_RenderClear(getRender());
+
+         for (auto& el : textures)
+            SDL_RenderCopy(getRender(), el.first, NULL, &el.second);
+
+        SDL_RenderPresent(getRender());  //Display's images
+    }
+    close();
+
+}
+
+void GameWindow::cursor_move()
+{
+    m_ressources[1].setY(m_ressources[1].getY() + 10);
+    SDL_Log("Ok");
 }
 
 void GameWindow::run(std::string _path_image) {

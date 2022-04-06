@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "airplane.h"
 
 using namespace std;
@@ -25,31 +26,25 @@ void Airplane::choose(){
     cout << endl;
     cout << " Write the name of the plane" << endl;
     cin >> name;
-    do{
-        if( name == "Airbus-A380")
-            test++;
-        
-        if( name == "Boeing-707")
-            test++;
+    
 
-        if( name == "Airbus-A320")
-            test++;
+    while (test==0)
+    {
+        if( name == "Airbus-A380") test++;
         
-        if( name == "Boeing-737")
-            test++;
-        
-        if( name == "ATR-72")
-            test++;
-        
-        if( name == "Q-400")
-            test++;
+        if( name == "Boeing-707") test++;
 
-        if (test == 0 )
+        if( name == "Airbus-A320") test++;
+        
+        if( name == "Boeing-737") test++;
+        
+        if( name == "ATR-72") test++;
+        
+        if( name == "Q-400") test++;
+
+        if (test == 0 ){
             cout <<"Write a real name of the place " << endl;
             cin >> name;
-    }
-    while( test < 1 );
-
-
-    
+        }
+    }    
 }

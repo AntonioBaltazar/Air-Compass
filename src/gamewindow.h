@@ -52,6 +52,7 @@ class Ressource {
             }
         }
 
+        //Getters
         std::string getPath() const { return m_path; }
         int getWidth() const { return m_width; }
         int getHeight() const { return m_height; }
@@ -61,6 +62,12 @@ class Ressource {
         int getRelativeY() const { return m_init_y; }
         bool isClickable() const { return m_clickable; }
         Display getDisplay() const { return m_display; }
+
+        //Setters
+        void setWidth( int width ) { m_width = width; };
+        void setHeight( int height ) { m_height = height; };
+        void setX( int x ) { m_init_x = x; };
+        void setY( int y ) { m_init_y = y; };
 
         ~Ressource() {}
         SDL_Surface* getSurface() { return m_ressource; }
@@ -101,12 +108,13 @@ class GameWindow {
         // Methods
         bool init();
         bool loadMedia(std::string _path_image);
-        bool close();
+        void close();
+        void menu();
+        void cursor_move();
         void run(std::string _path_image);
 
         void addRessource(Ressource _rsc) { m_ressources.push_back(_rsc); }
         bool isRessourceClicked(int _x, int _y);
-   
 };
 
 #endif // GAMEWINDOW_H_INCLUDED
