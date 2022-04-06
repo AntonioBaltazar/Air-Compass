@@ -51,8 +51,14 @@ void GameWindow::run(std::string _path_image) {
         while (SDL_PollEvent(&events)) {
             switch (events.type) {
                 case SDL_QUIT:
-                        isOpen = false;
+                    isOpen = false;
                     break;
+                case SDL_MOUSEMOTION:
+                    SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
+                    //if(mouse_coordinates(events,50,100,10,15)) SDL_Log("On y est !");
+                    //else SDL_Log("On n'y est pas...");
+                    break;
+
                 default: break;
             }
         }
