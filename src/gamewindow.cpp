@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include "gamewindow.h"
 
 using namespace std;
@@ -39,8 +40,8 @@ void GameWindow::menu()
     else  SDL_UpdateWindowSurface(getWindow());
     int choice = 0;
     
-    addRessource(Ressource("rsc/menu.jpg",Display::TOP_LEFT, 1333, 900, 0, 0, false));
-    addRessource(Ressource("rsc/cursor.png",Display::CENTER, 37, 30, 300, 400, false));
+   // addRessource(Ressource("rsc/menu.jpg",Display::TOP_LEFT, 1333, 900, 0, 0, false));
+   // addRessource(Ressource("rsc/cursor.png",Display::CENTER, 37, 30, 300, 400, false));
 
     vector<pair<SDL_Texture*, SDL_Rect>> textures;
     for (auto& el : getRessources()) {
@@ -48,6 +49,20 @@ void GameWindow::menu()
                                     SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getWidth(), el.getHeight()}));
         SDL_FreeSurface(el.getSurface());
     }
+
+    TTF_Init();
+TTF_Font* font = NULL;
+font = TTF_OpenFont("times.ttf", 12);
+
+if(font != 0){
+	SDL_Color noir = {0, 0, 0}; //attention ce n'est pas un Uint32
+	SDL_Surface* texte = TTF_RenderText_Blended(font, "coucou", noir) ;
+	//affichage
+	SDL_FreeSurface(texte); //On oublie toujours pas
+	TTF_CloseFont(font);
+}else{cout << "foirage à l'ouverture de times.ttf" << endl;}
+
+TTF_Quit();
     
     // Events managing
     SDL_Event events;
