@@ -33,6 +33,15 @@ void GameWindow::close() {
     SDL_Quit();
 }
 
+void GameWindow::updateTextures() {
+    getTextures().clear();
+    for (auto& el : getRessources()) {
+        getTextures().push_back(make_pair(SDL_CreateTextureFromSurface(getRender(), el.getSurface()), 
+                                    SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getWidth(), el.getHeight()}));
+        SDL_FreeSurface(el.getSurface());
+    }
+}
+
 void GameWindow::menu()
 {
     if(!init()) cout << "Failed to initialize !\n";
@@ -42,12 +51,7 @@ void GameWindow::menu()
     addRessource(Ressource("rsc/menu.jpg",Display::TOP_LEFT, 1333, 900, 0, 0, false));
     addRessource(Ressource("rsc/cursor.png",Display::CENTER, 37, 30, 300, 400, false));
 
-    vector<pair<SDL_Texture*, SDL_Rect>> textures;
-    for (auto& el : getRessources()) {
-        textures.push_back(make_pair(SDL_CreateTextureFromSurface(getRender(), el.getSurface()), 
-                                    SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getWidth(), el.getHeight()}));
-        SDL_FreeSurface(el.getSurface());
-    }
+    updateTextures();
     
     // Events managing
     SDL_Event events;
@@ -82,7 +86,7 @@ void GameWindow::menu()
         SDL_SetRenderDrawColor(getRender(), 0, 0, 0, 255); 
         SDL_RenderClear(getRender());
 
-         for (auto& el : textures)
+         for (auto& el : getTextures())
             SDL_RenderCopy(getRender(), el.first, NULL, &el.second);
 
         SDL_RenderPresent(getRender());  //Display's images
