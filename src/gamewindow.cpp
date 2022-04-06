@@ -29,18 +29,19 @@ bool GameWindow::init() {
 }
 
 void GameWindow::close() {
+    for (auto& el : getRessources())
+        SDL_FreeSurface(el.getSurface());
     SDL_DestroyWindow(getWindow());
     setWindow(NULL);
     SDL_Quit();
 }
 
 void GameWindow::updateTextures() {
+    
     getTextures().clear();
-    for (auto& el : getRessources()) {
+    for (auto& el : getRessources())
         getTextures().push_back(make_pair(SDL_CreateTextureFromSurface(getRender(), el.getSurface()), 
-                                    SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getWidth(), el.getHeight()}));
-        SDL_FreeSurface(el.getSurface());
-    }
+            SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getWidth(), el.getHeight()}));
 }
 
 void GameWindow::menu()
