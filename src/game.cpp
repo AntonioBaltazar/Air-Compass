@@ -8,10 +8,12 @@ using namespace std;
 
 void Game::start() {
 
-    GameWindow gwin("AirCompass", 4*480, 2*480);
-    gwin.addRessource(Ressource("rsc/map2.bmp", 4*480, 2*480, 0, 0));
-    gwin.addRessource(Ressource("rsc/mario.bmp", 120, 100, 40, 30));
-    gwin.addRessource(Ressource("rsc/airplane.bmp", 48, 48, 350, 100));
+    GameWindow gwin("AirCompass", 1333, 900);
+
+    gwin.addRessource(Ressource("rsc/realmap.jpg", 1333, 900, 0, 0));
+    // Paris
+    gwin.addRessource(Ressource("rsc/airport.gif", 63, 48, 400, 600));
+   
     gwin.run("rsc/map.bmp");
 
 }   
