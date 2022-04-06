@@ -73,9 +73,9 @@ void GameWindow::menu()
     bool open{true};
     while (open) {
         while (SDL_PollEvent(&events)) {
+            if(choice > 4) choice = 0;
+            if(choice > 0) choice = 4;
             switch (events.type) {
-                if(choice > 4) choice = 0;
-                if(choice > 0) choice = 4;
                 
                 case SDL_QUIT:        // If window's closed we quit sdl mode 
                     open = false;
@@ -117,7 +117,11 @@ void GameWindow::menu()
 }
 
 void GameWindow::cursor_move(int choice){
-    m_ressources[1].setY(m_ressources[1].getY() + 30);
+    if(choice == 1)
+        m_ressources[1].setY(m_ressources[1].getY() + 40);
+    if(choice == -1)
+        m_ressources[1].setY(m_ressources[1].getY() - 40);
+
     updateTexture("rsc/cursor.png");
 }
 
