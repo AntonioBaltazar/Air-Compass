@@ -82,6 +82,8 @@ class GameWindow {
         SDL_Renderer* m_render = NULL;
         SDL_Surface* m_surface = NULL;
         std::vector<Ressource> m_ressources;
+        std::vector<std::pair<SDL_Texture*, SDL_Rect>> m_textures;
+
 
     public:
         // Constructors & Destructor
@@ -97,6 +99,7 @@ class GameWindow {
         SDL_Surface* getSurface() const { return m_surface; }
         std::string getWindowName() const { return  m_window_name; }
         std::vector<Ressource>& getRessources() { return m_ressources; }
+        std::vector<std::pair<SDL_Texture*, SDL_Rect>>& getTextures() { return m_textures; }
 
         // Setters
         void setWindow(SDL_Window* _window) { m_window = _window; }
@@ -115,6 +118,7 @@ class GameWindow {
 
         void addRessource(Ressource _rsc) { m_ressources.push_back(_rsc); }
         bool isRessourceClicked(int _x, int _y);
+        void updateTextures();
 };
 
 #endif // GAMEWINDOW_H_INCLUDED
