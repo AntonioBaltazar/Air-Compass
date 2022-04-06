@@ -74,7 +74,7 @@ void GameWindow::menu()
     while (open) {
         while (SDL_PollEvent(&events)) {
             if(choice > 4) choice = 0;
-            if(choice > 0) choice = 4;
+            if(choice < 0) choice = 4;
             switch (events.type) {
                 
                 case SDL_QUIT:        // If window's closed we quit sdl mode 
@@ -84,19 +84,18 @@ void GameWindow::menu()
                 case SDL_KEYDOWN:     // Key has been pressed  
                     // If it's escape key then we also quit sdl mode
                     if(events.key.keysym.scancode == SDL_SCANCODE_ESCAPE) open = SDL_FALSE;
-                    if(events.key.keysym.scancode == SDL_SCANCODE_UP)   choice++;
-                    if(events.key.keysym.scancode == SDL_SCANCODE_DOWN) choice--;
-                    break;
-
-                case SDL_MOUSEBUTTONDOWN:
-                    if (events.button.button == SDL_BUTTON_LEFT) {   // Left clic
-                        cursor_move(+1);
-                        choice++;
-                    }
-                    if (events.button.button == SDL_BUTTON_RIGHT) {   // Left clic
-                        cursor_move(-1);
+                    
+                    if(events.key.keysym.scancode == SDL_SCANCODE_UP && choice > 0) {
+                        cursor_move(choice);
                         choice--;
+                    }
+                    
+                    if(events.key.keysym.scancode == SDL_SCANCODE_DOWN && choice < 4){
+                        cursor_move(choice);
+                        choice++;
                     } 
+                    
+                    break;
 
                 default: break;
 
@@ -118,10 +117,11 @@ void GameWindow::menu()
 
 void GameWindow::cursor_move(int choice){
     if(choice == 1)
-        m_ressources[1].setY(m_ressources[1].getY() + 40);
-    if(choice == -1)
-        m_ressources[1].setY(m_ressources[1].getY() - 40);
-
+        m_ressources[1].setY(480);
+    if(choice == 2)
+        m_ressources[1].setY(560);
+    if(choice == 3)
+        m_ressources[1].setY(640);
     updateTexture("rsc/cursor.png");
 }
 
