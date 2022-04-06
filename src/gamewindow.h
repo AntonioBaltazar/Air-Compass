@@ -7,22 +7,29 @@
 #include <iostream>
 
 enum class Display { TOP_LEFT, TOP_RIGHT, CENTER, BOTTOM_LEFT, BOTTOM_RIGHT};
+enum class Element { SELECTOR_AIRPLANE, SELECTOR_AIRPORT, AIRPORT, BACKGROUND, DEFAULT };
 
 class Ressource {
     private: 
         SDL_Surface* m_ressource = NULL;
+        Display m_display;
+        Element m_element = Element::DEFAULT;
+        std::string m_path;
         int m_width, m_height;
         int m_init_x, m_init_y;
         int m_relative_x, m_relative_y;
-        std::string m_path;
-        Display m_display;
         bool m_clickable = true;
 
     public: 
         Ressource(std::string _path, Display _display, int _width, int _height, int _x, int _y) : m_path(_path), m_display(_display), m_width(_width), m_height(_height), m_init_x(_x), m_init_y(_y) {
             init();
         }
+
         Ressource(std::string _path, Display _display, int _width, int _height, int _x, int _y, bool _clickable) : m_path(_path), m_display(_display), m_width(_width), m_height(_height), m_init_x(_x), m_init_y(_y), m_clickable(_clickable) {
+            init();
+        }
+
+        Ressource(std::string _path, Display _display, Element _element, int _width, int _height, int _x, int _y, bool _clickable) : m_path(_path), m_display(_display), m_element(_element), m_width(_width), m_height(_height), m_init_x(_x), m_init_y(_y), m_clickable(_clickable) {
             init();
         }
 

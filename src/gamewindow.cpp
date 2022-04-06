@@ -127,15 +127,29 @@ void GameWindow::cursor_move(int choice){
 
 void GameWindow::run(std::string _path_image) {
     if (!init()) printf("Failed to initialize!\n");
-    else
-        SDL_UpdateWindowSurface(getWindow());
+    else SDL_UpdateWindowSurface(getWindow());
     
-    vector<pair<SDL_Texture*, SDL_Rect>> textures;
+    addRessource(Ressource("rsc/realmap.jpg", Display::TOP_LEFT, 1333, 900, 0, 0, false));
+    // Paris
+    addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 639, 329));
+    // New York
+    addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 315, 376));
+    // Sydney
+    addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 1248, 736));
+    //Shanghai
+    addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 1129, 422));
+    // Johannesbourg
+    addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 744, 676));
+    // Sao Paulo
+    addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 438, 681));
+
+    /* vector<pair<SDL_Texture*, SDL_Rect>> textures;
     for (auto& el : getRessources()) {
         textures.push_back(make_pair(SDL_CreateTextureFromSurface(getRender(), el.getSurface()), 
             SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getWidth(), el.getHeight()}));
         SDL_FreeSurface(el.getSurface());
-    }
+    } */
+    updateTextures();
 
     SDL_Event events;
     bool isOpen{true};
@@ -145,14 +159,9 @@ void GameWindow::run(std::string _path_image) {
                 case SDL_QUIT:
                     isOpen = false;
                     break;
-                case SDL_MOUSEMOTION:
-                    //SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
-                    if (isRessourceClicked(events.motion.x, events.motion.y)) 
+                case SDL_MOUSEBUTTONDOWN:
+                    if (events.button.button == SDL_BUTTON_LEFT && isRessourceClicked(events.motion.x, events.motion.y))
                         SDL_Log("Element surpasse");
-                    else
-                        SDL_Log("rien");
-                    //if(mouse_coordinates(events,50,100,10,15)) SDL_Log("On y est !");
-                    //else SDL_Log("On n'y est pas...");
                     break;
 
                 default: break;
@@ -163,7 +172,7 @@ void GameWindow::run(std::string _path_image) {
         SDL_RenderClear(getRender());
 
         // Appending differents ressources
-        for (auto& el : textures)
+        for (auto& el : getTextures())
             SDL_RenderCopy(getRender(), el.first, NULL, &el.second);
 
         SDL_RenderPresent(getRender());  
