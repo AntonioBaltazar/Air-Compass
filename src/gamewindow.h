@@ -155,6 +155,7 @@ class GameWindow {
         void menu();
         void cursor_move(int choice);
         void run(std::string _path_image);
+        void render();
 
         void addRessource(Ressource _rsc) { m_ressources.push_back(_rsc); }
         bool isRessourceClicked(int _x, int _y);
@@ -163,7 +164,7 @@ class GameWindow {
         void updateTexture(std::string _path);
 
         // Handling events
-        void handlePanels(Ressource* _clicked_ressource, TTF_Font* _font, PanelParams* _params);
+        void handlePanels(Ressource* _clicked_ressource, PanelParams* _params);
 };
 
 #endif // GAMEWINDOW_H_INCLUDED

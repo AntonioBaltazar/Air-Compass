@@ -144,7 +144,6 @@ void GameWindow::run(std::string _path_image) {
     addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 438, 681));
 
     // Text
-    cout << "deb";
     addRessource(Ressource("Selectionner un avion", Display::TOP_LEFT, Element::TEXT, 0, 18, 20, getHeight() - 40, true));
     addRessource(Ressource("Selectionner l'aeroport", Display::TOP_LEFT, Element::TEXT, 0, 18, 20, getHeight() - 76, true));
 
@@ -160,13 +159,7 @@ void GameWindow::run(std::string _path_image) {
         count++;
     }
 
-    if (TTF_Init() < 0) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
-        return;
-    }
     PanelParams _params;
-    TTF_Font* font = TTF_OpenFont("rsc/fonts/SFPro_Regular.ttf", 18);
-    if (font == nullptr) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "#1 [DEBUG] > %s", TTF_GetError());
     updateTextures();
 
     SDL_Event events;
@@ -180,25 +173,13 @@ void GameWindow::run(std::string _path_image) {
                 case SDL_MOUSEBUTTONDOWN:
                     if (events.button.button == SDL_BUTTON_LEFT && isRessourceClicked(events.motion.x, events.motion.y)) {
                         Ressource* tmp = getRessourceClicked(events.motion.x, events.motion.y);
-                        handlePanels(tmp, font, &_params);
+                        handlePanels(tmp, &_params);
                     }
                     break;
-
                 default: break;
             }
         }
-        
-        SDL_SetRenderDrawColor(getRender(), 0, 0, 0, 255); 
-        SDL_RenderClear(getRender());
-
-        // Appending differents ressources
-        SDL_SetRenderDrawColor(getRender(), 0, 255, 0, 255);
-
-        for (auto& el : getTextures())
-            SDL_RenderCopy(getRender(), el.first, NULL, &el.second);
-
-        SDL_RenderPresent(getRender());  
- 
+        render();
     }
     close();
 }
@@ -219,8 +200,15 @@ bool GameWindow::isRessourceClicked(int _x, int _y) {
     return false;
 }
 
-void GameWindow::handlePanels(Ressource* _clicked_ressource, TTF_Font* _font, PanelParams* _params) {
+void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _params) {
+    
+    if (TTF_Init() < 0) return;
+
+    TTF_Font* _font = TTF_OpenFont("rsc/fonts/SFPro_Regular.ttf", 18);
+    if (_font == nullptr) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "#1 [DEBUG] > %s", TTF_GetError());
+
     bool _need_panel_update;
+
     // Toggle airplane panel
     if (_clicked_ressource->getPath() == "Selectionner un avion") {
         _params->_airplane_selector_open = !_params->_airplane_selector_open;
@@ -283,4 +271,11 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, TTF_Font* _font, Pa
                         || el.getPath() == get_current_airport().get_name() ? 0 : 255), 255, 255, 255}));
         updateTextures();
     }
+}
+
+void GameWindow::render() {
+    SDL_RenderClear(getRender());
+    for (auto& el : getTextures())
+        SDL_RenderCopy(getRender(), el.first, NULL, &el.second);
+    SDL_RenderPresent(getRender());  
 }
