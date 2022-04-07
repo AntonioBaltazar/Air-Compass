@@ -50,6 +50,7 @@ class Graph {
         void set_oriented(bool _oriented) { m_oriented = _oriented; }
 
         // Methods
+        void generate(std::vector<Airport*> _airports, Airplane _airplane, Airport _airport_src);
         void display();
 };
 

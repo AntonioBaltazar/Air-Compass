@@ -43,29 +43,7 @@ class Ressource {
             m_relative_y = m_init_y;
             if (m_element == Element::IMAGE) {
                 setSurface(IMG_Load(getPath().c_str()));
-                switch (getDisplay()) {
-                    case Display::CENTER:
-                        m_relative_x = getX() - getWidth()/2;
-                        m_relative_y = getY() - getHeight()/2;
-                        break;
-                    case Display::TOP_LEFT:
-                        m_relative_x  = getX();
-                        m_relative_y = getY();
-                        break;
-                    case Display::TOP_RIGHT:
-                        m_relative_x  = getX() + getWidth();
-                        m_relative_y = getY();
-                        break;
-                    case Display::BOTTOM_LEFT:
-                        m_relative_x  = getX();
-                        m_relative_y = getY() + getHeight();
-                        break;
-                    case Display::BOTTOM_RIGHT:
-                        m_relative_x  = getX() + getWidth();
-                        m_relative_y = getY() + getHeight();
-                        break;
-                    default: break;
-                }
+                
             } else if (m_element == Element::TEXT || m_element == Element::SELECTOR_AIRPLANE || m_element == Element::SELECTOR_AIRPORT) {
                 std::cout << "debbbug";
                 if (m_element == Element::SELECTOR_AIRPLANE || m_element == Element::SELECTOR_AIRPORT) {
@@ -80,6 +58,29 @@ class Ressource {
                 if (font == nullptr) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "#1 [DEBUG] > %s", TTF_GetError());
                 setSurface(TTF_RenderText_Blended(font, getPath().c_str(), SDL_Color{255, 255, 255, 255}));
                 setWidth(getSurface()->w);
+            }
+            switch (getDisplay()) {
+                case Display::CENTER:
+                    m_relative_x = getX() - getWidth()/2;
+                    m_relative_y = getY() - getHeight()/2;
+                    break;
+                case Display::TOP_LEFT:
+                    m_relative_x  = getX();
+                    m_relative_y = getY();
+                    break;
+                case Display::TOP_RIGHT:
+                    m_relative_x  = getX() + getWidth();
+                    m_relative_y = getY();
+                    break;
+                case Display::BOTTOM_LEFT:
+                    m_relative_x  = getX();
+                    m_relative_y = getY() + getHeight();
+                    break;
+                case Display::BOTTOM_RIGHT:
+                    m_relative_x  = getX() + getWidth();
+                    m_relative_y = getY() + getHeight();
+                    break;
+                default: break;
             }
         }
 
@@ -155,6 +156,7 @@ class GameWindow {
         void menu();
         void cursor_move(int choice);
         void run(std::string _path_image);
+        void render();
 
         void addRessource(Ressource _rsc) { m_ressources.push_back(_rsc); }
         bool isRessourceClicked(int _x, int _y);
@@ -163,7 +165,7 @@ class GameWindow {
         void updateTexture(std::string _path);
 
         // Handling events
-        void handlePanels(Ressource* _clicked_ressource, TTF_Font* _font, PanelParams* _params);
+        void handlePanels(Ressource* _clicked_ressource, PanelParams* _params);
 };
 
 #endif // GAMEWINDOW_H_INCLUDED
