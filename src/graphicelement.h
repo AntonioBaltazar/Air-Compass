@@ -35,5 +35,6 @@ class GraphicElement{
 
 void handle_event();
 bool mouse_coordinates(SDL_Event event, int x1, int x2, int y1, int y2);
+bool mouse_coordinates(SDL_Event event, int x, int y);
 
 #endif // GRAPHICELEMENT_H_INCLUDED

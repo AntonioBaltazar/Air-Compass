@@ -10,6 +10,12 @@ bool mouse_coordinates(SDL_Event event, int x1, int x2, int y1, int y2)
     else return false;
 }
 
+bool mouse_coordinates(SDL_Event event, int x, int y)
+{
+    if( event.motion.x == x && event.motion.y == y)  return true;
+    else return false;
+}
+
 void handle_event()
 {
     SDL_Event events; 

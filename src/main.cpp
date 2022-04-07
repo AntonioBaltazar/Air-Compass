@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <ncurses.h>
+#include <SDL2/SDL_ttf.h>
 #include "airplane.h"
 #include "airport.h"
 #include "graph.h"
@@ -10,14 +11,15 @@
 #include "game.h"
 #include "graphicelement.h"
 #include "gamewindow.h"
-#include <SDL2/SDL_ttf.h>
+#include "database.h"
 
 using namespace std;
 using namespace GraphReader;
 
 void antonio() {
     GameWindow menu("AirCompass", 1333, 900);
-
+    // create_db_plane();
+    //setup_db();
     menu.menu();
 }
 
