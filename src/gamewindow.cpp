@@ -72,6 +72,7 @@ void GameWindow::menu()
     SDL_Event events;
     bool open{true};
     while (open) {
+        SDL_EventState(SDL_MOUSEMOTION, SDL_IGNORE);
         while (SDL_PollEvent(&events)) {
             if(choice > 4) choice = 0;
             if(choice < 0) choice = 4;
@@ -86,13 +87,15 @@ void GameWindow::menu()
                     if(events.key.keysym.scancode == SDL_SCANCODE_ESCAPE) open = SDL_FALSE;
                     
                     if(events.key.keysym.scancode == SDL_SCANCODE_UP && choice > 0) {
-                        cursor_move(choice);
                         choice--;
+                        cursor_move(choice);
+                        SDL_Delay(20);
                     }
                     
-                    if(events.key.keysym.scancode == SDL_SCANCODE_DOWN && choice < 4){
-                        cursor_move(choice);
+                    else if(events.key.keysym.scancode == SDL_SCANCODE_DOWN && choice < 4){
                         choice++;
+                        cursor_move(choice);
+                        SDL_Delay(100);
                     } 
                     
                     break;
@@ -116,6 +119,8 @@ void GameWindow::menu()
 }
 
 void GameWindow::cursor_move(int choice){
+    if(choice == 0)
+        m_ressources[1].setY(400);
     if(choice == 1)
         m_ressources[1].setY(480);
     if(choice == 2)
