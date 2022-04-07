@@ -11,6 +11,10 @@
 enum class Display { TOP_LEFT, TOP_RIGHT, CENTER, BOTTOM_LEFT, BOTTOM_RIGHT};
 enum class Element { SELECTOR_AIRPLANE, SELECTOR_AIRPORT, AIRPORT, TEXT, BACKGROUND, DEFAULT, IMAGE };
 
+struct PanelParams {
+    bool _airplane_selector_open = false, _airport_selector_open = false, _need_panel_update = false;
+};
+
 class Ressource {
     private: 
         std::string m_path;
@@ -157,6 +161,9 @@ class GameWindow {
         Ressource* getRessourceClicked(int _x, int _y);
         void updateTextures();
         void updateTexture(std::string _path);
+
+        // Handling events
+        void handlePanels(Ressource* _clicked_ressource, TTF_Font* _font, PanelParams* _params);
 };
 
 #endif // GAMEWINDOW_H_INCLUDED

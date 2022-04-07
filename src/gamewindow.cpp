@@ -164,20 +164,10 @@ void GameWindow::run(std::string _path_image) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
         return;
     }
-    
+    PanelParams _params;
     TTF_Font* font = TTF_OpenFont("rsc/fonts/SFPro_Regular.ttf", 18);
     if (font == nullptr) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "#1 [DEBUG] > %s", TTF_GetError());
-
-    /*std::vector<SDL_Surface*> txts;
-    for (auto& el : getAerialNetwork().get_fleet()) {
-        txts.push_back(TTF_RenderText_Blended(font, el.get_name().c_str(), SDL_Color{255, 255, 255, 255}));
-        cout << el.get_name() << "\n";
-    }*/
-
     updateTextures();
-
-    bool _airplane_selector_open = false;
-    bool _airport_selector_open = false;
 
     SDL_Event events;
     bool isOpen{true};
@@ -190,91 +180,7 @@ void GameWindow::run(std::string _path_image) {
                 case SDL_MOUSEBUTTONDOWN:
                     if (events.button.button == SDL_BUTTON_LEFT && isRessourceClicked(events.motion.x, events.motion.y)) {
                         Ressource* tmp = getRessourceClicked(events.motion.x, events.motion.y);
-
-                        bool _need_panel_update = false;
-                        // Toggle airplane panel
-                        if (tmp->getPath() == "Selectionner un avion") {
-                            _airplane_selector_open = !_airplane_selector_open;
-                            if (_airplane_selector_open)_airport_selector_open = false;
-                            _need_panel_update = true;
-                        }   
-
-                        // Toggle airport panel
-                        if (tmp->getPath() == "Selectionner l'aeroport") {
-                            _airport_selector_open = !_airport_selector_open;
-                            _need_panel_update = true;
-                        }
-
-                        // Panel update
-                        if (_need_panel_update) {
-                            for (auto& el : getRessources()) {
-                                if (el.getElement() == Element::SELECTOR_AIRPLANE) {
-                                    el.setClickable(_airplane_selector_open);
-                                    el.setRenderable(_airplane_selector_open);
-                                } else if (el.getElement() == Element::SELECTOR_AIRPORT) {
-                                    el.setClickable(_airport_selector_open);
-                                    el.setRenderable(_airport_selector_open);
-                                } else if (el.getPath() == "Selectionner l'aeroport") {
-                                    el.setClickable(!_airplane_selector_open);
-                                    el.setRenderable(!_airplane_selector_open);
-                                } 
-                            }
-                            updateTextures();
-                        }
-
-
-                        // Select current airplane
-                        if (tmp->getElement() == Element::SELECTOR_AIRPLANE) {
-                            SDL_Log("Selector triggered\n");
-                            // Updating current airplane
-                            for (auto& el : getAerialNetwork().get_fleet()) {
-                                if (el.get_name() == tmp->getPath()) {
-                                    set_current_airplane(el);
-                                    break;
-                                }
-                            }
-                            // Updating color text
-                            for (auto& el : getRessources()) {
-                                if (el.getElement() == Element::SELECTOR_AIRPLANE ) {
-                                        if (TTF_Init() < 0) {
-                                            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
-                                            return;
-                                        }
-                                        if (el.getPath() == get_current_airplane().get_name())
-                                            el.setSurface(TTF_RenderText_Blended(font, el.getPath().c_str(), SDL_Color{0, 255, 255, 255}));
-                                        else 
-                                            el.setSurface(TTF_RenderText_Blended(font, el.getPath().c_str(), SDL_Color{255, 255, 255, 255}));
-                                    }
-                            }
-                            updateTextures();
-                        }
-
-                        // Select current airport
-                        if (tmp->getElement() == Element::SELECTOR_AIRPORT) {
-                            SDL_Log("Selector airport triggered\n");
-                            // Updating current aiport
-                            for (auto& el : getAerialNetwork().get_airports()) {
-                                if (el.get_name() == tmp->getPath()) {
-                                    set_current_airport(el);
-                                    break;
-                                }
-                            }
-                            // Updating color text
-                            for (auto& el : getRessources()) {
-                                if (el.getElement() == Element::SELECTOR_AIRPORT ) {
-                                        if (TTF_Init() < 0) {
-                                            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
-                                            return;
-                                        }
-                                        if (el.getPath() == get_current_airport().get_name())
-                                            el.setSurface(TTF_RenderText_Blended(font, el.getPath().c_str(), SDL_Color{0, 255, 255, 255}));
-                                        else 
-                                            el.setSurface(TTF_RenderText_Blended(font, el.getPath().c_str(), SDL_Color{255, 255, 255, 255}));
-                                    }
-                            }
-                            updateTextures();
-                        }
-
+                        handlePanels(tmp, font, &_params);
                     }
                     break;
 
@@ -313,39 +219,68 @@ bool GameWindow::isRessourceClicked(int _x, int _y) {
     return false;
 }
 
-void DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius) { 
-    const int32_t diameter = (radius * 2);
+void GameWindow::handlePanels(Ressource* _clicked_ressource, TTF_Font* _font, PanelParams* _params) {
+    bool _need_panel_update;
+    // Toggle airplane panel
+    if (_clicked_ressource->getPath() == "Selectionner un avion") {
+        _params->_airplane_selector_open = !_params->_airplane_selector_open;
+        if (_params->_airplane_selector_open) _params->_airport_selector_open = false;
+        _need_panel_update = true;
+    }   
 
-   int32_t x = (radius - 1);
-   int32_t y = 0;
-   int32_t tx = 1;
-   int32_t ty = 1;
-   int32_t error = (tx - diameter);
+    // Toggle airport panel
+    if (_clicked_ressource->getPath() == "Selectionner l'aeroport") {
+        _params->_airport_selector_open = !_params->_airport_selector_open;
+        _need_panel_update = true;
+    }
 
-   while (x >= y)
-   {
-      //  Each of the following renders an octant of the circle
-      SDL_RenderDrawPoint(renderer, centreX + x, centreY - y);
-      SDL_RenderDrawPoint(renderer, centreX + x, centreY + y);
-      SDL_RenderDrawPoint(renderer, centreX - x, centreY - y);
-      SDL_RenderDrawPoint(renderer, centreX - x, centreY + y);
-      SDL_RenderDrawPoint(renderer, centreX + y, centreY - x);
-      SDL_RenderDrawPoint(renderer, centreX + y, centreY + x);
-      SDL_RenderDrawPoint(renderer, centreX - y, centreY - x);
-      SDL_RenderDrawPoint(renderer, centreX - y, centreY + x);
+    // Panel update
+    if (_need_panel_update) {
+        for (auto& el : getRessources()) {
+            if (el.getElement() == Element::SELECTOR_AIRPLANE) {
+                el.setClickable(_params->_airplane_selector_open);
+                el.setRenderable(_params->_airplane_selector_open);
+            } else if (el.getElement() == Element::SELECTOR_AIRPORT) {
+                el.setClickable(_params->_airport_selector_open);
+                el.setRenderable(_params->_airport_selector_open);
+            } else if (el.getPath() == "Selectionner l'aeroport") {
+                el.setClickable(!_params->_airplane_selector_open);
+                el.setRenderable(!_params->_airplane_selector_open);
+            } 
+        }
+        updateTextures();
+    }
 
-      if (error <= 0)
-      {
-         ++y;
-         error += ty;
-         ty += 2;
-      }
+    bool _need_text_update = false;
+    // Select current airplane
+    if (_clicked_ressource->getElement() == Element::SELECTOR_AIRPLANE) {
+        for (auto& el : getAerialNetwork().get_fleet()) {
+            if (el.get_name() == _clicked_ressource->getPath()) {
+                set_current_airplane(el);
+                break;
+            }
+        }
+        _need_text_update = true;
+    }
 
-      if (error > 0)
-      {
-         --x;
-         tx += 2;
-         error += (tx - diameter);
-      }
-   }
+    // Select current airport
+    if (_clicked_ressource->getElement() == Element::SELECTOR_AIRPORT) {
+        for (auto& el : getAerialNetwork().get_airports()) {
+            if (el.get_name() == _clicked_ressource->getPath()) {
+                set_current_airport(el);
+                break;
+            }
+        }
+        _need_text_update = true;
+    }
+
+    // Updating text color
+    if (_need_text_update) {
+        for (auto& el : getRessources()) 
+            if (el.getElement() == Element::SELECTOR_AIRPLANE ||
+                el.getElement() == Element::SELECTOR_AIRPORT) 
+                    el.setSurface(TTF_RenderText_Blended(_font, el.getPath().c_str(), SDL_Color{(el.getPath() == get_current_airplane().get_name() 
+                        || el.getPath() == get_current_airport().get_name() ? 0 : 255), 255, 255, 255}));
+        updateTextures();
+    }
 }
