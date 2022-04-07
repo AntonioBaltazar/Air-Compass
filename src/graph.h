@@ -2,57 +2,53 @@
 #define GRAPH_H_INCLUDED
 
 #include <vector>
+#include <queue>
 #include "airport.h"
 #include "airplane.h"
 
 class Vertice {
-    private:
-        int m_number;
-        bool m_visited;
-        Airport m_airport;
-        std::vector<std::pair<Vertice*, int>> m_adjacent;
-    public:
-        // Constructors & Destructor
-        Vertice() {}
-        Vertice(int _number) : m_number(_number) {}
-        ~Vertice() {}
+private: 
+    int m_num;
+public: 
+    Vertice(int _num) : m_num(_num) {}
+    ~Vertice() {}
 
-        // Getters
-        int get_number() const { return m_number; }
-        bool is_visited() const { return m_visited; }
-        Airport& get_airport() { return m_airport; }
-        std::vector<std::pair<Vertice*, int>>& get_adjacent() { return m_adjacent; }
+    int get_num() const { return m_num; }  
+};
 
-        // Setters
-        void set_number(int _number) { m_number = _number; }
-        void set_visited(bool _visited) { m_visited = _visited; }
-        void display();
+typedef std::pair<Vertice, int> pi;
+
+struct comparePi {
+    constexpr bool operator()(pi const& a, pi const& b) const noexcept {
+        return a.second < b.second;
+    }
 };
 
 class Graph {
     private:
         int m_nb_vertices;
         bool m_oriented;
-        std::vector<Vertice> m_vertices;
-        std::vector<std::vector<float>> m_adjacency_list;
-    public:
-        // Constructors & Destructor
-        Graph() {}
+        std::vector<std::vector<pi>> m_adj;
+        std::vector<Airport*> m_airports;
+    public: 
+        Graph(int _nb_vertices) : m_nb_vertices(_nb_vertices) {
+            for (int i = 0; i < _nb_vertices; i++)
+                m_adj.push_back(std::vector<pi>());
+        }
+        Graph(std::string _file_name) {
+            load_from_file(_file_name);
+        }
         ~Graph() {}
 
-        // Getters
-        int get_nb_vertices() const { return m_nb_vertices; }
-        bool is_oriented() const { return m_oriented; }
-        std::vector<Vertice>& get_vertices() { return m_vertices; }
-        std::vector<std::vector<float>>& get_adjacency_list() { return m_adjacency_list; }
-
-        // Setters
-        void set_nb_vertices(int _nb_vertices) { m_nb_vertices = _nb_vertices; }
-        void set_oriented(bool _oriented) { m_oriented = _oriented; }
-
         // Methods
-        void generate(std::vector<Airport*> _airports, Airplane _airplane, Airport _airport_src);
-        void display();
+        void load_from_file(std::string _file_name);
+        void addEdge(Vertice u, Vertice v, int wt);
+        void display_graph();
+        void BFS(Vertice u);
+        void DFS();
+        void DFSUtil(int u, std::vector<bool>& visited);
+        void shortest_path(Vertice src);
+        void primMST(Vertice src);
 };
 
 #endif // AIRPORT_H_INCLUDED

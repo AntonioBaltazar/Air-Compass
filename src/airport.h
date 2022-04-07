@@ -27,6 +27,7 @@ class Airport {
         std::string get_name() const { return m_name; }
         std::string get_city() const { return m_city; }
         GPS& get_location() { return m_location; }
+        std::vector<std::pair<Airport*, int>>& get_adjacent_aiports() { return m_adj_airports; }
         int get_nb_runway() const { return m_nb_runway; }
         int get_nb_parking() const { return m_nb_parking; }
         int get_delay_between_flights() const { return m_delay_between_flights; }

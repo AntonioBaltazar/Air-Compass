@@ -22,8 +22,11 @@ void antonio() {
 }
 
 void martin() {
-    Game g;
-    g.start();
+    //Game g;
+    //g.start();
+    Graph g("graph.txt");
+    g.display_graph();
+    g.primMST(Vertice(2));
 }
 
 void arnaud() {
