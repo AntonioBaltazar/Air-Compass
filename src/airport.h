@@ -2,6 +2,7 @@
 #define AIRPORT_H_INCLUDED
 
 #include <iostream>
+#include <vector>
 
 struct GPS {
     double latitude;
@@ -13,6 +14,7 @@ class Airport {
         std::string m_name, m_city;
         GPS m_location;
         int m_nb_runway, m_nb_parking, m_delay_between_flights, m_standby_flight_time, m_delay_parking_to_runway, m_delay_landing, m_delay_anticollision;
+        std::vector<std::pair<Airport*, int>> m_adj_airports;
     public:
         // Constructors & Destructor
         Airport() {}
@@ -43,6 +45,10 @@ class Airport {
         void set_delay_parking_to_runway(int _delay_parking_to_runway) { m_delay_parking_to_runway = _delay_parking_to_runway; }
         void set_delay_landing(int _delay_landing) { m_delay_landing = _delay_landing; }
         void set_delay_anticollision(int _delay_anticollision) { m_delay_anticollision = _delay_anticollision; }
+
+        // Methods
+        void addAdjacentAirport(Airport* _airport, int _weight) { m_adj_airports.push_back(std::make_pair(_airport, _weight)); }
+        void display() { std::cout << m_name << "\n"; }
 };
 
 #endif // AIRPORT_H_INCLUDED

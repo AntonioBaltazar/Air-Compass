@@ -14,16 +14,13 @@ void AerialNetwork::create_fleet()
     int nb_planes = 10;
     std::srand(std::time(nullptr));
     bank = read_plane_file();
-
-
-
-    for (int i = 0; i < nb_planes; i++)
-    {
+/* 
+    for (int i = 0; i < nb_planes; i++) {
         fleet.push_back(bank[rand()%(6)]);
         fleet[i].set_id(i);
-        fleet[i].display();
-    }
+    } */
 
-    set_fleet(fleet);
+    //set_airplanes(bank);
+    set_fleet(bank);
 
 }
