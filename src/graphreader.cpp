@@ -13,7 +13,36 @@ void GraphReader::test() {
     std::cout << "debugging";
 }
 
-void GraphReader::load_graph(std::string _file_name, Graph& _graph) {
+vector<Airport> GraphReader::load_airports(std::string _file_name) {
+    vector<Airport> airports;
+
+    ifstream ifs{_file_name};
+    if (!ifs) throw runtime_error("Can't open " + _file_name);
+
+    int oriented(0), order(0), size(0);
+    fget_int(ifs, "Unable to read graph's settings", {&oriented, &order, &size});
+
+    // Reading all airports
+    string _str;
+    getline(ifs, _str);
+    for (int i = 0; i < order; i++) {
+        getline(ifs, _str);
+        vector<string> _strs = deserialize(_str);
+        airports.push_back(Airport(_strs[0], _strs[1], {stod(_strs[2]), stod(_strs[3])}, stoi(_strs[4]), stoi(_strs[5]),
+            stoi(_strs[6]), stoi(_strs[7]), stoi(_strs[8]), stoi(_strs[9]), stoi(_strs[10])));
+    }
+
+    // Reading all edges
+    int src(0), dist(0), weight(0);
+    for (int i = 0; i < size; i++) {
+        fget_int(ifs, "Can't read this ", {&src, &dist, &weight});
+        airports[src].addAdjacentAirport(&airports[dist], weight);
+    }
+
+    return airports;
+}
+
+/* void GraphReader::load_graph(std::string _file_name, Graph& _graph) {
     ifstream ifs{_file_name};
     if (!ifs) throw runtime_error("Can't open " + _file_name);
 
@@ -43,7 +72,7 @@ void GraphReader::load_graph(std::string _file_name, Graph& _graph) {
         _graph.get_vertices()[i].get_airport() = Airport(_strs[0], _strs[1], {stod(_strs[2]), stod(_strs[3])}, stoi(_strs[4]), stoi(_strs[5]),
         stoi(_strs[6]), stoi(_strs[7]), stoi(_strs[8]), stoi(_strs[9]), stoi(_strs[10]));
     }
-}
+} */
 
 vector<string> GraphReader::deserialize(string _str) {
     for (const auto& _delimiter : vector<char>{'{', '}', '"'})
