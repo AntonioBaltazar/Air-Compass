@@ -18,9 +18,9 @@ using namespace GraphReader;
 
 void antonio() {
     GameWindow menu("AirCompass", 1333, 900);
-     create_db_plane();
+    // create_db_plane();
     //setup_db();
-    //menu.menu();
+    menu.menu();
 }
 
 void martin() {
