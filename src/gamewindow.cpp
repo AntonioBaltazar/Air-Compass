@@ -118,11 +118,12 @@ void GameWindow::menu()
                     // SDL_Log("OK1");
                     SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
                         temp = getRessourceClicked(events.motion.x,events.motion.y);
-                        if(temp==NULL) break;
+                        if(temp == NULL) break;
                         if(temp->getElement() == Element::TEXT){
                             temp->setSurface(TTF_RenderText_Blended(font, temp->getPath().c_str(), SDL_Color{0, 255, 255}));
                             updateTextures();
-                            SDL_Log("OK");
+                         if(temp->getPath() == "notpointed")
+                            temp->setSurface(TTF_RenderText_Blended(font, temp->getPath().c_str(), SDL_Color{255, 255, 255}));
                         }
                 break;    
 
@@ -235,6 +236,21 @@ Ressource* GameWindow::getRessourceClicked(int _x, int _y) {
                 return &el;
     return NULL;
 }
+
+Ressource* GameWindow::getRessourceClicked2(int _x, int _y) {
+    for (auto& el : getRessources())
+        if (el.isClickable()){
+            if (_x >= el.getRelativeX() && _x < el.getRelativeX() + el.getWidth() && _y >= el.getRelativeY() && _y < el.getRelativeY() + el.getHeight())
+                return &el;
+        }
+        else{
+            Ressource* temp;
+            temp->setPath("notpointed");
+            return temp;
+        }
+    return NULL;
+}
+
 
 bool GameWindow::isRessourceClicked(int _x, int _y) {
     for (auto& el : getRessources())

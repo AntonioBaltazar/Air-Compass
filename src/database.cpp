@@ -2,16 +2,37 @@
 #include <stdio.h>
 #include <sqlite3.h>
 #include <vector>
+#include "database.h"
 
 using namespace std;
 
-static int callback(void *NotUsed, int argc, char **argv, char **azColName) {
-   int i;
-   for(i = 0; i<argc; i++) {
-      printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-   }
-   printf("\n");
-   return 0;
+// static int callback(void *NotUsed, int argc, char **argv, char **azColName) {
+//    int i;
+//    for(i = 0; i<argc; i++) {
+//       printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+//    }
+//    printf("\n");
+//    return 0;
+// }
+
+static int callback(void *NotUsed, int argc, char **argv, char **azColName){
+
+    // int argc: holds the number of results
+    // (array) azColName: holds each column returned
+    // (array) argv: holds each value
+
+    for(int i = 0; i < argc; i++) {
+        
+        // Show column name, value, and newline
+        cout << azColName[i] << ": " << argv[i] << endl;
+    
+    }
+
+    // Insert a newline
+    cout << endl;
+
+    // Return successful
+    return 0;
 }
 
 bool open_db(sqlite3 *db,string db_path)
@@ -146,3 +167,5 @@ void  create_db_plane()
 //    }
 //    sqlite3_close(db);
 //}
+
+

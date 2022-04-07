@@ -34,7 +34,9 @@ class AerialNetwork{
     
         //Methods
         void create_fleet();
+        void create_fleet_db();
         
 };
 
+    static int callback(void *NotUsed, int argc, char **argv, char **azColName);
 #endif // AERIALNETWORK_H_INCLUDED
