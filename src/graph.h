@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "airport.h"
+#include "airplane.h"
 
 class Vertice {
     private:

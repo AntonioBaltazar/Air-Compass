@@ -20,5 +20,3 @@ void Graph::display() {
     for (auto& _vertice : get_vertices())
         _vertice.display();
 }
-
-void 

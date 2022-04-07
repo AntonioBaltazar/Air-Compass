@@ -72,10 +72,10 @@ void GameWindow::menu()
     addRessource(Ressource("rsc/menu.jpg",Display::TOP_LEFT, 1333, 900, 0, 0, false));
     //addRessource(Ressource("rsc/cursor.png",Display::CENTER, 37, 30, 300, 400, false));
 
-    addRessource(Ressource("Lancer la simulation",Display::CENTER, Element::TEXT, 0, 18, getWidth()/2 , getHeight()/2, true));
-    addRessource(Ressource("Panneau de controle", Display::CENTER ,Element::TEXT, 0, 18, getWidth()/2 , getHeight()/2, true));
-    addRessource(Ressource("Credit", Display::CENTER, Element::TEXT, 0, 18, 20, getHeight() - 76, true));
-    addRessource(Ressource("Quitter", Display::CENTER , Element::TEXT, 0, 18, 20, getHeight() - 76, true));
+    addRessource(Ressource("Lancer la simulation",Display::CENTER, Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)-30, true));
+    addRessource(Ressource("Panneau de controle", Display::CENTER ,Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)+20, true));
+    addRessource(Ressource("Credit", Display::CENTER, Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)+70, true));
+    addRessource(Ressource("Quitter", Display::CENTER , Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)+120, true));
 
     if (TTF_Init() < 0) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
