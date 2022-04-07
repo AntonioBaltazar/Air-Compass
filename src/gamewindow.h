@@ -39,26 +39,9 @@ class Ressource {
         }
 
         void init() {
+
             m_relative_x = m_init_x;
             m_relative_y = m_init_y;
-            if (m_element == Element::IMAGE) {
-                setSurface(IMG_Load(getPath().c_str()));
-                
-            } else if (m_element == Element::TEXT || m_element == Element::SELECTOR_AIRPLANE || m_element == Element::SELECTOR_AIRPORT) {
-                std::cout << "debbbug";
-                if (m_element == Element::SELECTOR_AIRPLANE || m_element == Element::SELECTOR_AIRPORT) {
-                    setClickable(false);
-                    setRenderable(false);
-                }
-                if (TTF_Init() < 0) {
-                    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
-                    return;
-                }
-                TTF_Font* font = TTF_OpenFont("rsc/fonts/SFPro_Regular.ttf", 18);
-                if (font == nullptr) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "#1 [DEBUG] > %s", TTF_GetError());
-                setSurface(TTF_RenderText_Blended(font, getPath().c_str(), SDL_Color{255, 255, 255, 255}));
-                setWidth(getSurface()->w);
-            }
             switch (getDisplay()) {
                 case Display::CENTER:
                     m_relative_x = getX() - getWidth()/2;
@@ -82,6 +65,25 @@ class Ressource {
                     break;
                 default: break;
             }
+            if (m_element == Element::IMAGE) {
+                setSurface(IMG_Load(getPath().c_str()));
+                
+            } else if (m_element == Element::TEXT || m_element == Element::SELECTOR_AIRPLANE || m_element == Element::SELECTOR_AIRPORT) {
+                std::cout << "debbbug";
+                if (m_element == Element::SELECTOR_AIRPLANE || m_element == Element::SELECTOR_AIRPORT) {
+                    setClickable(false);
+                    setRenderable(false);
+                }
+                if (TTF_Init() < 0) {
+                    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
+                    return;
+                }
+                TTF_Font* font = TTF_OpenFont("rsc/fonts/SFPro_Regular.ttf", 18);
+                if (font == nullptr) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "#1 [DEBUG] > %s", TTF_GetError());
+                setSurface(TTF_RenderText_Blended(font, getPath().c_str(), SDL_Color{255, 255, 255, 255}));
+                setWidth(getSurface()->w);
+            }
+            
         }
 
         //Getters

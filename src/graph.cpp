@@ -20,3 +20,8 @@ void Graph::display() {
     for (auto& _vertice : get_vertices())
         _vertice.display();
 }
+
+void Graph::generate(std::vector<Airport*> _airports, Airplane _airplane, Airport _airport_src) {
+    // Depuis  l'aéroport de départ, parcour de chaque voisins en regardant si possible
+    // DFS
+}
