@@ -1,12 +1,12 @@
 0
 6
 7
-{"Paris-Charles-de-Gaulle","Paris","49.009691","2.547925","4","10","6","3","1","0","0","639","329"}
-{"Aeroport international John F. Kennedy","New York","40.641766", "-73.780968","4","11","6","4","1","0","0","315","376"}
-{"Kingsford Smith International Airport","Sydney","-33.947346","151.179428","3","7","5","3","1","0","0","1248","736"}
-{"Aeroport international de Shanghai-Pudong","Shanghai", "31.14340","121.80500","5","20","4","4","1","0","0","1129","422"}
-{"Aeroport international OR Tambo de Johannesbourg","Johannesbourg","-26.134789","28.240528","2","6","3","4","1","0","0","744","676"}
-{"Aeroport international de Sao Paulo/Guarulhos","Sao Paulo","-23.43455","-46.47813","4","317","2","6","3","4","1","438","681"}
+{"Paris-Charles-de-Gaulle","Paris","49.009691","2.547925","4","10","6","3","1","0","0","670","353"}
+{"Aeroport international John F. Kennedy","New York","40.641766", "-73.780968","4","11","6","4","1","0","0","346","400"}
+{"Kingsford Smith International Airport","Sydney","-33.947346","151.179428","3","7","5","3","1","0","0","1279","760"}
+{"Aeroport international de Shanghai-Pudong","Shanghai", "31.14340","121.80500","5","20","4","4","1","0","0","1160","446"}
+{"Aeroport international OR Tambo de Johannesbourg","Johannesbourg","-26.134789","28.240528","2","6","3","4","1","0","0","775","700"}
+{"Aeroport international de Sao Paulo/Guarulhos","Sao Paulo","-23.43455","-46.47813","4","317","2","6","3","4","1","469","705"}
 0 1 29
 0 3 46
 1 3 59

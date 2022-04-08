@@ -55,6 +55,7 @@ class Graph {
         void DFSUtil(int u, std::vector<bool>& visited);
         void shortest_path(Vertice src);
         void primMST(Vertice src);
+        void limitEdge(int _lim);
 };
 
 #endif // AIRPORT_H_INCLUDED

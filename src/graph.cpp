@@ -162,3 +162,11 @@ void Graph::primMST(Vertice src) {
         printf("%d - %d\n", parent[i], i);
 
 }
+
+void Graph::limitEdge(int _lim) {
+    for (auto i = get_adj().begin(); i != get_adj().end(); i++) 
+        for (auto j = (*i).begin(); j != (*i).end(); j++)
+            if ((*j).second > _lim)
+                (*i).erase(j--); 
+}
+
