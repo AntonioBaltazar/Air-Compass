@@ -50,7 +50,10 @@ class Airplane {
 
         // Methods
         void display();
-        void choose();
+        void choose_plane();
+        void plane();
+        void aeroport();
+        void choose_airport();
 };
 
 #endif // AIRPLANE_H_INCLUDED
