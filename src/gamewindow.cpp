@@ -3,8 +3,10 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <map>
+#include <math.h>
 #include "gamewindow.h"
 #include "graphicelement.h"
+#define M_PI           3.14159265358979323846
 
 using namespace std;
 
@@ -181,8 +183,9 @@ void GameWindow::run(std::string _path_image) {
     addRessource(Ressource("rsc/realmap.jpg", Display::TOP_LEFT, 1333, 900, 0, 0, false));
 
     // Add resssources from graph
-    Graph graph("graph.txt");
-    vector<Edge> edges = drawGraph(graph);
+    //Graph graph("graph.txt");
+    get_graph().load_from_file("graph.txt");
+    get_edges() = drawGraph(get_graph());
 
     // Text
     addRessource(Ressource("Selectionner un avion", Display::TOP_LEFT, Element::TEXT, 0, 18, 20, getHeight() - 40, true));
@@ -203,6 +206,8 @@ void GameWindow::run(std::string _path_image) {
     PanelParams _params;
     updateTextures();
 
+    bool update_edges = false;
+
     SDL_Event events;
     bool isOpen{true};
     while (isOpen) {
@@ -215,12 +220,13 @@ void GameWindow::run(std::string _path_image) {
                     if (events.button.button == SDL_BUTTON_LEFT && isRessourceClicked(events.motion.x, events.motion.y)) {
                         Ressource* tmp = getRessourceClicked(events.motion.x, events.motion.y);
                         handlePanels(tmp, &_params);
+                        update_edges = !update_edges;
                     }
                     break;
                 default: break;
             }
         }
-        render(edges, graph);
+        render(update_edges);
     }
     close();
 }
@@ -347,15 +353,61 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _param
     }
 }
 
-void GameWindow::render(vector<Edge> edges, Graph graph) {
-    SDL_RenderClear(getRender());
-    for (auto& el : getTextures())
-        SDL_RenderCopy(getRender(), el.first, NULL, &el.second);
-    SDL_SetRenderDrawColor(getRender(), 0, 255, 0, 255);
-    for (auto& edge : edges) {
-        SDL_RenderDrawLine(getRender(), graph.get_airports()[edge.src]->get_x() + 31, graph.get_airports()[edge.src]->get_y() + 24,
-            graph.get_airports()[edge.dest]->get_x() + 31, graph.get_airports()[edge.dest]->get_y() + 24);
-            std::cout << "test\n";
+
+double constrainAngle(double x){
+    x = fmod(x + 180,360);
+    if (x < 0)
+        x += 360;
+    return x - 180;
+}
+
+void GameWindow::render_edges() {
+    if (TTF_Init() < 0) return;
+
+    TTF_Font* _font = TTF_OpenFont("rsc/fonts/SFPro_Regular.ttf", 18);
+    if (_font == nullptr) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "#1 [DEBUG] > %s", TTF_GetError());
+
+    SDL_SetRenderDrawColor(getRender(), 253, 70, 38, 255);
+    for (auto& edge : m_edges) {
+
+        int x1 = m_graph.get_airports()[edge.src]->get_x() + 31;
+        int y1 = m_graph.get_airports()[edge.src]->get_y() + 24;
+        int x2 = m_graph.get_airports()[edge.dest]->get_x() + 31;
+        int y2 = m_graph.get_airports()[edge.dest]->get_y() + 24;
+
+        int mid_x = (x1 + x2) / 2;
+        int mid_y = (y1 + y2) / 2;
+
+        double angle = atan2(y1 - y2, x1 - x2) * 180.0 / M_PI;
+        angle = (angle < -90) ? angle + 180 : (angle > 90 ? angle - 180 : angle);
+
+        string text; 
+        text.append(to_string(edge.weigth*200));
+        text.append("km");
+
+        SDL_Surface* text_surface = TTF_RenderText_Blended(_font, text.c_str(), SDL_Color{253, 70, 38, 255});
+        SDL_Texture*  texture = SDL_CreateTextureFromSurface(getRender(), text_surface);
+        SDL_Rect rect{mid_x, mid_y, text_surface->w, text_surface->h};
+
+        SDL_RenderCopyEx(getRender(), texture, NULL, &rect, angle , NULL, SDL_RendererFlip());
+
+        SDL_RenderDrawLineF(getRender(), x1, y1, x2, y2);
     }
+
+}
+
+void GameWindow::render(bool update_edges) {
+    SDL_RenderClear(getRender());
+
+    // Render background
+    SDL_RenderCopy(getRender(), getTextures()[0].first, NULL, &(getTextures()[0].second));
+
+    if (update_edges)
+        render_edges();
+
+    // Render others things
+    for (auto i = getTextures().begin() + 1; i != getTextures().end(); i++)
+        SDL_RenderCopy(getRender(), (*i).first, NULL, &(*i).second);
+
     SDL_RenderPresent(getRender());  
 }

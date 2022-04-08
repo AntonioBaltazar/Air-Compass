@@ -35,6 +35,7 @@ class Graph {
             for (int i = 0; i < _nb_vertices; i++)
                 m_adj.push_back(std::vector<pi>());
         }
+        Graph() {}
         Graph(std::string _file_name) {
             load_from_file(_file_name);
         }

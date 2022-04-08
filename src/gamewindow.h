@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include "aerialnetwork.h"
+#include "graph.h"
 
 enum class Display { TOP_LEFT, TOP_RIGHT, CENTER, BOTTOM_LEFT, BOTTOM_RIGHT};
 enum class Element { SELECTOR_AIRPLANE, SELECTOR_AIRPORT, AIRPORT, TEXT, BACKGROUND, DEFAULT, IMAGE };
@@ -129,6 +130,9 @@ class GameWindow {
         AerialNetwork m_aerialnetwork = AerialNetwork();
         Airplane m_current_airplane;
         Airport m_current_airport;
+        std::vector<Edge> m_edges;
+        Graph m_graph;
+
     public:
         // Constructors & Destructor
         GameWindow(std::string _window_name, int _screen_width, int _screen_height) : 
@@ -147,6 +151,8 @@ class GameWindow {
         AerialNetwork getAerialNetwork() const { return m_aerialnetwork; }
         Airplane get_current_airplane() const { return m_current_airplane; }
         Airport get_current_airport() const { return m_current_airport; }
+        std::vector<Edge>& get_edges() { return m_edges; }
+        Graph& get_graph() { return m_graph; }
 
         // Setters
         void setWindow(SDL_Window* _window) { m_window = _window; } 
@@ -163,7 +169,9 @@ class GameWindow {
         void menu();
         void cursor_move(int choice);
         void run(std::string _path_image);
-        void render(std::vector<Edge> edges, Graph graph);
+
+        void render(bool update_edges);
+        void render_edges();
 
         void addRessource(Ressource _rsc) { m_ressources.push_back(_rsc); }
         bool isRessourceClicked(int _x, int _y);
