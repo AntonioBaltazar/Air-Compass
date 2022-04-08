@@ -73,8 +73,8 @@ void GameWindow::menu()
     addRessource(Ressource("rsc/menu.jpg",Display::TOP_LEFT, 1333, 900, 0, 0, false));
     //addRessource(Ressource("rsc/cursor.png",Display::CENTER, 37, 30, 300, 400, false));
 
-    addRessource(Ressource("Lancer la simulation",Display::CENTER, Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)-30, true));
-    addRessource(Ressource("Panneau de controle", Display::CENTER ,Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)+20, true));
+    addRessource(Ressource("Lancer la simulation",Display::CENTER, Element::SELECTOR_AIRPLANE, 0, 18, getWidth()/2, (getHeight()/2)-30, true));
+    addRessource(Ressource("Panneau de controle", Display::CENTER ,Element::TEXT, 0, 18, getWidth()/2, (getHeight()/2)+20, true));
     addRessource(Ressource("Credit", Display::CENTER, Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)+70, true));
     addRessource(Ressource("Quitter", Display::CENTER , Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)+120, true));
 
@@ -84,15 +84,16 @@ void GameWindow::menu()
         return;
     }
 
-    TTF_Font* font = TTF_OpenFont("rsc/fonts/SFPro_Regular.ttf", 30);
+    TTF_Font* font = TTF_OpenFont("rsc/fonts/SFPro_Bold.ttf", 24);
     if (font == nullptr) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "#1 [DEBUG] > %s", TTF_GetError());
     for(auto& el:getRessources())
-        if(el.getElement() == Element::TEXT)
+        if(el.getElement() == Element::TEXT || el.getElement() == Element::SELECTOR_AIRPLANE)
             el.setSurface(TTF_RenderText_Blended(font, el.getPath().c_str(), SDL_Color{255, 255, 255}));
     
     
     updateTextures();
-    
+    Ressource* last_ressource = NULL;
+
     // Events managing
     SDL_Event events;
     bool open{true};
@@ -110,46 +111,18 @@ void GameWindow::menu()
                     break;
 
                 case SDL_MOUSEMOTION:
-                    // Updating text color
-                    // for( auto& el:getRessources())
-                    //     if(el.getElement() == Element::TEXT && mouse_coordinates(events,el.getX(),el.getWidth(),el.getY(),el.getHeight())){
-                    //         el.setSurface(TTF_RenderText_Blended(font, el.getPath().c_str(), SDL_Color{0, 255, 255}));
-                    //         updateTextures();
-                    //         SDL_Log("OK");
-                    //     }
-                    // SDL_Log("OK1");
-                    SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
-                        temp = getRessourceClicked(events.motion.x,events.motion.y);
-                        if(temp==NULL) break;
-                        if(temp->getElement() == Element::TEXT){
-                            temp->setSurface(TTF_RenderText_Blended(font, temp->getPath().c_str(), SDL_Color{0, 255, 255}));
-                            updateTextures();
-                            SDL_Log("OK");
-                        }
+                    temp = getRessourceClicked(events.motion.x, events.motion.y);
+                    if (temp != last_ressource) {
+                        for (auto& el : getRessources()) 
+                            if (el.getElement() == Element::TEXT|| el.getElement() == Element::SELECTOR_AIRPLANE)
+                                el.setSurface(TTF_RenderText_Blended(font, el.getPath().c_str(), SDL_Color{(temp == NULL ? 255 : (el.getPath() == temp->getPath() ? 0 : 255)), 255, 255}));
+                        updateTextures();
+                        last_ressource = temp;
+                    }
                 break;    
-
-                // case SDL_KEYDOWN:     // Key has been pressed  
-                //     // If it's escape key then we also quit sdl mode
-                //     if(events.key.keysym.scancode == SDL_SCANCODE_ESCAPE) open = SDL_FALSE;
-                    
-                //     if(events.key.keysym.scancode == SDL_SCANCODE_UP && choice > 0) {
-                //         choice--;
-                //         // cursor_move(choice);
-                //         SDL_Delay(20);
-                //     }
-                    
-                //     else if(events.key.keysym.scancode == SDL_SCANCODE_DOWN && choice < 4){
-                //         choice++;
-                //         // cursor_move(choice);
-                //         SDL_Delay(100);
-                //     } 
-                    
-                //     break;
-
                 default: break;
 
             }
-                // SDL_Log("Choice = %d",choice);
         }
 
         SDL_SetRenderDrawColor(getRender(), 0, 0, 0, 255); 

@@ -34,6 +34,13 @@ void martin() {
    */
 }
 
+void total() {
+    GameWindow menu("AirCompass", 1333, 900);
+    // create_db_plane();
+    //setup_db();
+    menu.menu();
+}
+
 void arnaud() {
 
     GameWindow gwin("AirCompass", 1333, 900);
@@ -129,6 +136,9 @@ int main(int argc, char *argv[]) {
                 break;
             case 4:
                 return 0;
+            case 5:
+                total();
+                break;
             default: break;
         }
     } while (choice == 0);
