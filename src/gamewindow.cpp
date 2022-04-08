@@ -34,8 +34,8 @@ void GameWindow::close() {
     for (auto& el : getRessources())
         SDL_FreeSurface(el.getSurface());
     SDL_DestroyWindow(getWindow());
-    setWindow(NULL);
-    SDL_Quit();
+    //setWindow(NULL);
+    //SDL_Quit();
 }
 
 void GameWindow::updateTextures() {
@@ -48,7 +48,7 @@ void GameWindow::updateTextures() {
                 SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getWidth(), el.getHeight()}));
         else if (el.getElement() == Element::TEXT || el.getElement() == Element::SELECTOR_AIRPLANE || el.getElement() == Element::SELECTOR_AIRPORT)
             getTextures().push_back(make_pair(SDL_CreateTextureFromSurface(getRender(), el.getSurface()), 
-                SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getSurface()->w, el.getSurface()->h}));
+                SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getWidth(), el.getHeight()}));
 }
 
 void GameWindow::updateTexture(std::string _path) {
@@ -73,68 +73,62 @@ void GameWindow::menu()
     addRessource(Ressource("rsc/menu.jpg",Display::TOP_LEFT, 1333, 900, 0, 0, false));
     //addRessource(Ressource("rsc/cursor.png",Display::CENTER, 37, 30, 300, 400, false));
 
-    addRessource(Ressource("Lancer la simulation",Display::CENTER, Element::SELECTOR_AIRPLANE, 0, 18, getWidth()/2, (getHeight()/2)-30, true));
-    addRessource(Ressource("Panneau de controle", Display::CENTER ,Element::TEXT, 0, 18, getWidth()/2, (getHeight()/2)+20, true));
-    addRessource(Ressource("Credit", Display::CENTER, Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)+70, true));
-    addRessource(Ressource("Quitter", Display::CENTER , Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)+120, true));
+    addRessource(Ressource("Simulation",Display::CENTER, Element::TEXT, 0, 18, getWidth()/2, (getHeight()/2)-25, true));
+    addRessource(Ressource("Configuration", Display::CENTER ,Element::TEXT, 0, 18, getWidth()/2, (getHeight()/2)+15, true));
+    addRessource(Ressource("Credits", Display::CENTER, Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)+55, true));
+    addRessource(Ressource("Quitter", Display::CENTER , Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)+95, true));
 
 
-    if (TTF_Init() < 0) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
-        return;
-    }
-
-    TTF_Font* font = TTF_OpenFont("rsc/fonts/SFPro_Bold.ttf", 24);
+    if (TTF_Init() < 0) return;
+ 
+    TTF_Font* font = TTF_OpenFont("rsc/fonts/SFPro_Semibold.ttf", 24);
     if (font == nullptr) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "#1 [DEBUG] > %s", TTF_GetError());
     for(auto& el:getRessources())
-        if(el.getElement() == Element::TEXT || el.getElement() == Element::SELECTOR_AIRPLANE)
+        if(el.getElement() == Element::TEXT)
             el.setSurface(TTF_RenderText_Blended(font, el.getPath().c_str(), SDL_Color{255, 255, 255}));
-    
     
     updateTextures();
     Ressource* last_ressource = NULL;
 
     // Events managing
     SDL_Event events;
+
+
     bool open{true};
-    while (open) {
-        // SDL_EventState(SDL_MOUSEMOTION, SDL_IGNORE);
+    State current_state = State::RUNNING;
+    while (current_state == State::RUNNING) {
         while (SDL_PollEvent(&events)) {
-            Ressource* temp;
-            if(choice > 4) choice = 0;
-            if(choice < 0) choice = 4;     
-
+            Ressource* temp;   
             switch (events.type) {
-                
-                case SDL_QUIT:        // If window's closed we quit sdl mode 
-                    open = false;
+                case SDL_QUIT:       
+                    current_state == State::LEAVING;
                     break;
-
                 case SDL_MOUSEMOTION:
                     temp = getRessourceClicked(events.motion.x, events.motion.y);
                     if (temp != last_ressource) {
                         for (auto& el : getRessources()) 
-                            if (el.getElement() == Element::TEXT|| el.getElement() == Element::SELECTOR_AIRPLANE)
+                            if (el.getElement() == Element::TEXT)
                                 el.setSurface(TTF_RenderText_Blended(font, el.getPath().c_str(), SDL_Color{(temp == NULL ? 255 : (el.getPath() == temp->getPath() ? 0 : 255)), 255, 255}));
                         updateTextures();
                         last_ressource = temp;
                     }
-                break;    
+                    break;
+                case SDL_MOUSEBUTTONDOWN:
+                    if (events.button.button == SDL_BUTTON_LEFT && isRessourceClicked(events.motion.x, events.motion.y))
+                        current_state = handle_click_on_menu(getRessourceClicked(events.motion.x, events.motion.y));
+                    break;    
                 default: break;
-
             }
         }
-
-        SDL_SetRenderDrawColor(getRender(), 0, 0, 0, 255); 
-        SDL_RenderClear(getRender());
-
-         for (auto& el : getTextures())
-            SDL_RenderCopy(getRender(), el.first, NULL, &el.second);
-        
-        SDL_RenderPresent(getRender());  //Display's images
+        render(false);
     }
     close();
-
+    if (current_state == State::SIMULATE)
+        run();
+    else if (current_state == State::LEAVING) {
+        setWindow(NULL);
+        SDL_Quit();
+    }
 }
 
 void GameWindow::cursor_move(int choice){
@@ -149,10 +143,12 @@ void GameWindow::cursor_move(int choice){
     updateTexture("rsc/cursor.png");
 }
 
-void GameWindow::run(std::string _path_image) {
+void GameWindow::run() {
     if (!init()) printf("Failed to initialize!\n");
     else SDL_UpdateWindowSurface(getWindow());
     
+    getRessources().clear();
+
     addRessource(Ressource("rsc/realmap.jpg", Display::TOP_LEFT, 1333, 900, 0, 0, false));
 
     // Add resssources from graph
@@ -212,21 +208,6 @@ Ressource* GameWindow::getRessourceClicked(int _x, int _y) {
     return NULL;
 }
 
-Ressource* GameWindow::getRessourceClicked2(int _x, int _y) {
-    for (auto& el : getRessources())
-        if (el.isClickable()){
-            if (_x >= el.getRelativeX() && _x < el.getRelativeX() + el.getWidth() && _y >= el.getRelativeY() && _y < el.getRelativeY() + el.getHeight())
-                return &el;
-        }
-        else{
-            Ressource* temp;
-            temp->setPath("notpointed");
-            return temp;
-        }
-    return NULL;
-}
-
-
 bool GameWindow::isRessourceClicked(int _x, int _y) {
     for (auto& el : getRessources())
         if (el.isClickable())
@@ -237,17 +218,11 @@ bool GameWindow::isRessourceClicked(int _x, int _y) {
 
 vector<Edge> GameWindow::drawGraph(Graph graph) {
     
-
-    // Pour chaque sommet affichage 
-    // Puis pour chaque adjacent tracage
-    // Lier l'airport grâce au nom
-
     // Affichage des aéroports
     for (auto& el : graph.get_airports())
         addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, el->get_x(), el->get_y()));
     
-    // Affichage des arrêtes
-    
+    // Affichage des arrêtes  
     vector<Edge> edges;
     // Getting edges
     for (int i = 0; i < graph.get_nb_vertices(); i++) {
@@ -266,6 +241,16 @@ vector<Edge> GameWindow::drawGraph(Graph graph) {
         cout << edge.src << " " << edge.dest << " " << edge.weigth << "\n";
     }
     return edges;
+}
+
+State GameWindow::handle_click_on_menu(Ressource* _clicked_ressource) {
+    string _str = _clicked_ressource->getPath();
+    if (_str == "Quitter")
+        return State::LEAVING;
+    else if (_str == "Simulation") {
+        return State::SIMULATE;
+    }
+    
 }
 
 void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _params) {
@@ -339,14 +324,6 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _param
                         || el.getPath() == get_current_airport().get_name() ? 0 : 255), 255, 255, 255}));
         updateTextures();
     }
-}
-
-
-double constrainAngle(double x){
-    x = fmod(x + 180,360);
-    if (x < 0)
-        x += 360;
-    return x - 180;
 }
 
 void GameWindow::render_edges() {

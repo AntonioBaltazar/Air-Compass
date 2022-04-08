@@ -11,11 +11,11 @@
 
 enum class Display { TOP_LEFT, TOP_RIGHT, CENTER, BOTTOM_LEFT, BOTTOM_RIGHT};
 enum class Element { SELECTOR_AIRPLANE, SELECTOR_AIRPORT, AIRPORT, TEXT, BACKGROUND, DEFAULT, IMAGE };
+enum class State { RUNNING, LEAVING, SIMULATE, CONFIG };
 
 struct Edge {
     int src, dest, weigth;
 };
-
 
 struct PanelParams {
     bool _airplane_selector_open = false, _airport_selector_open = false, _need_panel_update = false;
@@ -46,10 +46,9 @@ class Ressource {
         Ressource(std::string path) : m_path (path) {};
 
         void init() {
-
             m_relative_x = m_init_x;
             m_relative_y = m_init_y;
-            switch (getDisplay()) {
+            switch (m_display) {
                 case Display::CENTER:
                     m_relative_x = getX() - getWidth()/2;
                     m_relative_y = getY() - getHeight()/2;
@@ -99,8 +98,8 @@ class Ressource {
         int getHeight() const { return m_height; }
         int getX() const { return m_init_x; }
         int getY() const { return m_init_y; }
-        int getRelativeX() const { return m_init_x; }
-        int getRelativeY() const { return m_init_y; }
+        int getRelativeX() const { return m_relative_x; }
+        int getRelativeY() const { return m_relative_y; }
         bool isClickable() const { return m_clickable; }
         bool isRenderable() const { return m_renderable; }
         Display getDisplay() const { return m_display; }
@@ -117,7 +116,41 @@ class Ressource {
 
         ~Ressource() {}
         SDL_Surface* getSurface() { return m_ressource; }
-        void setSurface(SDL_Surface* _surface) { m_ressource = _surface; }
+        void setSurface(SDL_Surface* _surface) { 
+            if (getElement() == Element::TEXT || getElement() == Element::SELECTOR_AIRPLANE 
+            || getElement() == Element::SELECTOR_AIRPORT) {
+                m_width = _surface->w;
+                m_height = _surface->h;
+                update_display();
+            }
+            m_ressource = _surface;
+        }
+
+        void update_display() {
+            switch (getDisplay()) {
+                case Display::CENTER:
+                    m_relative_x = getX() - getWidth()/2;
+                    m_relative_y = getY() - getHeight()/2;
+                    break;
+                case Display::TOP_LEFT:
+                    m_relative_x  = getX();
+                    m_relative_y = getY();
+                    break;
+                case Display::TOP_RIGHT:
+                    m_relative_x  = getX() + getWidth();
+                    m_relative_y = getY();
+                    break;
+                case Display::BOTTOM_LEFT:
+                    m_relative_x  = getX();
+                    m_relative_y = getY() + getHeight();
+                    break;
+                case Display::BOTTOM_RIGHT:
+                    m_relative_x  = getX() + getWidth();
+                    m_relative_y = getY() + getHeight();
+                    break;
+                default: break;
+            }
+        }
 };
 
 class GameWindow {
@@ -170,7 +203,7 @@ class GameWindow {
         void close();
         void menu();
         void cursor_move(int choice);
-        void run(std::string _path_image);
+        void run();
 
         void render(bool update_edges);
         void render_edges();
@@ -187,6 +220,7 @@ class GameWindow {
 
         // Handling events
         void handlePanels(Ressource* _clicked_ressource, PanelParams* _params);
+        State handle_click_on_menu(Ressource* _clicked_ressource);
 };
 
 #endif // GAMEWINDOW_H_INCLUDED
