@@ -18,11 +18,12 @@ using namespace GraphReader;
 
 void antonio() {
     // GameWindow menu("AirCompass", 1333, 900);
-    AerialNetwork net;
-    // net.create_fleet_db();
-    // create_db_plane();
-    //setup_db();
     // menu.menu();
+
+    Database datab;
+    datab.setup_db();
+    //  datab.read();
+    // datab.display();
         
 }
 

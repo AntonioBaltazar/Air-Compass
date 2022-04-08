@@ -120,7 +120,7 @@ void request_data()
   const char * tail;
   int rc;
 
-  char * dbName = "C:\\db\\myblobs.db";
+  char * dbName = "Database.db";
   int myIndex = 0;
 
   char * myLocation1;
@@ -128,13 +128,16 @@ void request_data()
 
   rc = sqlite3_open(dbName, &db);
 
-  sql = "SELECT * FROM Airplane ";
+  sql = "SELECT NAME FROM Airplane ";
   rc = sqlite3_prepare(db, sql, sizeof(sql), &stmt, &tail);
   sqlite3_bind_int(stmt, 1, myIndex);
   rc = sqlite3_step(stmt);
 
   myLocation1 = (char*)sqlite3_column_text(stmt, 0);
   myLocation2 = (char*)sqlite3_column_text(stmt, 0);
+    cout << "ok";
+  cout << "Name 1 : " << myLocation1;
+  cout << "Name 2 : " << myLocation2;
 
   // can process myLocation1 & myLocation2 fine here
 

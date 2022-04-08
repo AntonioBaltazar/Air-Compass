@@ -38,5 +38,7 @@ class AerialNetwork{
         
 };
 
+    void request_data();
+
     static int callback(void *NotUsed, int argc, char **argv, char **azColName);
 #endif // AERIALNETWORK_H_INCLUDED
