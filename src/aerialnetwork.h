@@ -34,8 +34,11 @@ class AerialNetwork{
     
         //Methods
         void create_fleet();
-        void print_fleet();
-        
+        void create_fleet_db();
+        void print_fleet();   
 };
 
+    void request_data();
+
+    static int callback(void *NotUsed, int argc, char **argv, char **azColName);
 #endif // AERIALNETWORK_H_INCLUDED

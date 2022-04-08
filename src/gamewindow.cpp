@@ -212,6 +212,21 @@ Ressource* GameWindow::getRessourceClicked(int _x, int _y) {
     return NULL;
 }
 
+Ressource* GameWindow::getRessourceClicked2(int _x, int _y) {
+    for (auto& el : getRessources())
+        if (el.isClickable()){
+            if (_x >= el.getRelativeX() && _x < el.getRelativeX() + el.getWidth() && _y >= el.getRelativeY() && _y < el.getRelativeY() + el.getHeight())
+                return &el;
+        }
+        else{
+            Ressource* temp;
+            temp->setPath("notpointed");
+            return temp;
+        }
+    return NULL;
+}
+
+
 bool GameWindow::isRessourceClicked(int _x, int _y) {
     for (auto& el : getRessources())
         if (el.isClickable())

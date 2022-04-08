@@ -43,6 +43,7 @@ class Ressource {
         Ressource(std::string _path, Display _display, Element _element, int _width, int _height, int _x, int _y, bool _clickable) : m_path(_path), m_display(_display), m_element(_element), m_width(_width), m_height(_height), m_init_x(_x), m_init_y(_y), m_clickable(_clickable) {
             init();
         }
+        Ressource(std::string path) : m_path (path) {};
 
         void init() {
 
@@ -106,6 +107,7 @@ class Ressource {
         Element getElement() const { return m_element; }
 
         //Setters
+        void setPath( std::string path) { m_path = path;  }
         void setWidth( int width ) { m_width = width; };
         void setHeight( int height ) { m_height = height; };
         void setX( int x ) { m_init_x = x; };
@@ -176,6 +178,7 @@ class GameWindow {
         void addRessource(Ressource _rsc) { m_ressources.push_back(_rsc); }
         bool isRessourceClicked(int _x, int _y);
         Ressource* getRessourceClicked(int _x, int _y);
+        Ressource* getRessourceClicked2(int _x, int _y);
         void updateTextures();
         void updateTexture(std::string _path);
 

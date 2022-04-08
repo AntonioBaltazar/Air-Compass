@@ -18,10 +18,17 @@ using namespace std;
 using namespace GraphReader;
 
 void antonio() {
-    GameWindow menu("AirCompass", 1333, 900);
-    // create_db_plane();
-    //setup_db();
-    menu.menu();
+    // GameWindow menu("AirCompass", 1333, 900);
+    // menu.menu();
+
+    Database datab("INSERT INTO Airplane(Name,Autonomy,Consumption,Tank_capacity,Seats) VALUES('Airbus-A380',15200,1575,310000,525);",false);
+    // datab.send_values();
+    // datab.send_values("INSERT INTO Airplane(Name,Autonomy,Consumption,Tank_capacity,Seats) VALUES('Airbus-A380',15200,1575,310000,525);");
+
+    //  datab.setup_db();
+    datab.read();
+    datab.display();
+        
 }
 
 void martin() {
