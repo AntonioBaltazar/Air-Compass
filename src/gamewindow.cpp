@@ -2,12 +2,11 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include <map>
 #include "gamewindow.h"
 #include "graphicelement.h"
 
 using namespace std;
-
-void DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius);
 
 bool GameWindow::init() {
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
@@ -76,6 +75,7 @@ void GameWindow::menu()
     addRessource(Ressource("Panneau de controle", Display::CENTER ,Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)+20, true));
     addRessource(Ressource("Credit", Display::CENTER, Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)+70, true));
     addRessource(Ressource("Quitter", Display::CENTER , Element::TEXT, 0, 18, getWidth()/2 , (getHeight()/2)+120, true));
+
 
     if (TTF_Init() < 0) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
@@ -179,13 +179,10 @@ void GameWindow::run(std::string _path_image) {
     else SDL_UpdateWindowSurface(getWindow());
     
     addRessource(Ressource("rsc/realmap.jpg", Display::TOP_LEFT, 1333, 900, 0, 0, false));
-    // Paris | New York | Sydney | Shanghai | Johannesbourg | Sao Paulo 
-    addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 639, 329));
-    addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 315, 376));
-    addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 1248, 736));
-    addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 1129, 422));
-    addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 744, 676));
-    addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, 438, 681));
+
+    // Add resssources from graph
+    Graph graph("graph.txt");
+    vector<Edge> edges = drawGraph(graph);
 
     // Text
     addRessource(Ressource("Selectionner un avion", Display::TOP_LEFT, Element::TEXT, 0, 18, 20, getHeight() - 40, true));
@@ -223,7 +220,7 @@ void GameWindow::run(std::string _path_image) {
                 default: break;
             }
         }
-        render();
+        render(edges, graph);
     }
     close();
 }
@@ -242,6 +239,39 @@ bool GameWindow::isRessourceClicked(int _x, int _y) {
             if (_x >= el.getRelativeX() && _x < el.getRelativeX() + el.getWidth() && _y >= el.getRelativeY() && _y < el.getRelativeY() + el.getHeight())
                 return true;
     return false;
+}
+
+vector<Edge> GameWindow::drawGraph(Graph graph) {
+    
+
+    // Pour chaque sommet affichage 
+    // Puis pour chaque adjacent tracage
+    // Lier l'airport grâce au nom
+
+    // Affichage des aéroports
+    for (auto& el : graph.get_airports())
+        addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, el->get_x(), el->get_y()));
+    
+    // Affichage des arrêtes
+    
+    vector<Edge> edges;
+    // Getting edges
+    for (int i = 0; i < graph.get_nb_vertices(); i++) {
+        for (auto& el : graph.get_adj()[i]) {
+            bool exist = false;
+            for (auto& edge : edges)
+                if (edge.dest == i && edge.src == el.first.get_num()) {
+                    exist = true;
+                    break;
+                }
+            if (!exist) edges.push_back({i, el.first.get_num(), el.second});
+        }
+    }
+    // Affichage arrête
+    for (auto& edge : edges) {
+        cout << edge.src << " " << edge.dest << " " << edge.weigth << "\n";
+    }
+    return edges;
 }
 
 void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _params) {
@@ -317,9 +347,15 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _param
     }
 }
 
-void GameWindow::render() {
+void GameWindow::render(vector<Edge> edges, Graph graph) {
     SDL_RenderClear(getRender());
     for (auto& el : getTextures())
         SDL_RenderCopy(getRender(), el.first, NULL, &el.second);
+    SDL_SetRenderDrawColor(getRender(), 0, 255, 0, 255);
+    for (auto& edge : edges) {
+        SDL_RenderDrawLine(getRender(), graph.get_airports()[edge.src]->get_x() + 31, graph.get_airports()[edge.src]->get_y() + 24,
+            graph.get_airports()[edge.dest]->get_x() + 31, graph.get_airports()[edge.dest]->get_y() + 24);
+            std::cout << "test\n";
+    }
     SDL_RenderPresent(getRender());  
 }

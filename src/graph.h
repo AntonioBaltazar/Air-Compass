@@ -40,6 +40,11 @@ class Graph {
         }
         ~Graph() {}
 
+        // Getters
+        int get_nb_vertices() const { return m_nb_vertices; }
+        std::vector<std::vector<pi>>& get_adj() { return m_adj; }
+        std::vector<Airport*> get_airports() { return m_airports; }
+
         // Methods
         void load_from_file(std::string _file_name);
         void addEdge(Vertice u, Vertice v, int wt);
