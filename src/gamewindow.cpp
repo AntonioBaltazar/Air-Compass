@@ -125,7 +125,7 @@ void GameWindow::menu()
     close();
     if (current_state == State::SIMULATE)
         run();
-    else if (current_state == State::LEAVING) {
+    if (current_state == State::LEAVING) {
         setWindow(NULL);
         SDL_Quit();
     }
