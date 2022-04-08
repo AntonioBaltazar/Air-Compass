@@ -19,7 +19,7 @@ void Airplane::display(){
     
 }
 
-void Airplane::choose(){
+void Airplane::choose_plane(){
 
     int test=0;
     string name;
@@ -47,4 +47,51 @@ void Airplane::choose(){
             cin >> name;
         }
     }    
+}
+
+void Airplane::plane(){
+
+    cout << "Airbus-A380" << endl;
+    cout << "Boeing-707" << endl;
+    cout << "Airbus-A320" << endl;
+    cout << "Boeing-737" << endl;
+    cout << "ATR-72" << endl;
+    cout << "Q-400" << endl;
+}
+void Airplane::aeroport(){
+    system("clear");
+    cout << "Paris"<< endl;
+    cout << "Sydney"<< endl;
+    cout << "New_York"<<endl;
+    cout << "Shanghai"<<endl;
+    cout << "Johannesbourg"<<endl;
+    cout << "Sao-Paulo"<<endl;
+}
+
+void Airplane::choose_airport(){
+    
+    int test=0;
+    string aeroport;
+    cout << "Enter the name of the destination"<< endl;
+    cin >> aeroport;
+    while(test==0)
+    {
+        if (aeroport == "Paris") test++;
+    
+        if (aeroport == "Sydney") test++;
+
+        if (aeroport == "New_York") test++;
+
+        if (aeroport == "Shanghai") test++;
+
+        if (aeroport == "Johannesbourg") test++;
+
+        if (aeroport == "Sao-Paulo") test++;
+
+        if(test == 0)
+        {
+            cout << "Enter a right name of an destination" << endl;
+            cin >> aeroport;
+        }
+    }
 }

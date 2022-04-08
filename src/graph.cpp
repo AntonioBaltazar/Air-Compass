@@ -114,7 +114,7 @@ void Graph::load_from_file(std::string _file_name) {
         getline(ifs, _str);
         vector<string> _strs = GraphReader::deserialize(_str);
         airports.push_back(new Airport(_strs[0], _strs[1], {stod(_strs[2]), stod(_strs[3])}, stoi(_strs[4]), stoi(_strs[5]),
-            stoi(_strs[6]), stoi(_strs[7]), stoi(_strs[8]), stoi(_strs[9]), stoi(_strs[10])));
+            stoi(_strs[6]), stoi(_strs[7]), stoi(_strs[8]), stoi(_strs[9]), stoi(_strs[10]), stoi(_strs[11]), stoi(_strs[12])));
     }
 
     // Reading all edges
@@ -142,7 +142,7 @@ void Graph::primMST(Vertice src) {
         int u = pq.top().first.get_num();
         pq.pop();
 
-        if (inMST[u]) continue;
+        if (inMST[u] == true) continue;
         inMST[u] = true;
 
         // Traverse all adjacent of vertice 'u'
@@ -150,9 +150,9 @@ void Graph::primMST(Vertice src) {
             int v = x.first.get_num();
             int weight = x.second;
 
-            if (!inMST[v] && key[v] > weight) {
+            if (inMST[v] == false && key[v] > weight) {
                 key[v] = weight;
-                pq.push(make_pair(Vertice(v), weight));
+                pq.push(make_pair(Vertice(v), key[v]));
                 parent[v] = u;
             } 
         }

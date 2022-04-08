@@ -13,6 +13,7 @@
 #include "gamewindow.h"
 #include "database.h"
 
+
 using namespace std;
 using namespace GraphReader;
 
@@ -20,31 +21,105 @@ void antonio() {
     // GameWindow menu("AirCompass", 1333, 900);
     // menu.menu();
 
-    Database datab;
-    datab.setup_db();
-    //  datab.read();
-    // datab.display();
+    Database datab("INSERT INTO Airplane(Name,Autonomy,Consumption,Tank_capacity,Seats) VALUES('Airbus-A380',15200,1575,310000,525);",false);
+    // datab.send_values();
+    // datab.send_values("INSERT INTO Airplane(Name,Autonomy,Consumption,Tank_capacity,Seats) VALUES('Airbus-A380',15200,1575,310000,525);");
+
+    //  datab.setup_db();
+    datab.read();
+    datab.display();
         
 }
 
 void martin() {
-    //Game g;
-    //g.start();
-    Graph g("graph.txt");
+    Game g;
+    g.start();
+    /*Graph g("graph.txt");
     g.display_graph();
-    g.primMST(Vertice(2));
+    //g.primMST(Vertice(0));
+    g.shortest_path(Vertice(0));
+   */
 }
 
 void arnaud() {
-    Airplane t;
-    t.choose();
 
+    GameWindow gwin("AirCompass", 1333, 900);
+    int number;
+    Airplane t;
+    system("clear");
+    cout << "[1] List of the plane\n";
+    cout << "[2] List of the airport\n";
+    cout << "[3] Start the simulation\n";
+    cout << "What is your choice?\n";
+    cin >> number;
+    
+    while( 4<=number >=1)
+    {
+        cout << "entre un bon chiffre"<< endl;
+        cin >> number;
+    }
+    system("clear");
+    if( number == 1)
+    {
+
+        int o=0;
+        for(int i=0;i<6;i++)
+        { 
+            gwin.getAerialNetwork().get_fleet()[i].display();
+        }
+        cout << "[1] Return\n";
+        cin >> o;
+        while(o != 1 )
+        {
+            cout << " Enter a right number" << endl;
+            cin >> o;
+        }
+        system("clear");
+        if(o==1)
+        {
+            arnaud();
+        }
+        
+    }
+    if( number == 2)
+    {
+        int o=0;
+        for(int i=0;i<=5;i++)
+        {
+            gwin.getAerialNetwork().get_airports()[i].display();
+        }
+        cout <<"[1] Return\n";
+        cin >> o;
+        
+        while (o!=1)
+        {
+            cout << "Enter a right number"<< endl; 
+            cin >> o;
+        }
+        
+        system("clear");
+        if(o==1)
+        {
+            
+            arnaud();
+        }
+        
+    }
+
+    if( number == 3)
+    {
+        t.plane();
+        t.choose_plane();
+        t.aeroport();
+        t.choose_airport();
+
+    }
 }
 
 int main(int argc, char *argv[]) {
 
     int choice = 0;
-
+    system("clear");
     do
     {
         cout << "\n\n\nAirCompass : \n[1] Tonio\n[2] Martin\n[3] Arnaud\n[4] Quitter\n ->";

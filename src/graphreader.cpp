@@ -29,7 +29,7 @@ vector<Airport> GraphReader::load_airports(std::string _file_name) {
         getline(ifs, _str);
         vector<string> _strs = deserialize(_str);
         airports.push_back(Airport(_strs[0], _strs[1], {stod(_strs[2]), stod(_strs[3])}, stoi(_strs[4]), stoi(_strs[5]),
-            stoi(_strs[6]), stoi(_strs[7]), stoi(_strs[8]), stoi(_strs[9]), stoi(_strs[10])));
+            stoi(_strs[6]), stoi(_strs[7]), stoi(_strs[8]), stoi(_strs[9]), stoi(_strs[10]), stoi(_strs[11]), stoi(_strs[12])));
     }
 
     // Reading all edges

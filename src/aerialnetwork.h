@@ -35,7 +35,7 @@ class AerialNetwork{
         //Methods
         void create_fleet();
         void create_fleet_db();
-        
+        void print_fleet();   
 };
 
     void request_data();
