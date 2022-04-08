@@ -11,6 +11,11 @@
 enum class Display { TOP_LEFT, TOP_RIGHT, CENTER, BOTTOM_LEFT, BOTTOM_RIGHT};
 enum class Element { SELECTOR_AIRPLANE, SELECTOR_AIRPORT, AIRPORT, TEXT, BACKGROUND, DEFAULT, IMAGE };
 
+struct Edge {
+    int src, dest, weigth;
+};
+
+
 struct PanelParams {
     bool _airplane_selector_open = false, _airport_selector_open = false, _need_panel_update = false;
 };
@@ -158,13 +163,16 @@ class GameWindow {
         void menu();
         void cursor_move(int choice);
         void run(std::string _path_image);
-        void render();
+        void render(std::vector<Edge> edges, Graph graph);
 
         void addRessource(Ressource _rsc) { m_ressources.push_back(_rsc); }
         bool isRessourceClicked(int _x, int _y);
         Ressource* getRessourceClicked(int _x, int _y);
         void updateTextures();
         void updateTexture(std::string _path);
+
+        // Visual
+        std::vector<Edge> drawGraph(Graph graph);
 
         // Handling events
         void handlePanels(Ressource* _clicked_ressource, PanelParams* _params);

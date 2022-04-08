@@ -27,6 +27,11 @@ void antonio() {
 void martin() {
     Game g;
     g.start();
+    /*Graph g("graph.txt");
+    g.display_graph();
+    //g.primMST(Vertice(0));
+    g.shortest_path(Vertice(0));
+   */
 }
 
 void arnaud() {
