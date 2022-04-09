@@ -4,6 +4,7 @@
 #include "simulation.h"
 #include "gamewindow.h"
 
+
 using namespace std;
 
 void Flight::next_step() { m_tick++; }
