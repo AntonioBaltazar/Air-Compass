@@ -1,14 +1,14 @@
 #ifndef UTILS_H_INCLUDED
 #define UTILS_H_INCLUDED
 
-#include "aerialnetwork.h"
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL.h"
+#include "database.h"
 
 namespace Utils {
     Airport* get_airport(int _num) {
-        AerialNetwork an;
-        an.create_fleet();
+        Database an(true);
+        
         if(_num >= 0 && _num < an.get_airports().size())
             return &an.get_airports()[_num];
         return NULL;

@@ -75,8 +75,8 @@ void Simulation::generate(int _nb_airplanes) {
 }   
 
 void Flight::display() {
-    AerialNetwork an;
-    an.create_fleet();
+    Database an(true);
+
     SDL_Log((an.get_airports()[m_edge.src].get_city() + "  --> " + an.get_airports()[m_edge.dest].get_city()).c_str());
     float pourcent = (float)m_tick/m_edge.weigth;
     SDL_Log((string(50*pourcent, '#') + string(50 - 50*pourcent, '-') + "\n\n").c_str());

@@ -11,6 +11,7 @@
 #include "aerialnetwork.h"
 #include "graph.h"
 #include "simulation.h"
+#include "database.h"
 
 enum class Display { TOP_LEFT, TOP_RIGHT, CENTER, BOTTOM_LEFT, BOTTOM_RIGHT};
 enum class Element { SELECTOR_AIRPLANE, SELECTOR_AIRPORT, AIRPORT, TEXT, BACKGROUND, DEFAULT, IMAGE };
@@ -94,7 +95,7 @@ class GameWindow {
         int m_screen_width, m_screen_height;
         std::vector<Ressource> m_ressources;
         std::vector<std::pair<SDL_Texture*, SDL_Rect>> m_textures;
-        AerialNetwork m_aerialnetwork = AerialNetwork();
+        Database m_aerialnetwork = Database(true);
         Airplane m_current_airplane;
         Airport m_current_airport;
         std::vector<Edge> m_edges;
@@ -120,7 +121,7 @@ class GameWindow {
         }
 
         // Getters
-        AerialNetwork& getAerialNetwork() { return m_aerialnetwork; }
+        Database& getAerialNetwork() { return m_aerialnetwork; }
 
         std::vector<Edge>& get_edges() { return m_edges; }
         Graph& get_graph() { return m_graph; }
