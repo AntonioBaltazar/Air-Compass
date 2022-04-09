@@ -1,9 +1,11 @@
 #include <math.h>
 #include "gamewindow.h"
 #include "graphicelement.h"
+#include "utils.h"
 #define M_PI           3.14159265358979323846
 
 using namespace std;
+using namespace Utils;
 
 void GameWindow::updateTextures() {
     m_textures.clear();
@@ -223,6 +225,13 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _param
         _need_panel_update = true;
     }
 
+    if (_clicked_ressource->get_text_params()._text == "Simulation aleatoire") {
+        SDL_Log("Simulation | / -");
+        m_simulation = Simulation(&m_aerialnetwork, &m_graph);
+        m_simulation.generate(10);
+        _need_panel_update = true;
+    }
+
     // Panel update
     if (_need_panel_update) {
         for (auto& el : m_ressources)
@@ -272,6 +281,20 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _param
                     TTF_CloseFont(font);
             }
         updateTextures();
+    }
+}
+
+void GameWindow::render_simulation() {
+    // Pour chaque trajet on affiche une lettre sur la ligne en fonction du nombre de tick puis incrémentation
+    for (auto& flight : m_simulation.get_flights()) {
+       // Coord src_c = flight.get_dest();
+       Airport* src = get_airport(flight.get_edge().src);
+       Airport* dest = get_airport(flight.get_edge().dest);
+
+       Coord src_c = {src->get_x(), src->get_y()};
+       Coord dest_c = {dest->get_x(), dest->get_y()};
+
+       
     }
 }
 
@@ -327,6 +350,8 @@ void GameWindow::render() {
         SDL_DestroyTexture(m_textures[0].first);
 
         render_edges();
+        if (m_simulation.is_running())
+            render_simulation();
 
         // Render others things
         for (auto i = m_textures.begin() + 1; i != m_textures.end(); i++) {

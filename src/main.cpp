@@ -35,11 +35,11 @@ void martin() {
     /* Game g;
     g.start(); */
     Graph g("graph.txt");
-    g.display_graph();
+    /* g.display_graph();
     //g.shortest_path(Vertice(0));
     cout << "Avant / Après\n";
     g.limitEdge(50);
-    g.display_graph();
+    g.display_graph(); */
     //g.primMST(Vertice(0));
 
 }

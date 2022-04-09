@@ -16,9 +16,6 @@ enum class Display { TOP_LEFT, TOP_RIGHT, CENTER, BOTTOM_LEFT, BOTTOM_RIGHT};
 enum class Element { SELECTOR_AIRPLANE, SELECTOR_AIRPORT, AIRPORT, TEXT, BACKGROUND, DEFAULT, IMAGE };
 enum class State { RUNNING, LEAVING, SIMULATE, CONFIG };
 
-struct Edge {
-    int src, dest, weigth;
-};
 
 struct PanelParams {
     bool _airplane_selector_open = false, _airport_selector_open = false, _need_panel_update = false;
@@ -158,6 +155,7 @@ class GameWindow {
         void updateGraph(); 
 
         // Visual
+        void render_simulation();
         std::vector<Edge> drawGraph(Graph graph);
 
         // Handling events
