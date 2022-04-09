@@ -18,10 +18,13 @@ class Flight {
 class Simulation {
     private:
         std::vector<Flight> m_flights;
+        bool m_running = false;
     public:
         Simulation() {}
         ~Simulation() {}
 
+        bool is_running() { return m_running; }
+        void set_running(bool _running) { m_running = _running; }
         // Methods
         void next_step();
         void generate(int _nb_airplanes);

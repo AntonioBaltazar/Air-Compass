@@ -13,7 +13,7 @@ void Simulation::generate(int _nb_airplanes) {
 
     m_flights.clear();
     for (int i = 0; i < _nb_airplanes; i ++) {
-        
-    }
 
-}
+    }
+    m_running = true;
+}   

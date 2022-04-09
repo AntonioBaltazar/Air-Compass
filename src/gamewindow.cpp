@@ -60,7 +60,7 @@ void GameWindow::launch()
                     current_state = State::LEAVING;
                     break;
                 case SDL_MOUSEMOTION:
-                    //SDL_Log("x: %d, y: %d\n", events.motion.x, events.motion.y);
+                    SDL_Log("x: %d, y: %d\n", events.motion.x, events.motion.y);
                     temp = getRessourceClicked(events.motion.x, events.motion.y);
                     if (temp != last_ressource) {
                         if (temp != NULL && temp->getElement() == Element::TEXT)
@@ -166,7 +166,7 @@ vector<Edge> GameWindow::drawGraph(Graph graph) {
     
     // Affichage des aéroports
     for (auto& el : graph.get_airports())
-        addRessource(Ressource("rsc/airport.gif", Display::CENTER, 63, 48, el->get_x(), el->get_y()));
+        addRessource(Ressource("rsc/airport.gif", Display::CENTER, 64, 48, el->get_x(), el->get_y()));
     
     // Affichage des arrêtes  
     vector<Edge> edges;
@@ -277,38 +277,45 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _param
 
 void GameWindow::render_edges() {
     m_graph_params._need_edges_update = false;
-    TTF_Init();
-    TTF_Font* _font = TTF_OpenFont("rsc/fonts/SFPro_Regular.ttf", 14);
-    if (_font == nullptr) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "#1 [DEBUG] > %s", TTF_GetError());
+    
 
-    SDL_SetRenderDrawColor(m_renderer, 253, 70, 38, 255);
+    SDL_SetRenderDrawColor(m_renderer, 229, 36, 36, 255);
     for (auto& edge : m_edges) {
+        
+        string text; 
+        text.append(to_string(edge.weigth*200));
+        text.append("km");
+        
+        TTF_Init();
+        int font_size = edge.weigth < 20 ? 10 : 16;
+        TTF_Font* _font = TTF_OpenFont("rsc/fonts/SFPro_Semibold.ttf", font_size);
+        if (_font == nullptr) return;
+        SDL_Surface* text_surface = TTF_RenderText_Blended(_font, text.c_str(), SDL_Color{229, 36, 36, 255});
+        TTF_CloseFont(_font);
 
         int x1 = m_graph.get_airports()[edge.src]->get_x();
         int y1 = m_graph.get_airports()[edge.src]->get_y();
         int x2 = m_graph.get_airports()[edge.dest]->get_x();
         int y2 = m_graph.get_airports()[edge.dest]->get_y();
 
-        int mid_x = (x1 + x2) / 2;
-        int mid_y = (y1 + y2) / 2;
+        int mid_x = (x1 + x2 - text_surface->w-2) / 2;
+        int mid_y = (y1 + y2 - text_surface->w-2) / 2;
 
         double angle_radian = atan2(y1 - y2, x1 - x2);    
         double angle = angle_radian * 180.0 / M_PI;
         angle = (angle < -90) ? angle + 180 : (angle > 90 ? angle - 180 : angle);
 
-        string text; 
-        text.append(to_string(edge.weigth*200));
-        text.append("km");
 
-        SDL_Surface* text_surface = TTF_RenderText_Blended(_font, text.c_str(), SDL_Color{0, 0, 0, 255});
         SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer, text_surface);
-        SDL_Rect rect{mid_x + 14*abs(sin(angle_radian)), mid_y + 14*abs(cos(angle_radian)), text_surface->w, text_surface->h};
+        SDL_FRect rect{mid_x + (float)font_size*abs(sin(angle_radian)), mid_y + (float)font_size*abs(cos(angle_radian)), text_surface->w, text_surface->h};
 
-        SDL_RenderCopyEx(m_renderer, texture, NULL, &rect, angle , NULL, SDL_RendererFlip());
-
+        SDL_RenderCopyExF(m_renderer, texture, NULL, &rect, angle, NULL, SDL_RendererFlip());
         SDL_RenderDrawLineF(m_renderer, x1, y1, x2, y2);
+
+        SDL_DestroyTexture( texture );
+        SDL_FreeSurface( text_surface );
     }
-    TTF_CloseFont(_font);
+    
 }
 
 void GameWindow::render() {
@@ -317,12 +324,15 @@ void GameWindow::render() {
 
         // Render background
         SDL_RenderCopy(m_renderer, m_textures[0].first, NULL, &(m_textures[0].second));
+        SDL_DestroyTexture(m_textures[0].first);
 
         render_edges();
 
         // Render others things
-        for (auto i = m_textures.begin() + 1; i != m_textures.end(); i++)
+        for (auto i = m_textures.begin() + 1; i != m_textures.end(); i++) {
             SDL_RenderCopy(m_renderer, (*i).first, NULL, &(*i).second);
+            SDL_DestroyTexture((*i).first);
+        }
 
         SDL_RenderPresent(m_renderer);  
         m_need_render = false;

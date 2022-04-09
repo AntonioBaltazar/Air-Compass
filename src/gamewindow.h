@@ -10,6 +10,7 @@
 #include <iostream>
 #include "aerialnetwork.h"
 #include "graph.h"
+#include "simulation.h"
 
 enum class Display { TOP_LEFT, TOP_RIGHT, CENTER, BOTTOM_LEFT, BOTTOM_RIGHT};
 enum class Element { SELECTOR_AIRPLANE, SELECTOR_AIRPORT, AIRPORT, TEXT, BACKGROUND, DEFAULT, IMAGE };
@@ -25,10 +26,6 @@ struct PanelParams {
 
 struct GraphParams {
     bool _need_edges_update = false;
-};
-
-struct Color {
-
 };
 
 struct Text_Params {
@@ -107,6 +104,8 @@ class GameWindow {
         Graph m_graph, m_displayed_graph;
         GraphParams m_graph_params;
         bool m_need_render;
+
+        Simulation m_simulation;
     public:
         // Constructors & Destructor
         GameWindow(std::string _window_name, int _screen_width, int _screen_height) : m_screen_width(_screen_width), m_screen_height(_screen_height) {
