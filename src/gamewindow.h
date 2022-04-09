@@ -8,7 +8,6 @@
 
 #include <vector>
 #include <iostream>
-#include "aerialnetwork.h"
 #include "graph.h"
 #include "simulation.h"
 #include "database.h"
