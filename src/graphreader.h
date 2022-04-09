@@ -14,6 +14,7 @@ namespace GraphReader {
     void load_graph(std::string _file_name, Graph& _graph);
     std::vector<Airport> load_airports(std::string _file_name);
     std::vector<std::string> deserialize(std::string _str);
+    std::vector<Airplane> read_plane_txt_file();
 };
 
 std::vector<Airplane> read_plane_file();

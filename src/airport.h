@@ -54,7 +54,21 @@ class Airport {
 
         // Methods
         void addAdjacentAirport(Airport* _airport, int _weight) { m_adj_airports.push_back(std::make_pair(_airport, _weight)); }
-        void display() { std::cout << m_name << "\n"; }
+        void display() { 
+            std::cout << "Name : " << get_name() << std::endl;
+            std::cout << "City : " << get_city() << std::endl;
+            std::cout << "Latitutde : " << get_location().latitude << std::endl;
+            std::cout << "Longitude : " << get_location().longtitude << std::endl;
+            std::cout << "Nb of runaways : " << get_nb_runway() << std::endl;
+            std::cout << "Nb of parking spots : " << get_nb_parking() << std::endl;
+            std::cout << "Delay between flight : " << get_delay_between_flights() << std::endl;
+            std::cout << "Standby flight time : " << get_standby_flight_time() << std::endl;
+            std::cout << "Delay parking to runaway : " << get_delay_parking_to_runway() << std::endl;
+            std::cout << "Delay landing : " << get_delay_landing() << std::endl;
+            std::cout << "Delay anticolision : " << get_delay_anticollision() << std::endl;
+            std::cout << "X : " << get_x() << std::endl;
+            std::cout << "Y : " << get_y() << std::endl;              
+        }
 };
 
 #endif // AIRPORT_H_INCLUDED

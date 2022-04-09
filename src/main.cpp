@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <ncurses.h>
-#include <SDL2/SDL_ttf.h>
 #include "airplane.h"
 #include "airport.h"
 #include "graph.h"
@@ -9,10 +8,8 @@
 #include "aerialnetwork.h"
 #include "travel.h"
 #include "game.h"
-#include "graphicelement.h"
 #include "gamewindow.h"
 #include "database.h"
-
 
 using namespace std;
 using namespace GraphReader;
@@ -20,15 +17,8 @@ using namespace GraphReader;
 void antonio() {
     // GameWindow menu("AirCompass", 1333, 900);
     // menu.menu();
+    Database datab(false);
 
-    Database datab("INSERT INTO Airplane(Name,Autonomy,Consumption,Tank_capacity,Seats) VALUES('Airbus-A380',15200,1575,310000,525);",false);
-    // datab.send_values();
-    // datab.send_values("INSERT INTO Airplane(Name,Autonomy,Consumption,Tank_capacity,Seats) VALUES('Airbus-A380',15200,1575,310000,525);");
-
-    //  datab.setup_db();
-    datab.read();
-    datab.display();
-        
 }
 
 void martin() {
@@ -60,7 +50,7 @@ void arnaud() {
     cout << "What is your choice?\n";
     cin >> number;
     
-    while( 4<=number >=1)
+    while( 4<=number && number>=1)
     {
         cout << "entre un bon chiffre"<< endl;
         cin >> number;

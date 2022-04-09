@@ -97,7 +97,7 @@ void GraphReader::fget_int(ifstream& _ifs, std::string _error, vector<int*> _arg
     }
 }
 
-vector<Airplane> read_plane_file() {
+vector<Airplane> GraphReader::read_plane_txt_file() {
     ifstream file("planes.txt");
     vector<Airplane> planes;
     Airplane temp;

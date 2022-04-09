@@ -16,14 +16,13 @@ class AerialNetwork{
 
         //Constructor 
         AerialNetwork() {
-            set_airports(GraphReader::load_airports("graph.txt"));
-            create_fleet();
+            
         };
         ~AerialNetwork() {};
         
         //Getters
-        std::vector<Airplane> get_fleet() const { return m_fleet; }
         //std::vector<Airplane> get_airplanes() const { return m_airplanes; }
+        std::vector<Airplane> get_fleet() const { return m_fleet; }
         std::vector<Airport> get_airports() const { return m_airports; }
         std::vector<Travel> get_travel_book() const { return m_travel_book; }
     
@@ -38,7 +37,4 @@ class AerialNetwork{
         void print_fleet();   
 };
 
-    void request_data();
-
-    static int callback(void *NotUsed, int argc, char **argv, char **azColName);
 #endif // AERIALNETWORK_H_INCLUDED
