@@ -22,25 +22,28 @@ void antonio() {
 }
 
 void martin() {
-    Game g;
-    g.start();
-    /*Graph g("graph.txt");
-    g.display_graph();
+    /* Game g;
+    g.start(); */
+    Graph g("graph.txt");
+    /* g.display_graph();
+    //g.shortest_path(Vertice(0));
+    cout << "Avant / Après\n";
+    g.limitEdge(50);
+    g.display_graph(); */
     //g.primMST(Vertice(0));
-    g.shortest_path(Vertice(0));
-   */
+
 }
 
 void total() {
-    GameWindow menu("AirCompass", 1333, 900);
+    GameWindow menu("AirCompass", 1333, 800);
+    menu.launch();
     // create_db_plane();
     //setup_db();
-    menu.menu();
 }
 
 void arnaud() {
 
-    GameWindow gwin("AirCompass", 1333, 900);
+    GameWindow gwin("AirCompass", 1333, 800);
     int number;
     Airplane t;
     system("clear");

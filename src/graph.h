@@ -24,6 +24,10 @@ struct comparePi {
     }
 };
 
+struct Edge {
+    int src, dest, weigth;
+};
+
 class Graph {
     private:
         int m_nb_vertices;
@@ -55,6 +59,8 @@ class Graph {
         void DFSUtil(int u, std::vector<bool>& visited);
         void shortest_path(Vertice src);
         void primMST(Vertice src);
+        void limitEdge(int _lim);
+        std::vector<Edge> get_edges(); 
 };
 
 #endif // AIRPORT_H_INCLUDED

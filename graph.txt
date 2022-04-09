@@ -1,12 +1,19 @@
 0
-6
-7
-{"Paris-Charles-de-Gaulle","Paris","49.009691","2.547925","4","10","6","3","1","0","0","639","329"}
-{"Aeroport international John F. Kennedy","New York","40.641766", "-73.780968","4","11","6","4","1","0","0","315","376"}
-{"Kingsford Smith International Airport","Sydney","-33.947346","151.179428","3","7","5","3","1","0","0","1248","736"}
-{"Aeroport international de Shanghai-Pudong","Shanghai", "31.14340","121.80500","5","20","4","4","1","0","0","1129","422"}
-{"Aeroport international OR Tambo de Johannesbourg","Johannesbourg","-26.134789","28.240528","2","6","3","4","1","0","0","744","676"}
-{"Aeroport international de Sao Paulo/Guarulhos","Sao Paulo","-23.43455","-46.47813","4","317","2","6","3","4","1","438","681"}
+13
+16
+{"Paris-Charles-de-Gaulle","Paris","49.009691","2.547925","4","10","6","3","1","0","0","672","316"}
+{"Aeroport international John F. Kennedy","New York","40.641766", "-73.780968","4","11","6","4","1","0","0","362","351"}
+{"Kingsford Smith International Airport","Sydney","-33.947346","151.179428","3","7","5","3","1","0","0","1283","671"}
+{"Aeroport international de Shanghai-Pudong","Shanghai", "31.14340","121.80500","5","20","4","4","1","0","0","1163","399"}
+{"Aeroport international OR Tambo de Johannesbourg","Johannesbourg","-26.134789","28.240528","2","6","3","4","1","0","0","775","644"}
+{"Aeroport international de Sao Paulo/Guarulhos","Sao Paulo","-23.43455","-46.47813","4","317","2","6","3","4","1","467","626"}
+{"Aeroport international de Dubai","Dubai","-23.43455","-46.47813","4","317","2","6","3","4","1","891","422"}
+{"Aeroport international de Narita","Japon","-23.43455","-46.47813","4","317","2","6","3","4","1","1240","377"}
+{"Aeroport international de Los Angelers","Los Angeles","-23.43455","-46.47813","4","317","2","6","3","4","1","177","383"}
+{"Aeroport d'Helsinki-Vantaa","Finland","-23.43455","-46.47813","4","317","2","6","3","4","1","756","233"}
+{"Station Nord","Groenland","-23.43455","-46.47813","4","317","2","6","3","4","1","585","84"}
+{"Aeroport de Narsarsuaq","Groenland","-23.43455","-46.47813","4","317","2","6","3","4","1","469","233"}
+{"Aeroport de Maniitsoq","Groenland","-23.43455","-46.47813","4","317","2","6","3","4","1","435","160"}
 0 1 29
 0 3 46
 1 3 59
@@ -14,3 +21,12 @@
 3 5 92
 1 5 39
 4 5 37
+10 11 12
+11 12 6
+0 9 10
+9 10 10
+9 7 38
+7 2 39
+1 8 20
+8 5 49
+6 2 60
