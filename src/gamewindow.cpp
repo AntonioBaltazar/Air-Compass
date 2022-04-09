@@ -147,7 +147,7 @@ void GameWindow::run() {
         if (m_simulation.is_running()) {
             m_simulation.next_step();
             SDL_Delay(1);
-            SDL_Log("Next step");
+            //SDL_Log("Next step");
         }
         render();
     }

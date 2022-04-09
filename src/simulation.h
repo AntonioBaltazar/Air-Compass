@@ -20,7 +20,7 @@ class Flight {
         ~Flight() {}
         Airplane& get_airplane() { return m_airplane; }
         Edge& get_edge() { return m_edge; }
-        int get_tick() { return m_tick; }
+        int get_tick() const { return m_tick; }
         void display();
         void next_step();
 };
@@ -34,7 +34,7 @@ class Simulation {
     public:
         Simulation() {}
         Simulation(AerialNetwork* _aerial_network, Graph* _graph) : m_aerial_network(_aerial_network), m_graph(_graph) {
-            srand(time(NULL));
+           // srand(time(NULL));
         }
         ~Simulation() {}
         // Getters & Setters
