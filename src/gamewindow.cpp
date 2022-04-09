@@ -144,6 +144,11 @@ void GameWindow::run() {
                 default: break;
             }
         }
+        if (m_simulation.is_running()) {
+            m_simulation.next_step();
+            SDL_Delay(1);
+            SDL_Log("Next step");
+        }
         render();
     }
 }
@@ -287,14 +292,30 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _param
 void GameWindow::render_simulation() {
     // Pour chaque trajet on affiche une lettre sur la ligne en fonction du nombre de tick puis incrémentation
     for (auto& flight : m_simulation.get_flights()) {
-       // Coord src_c = flight.get_dest();
-       Airport* src = get_airport(flight.get_edge().src);
-       Airport* dest = get_airport(flight.get_edge().dest);
+        double pourcent = (double)flight.get_tick()/flight.get_edge().weigth;
+        if (pourcent == 1) continue;
+        Airport* src = get_airport(flight.get_edge().src);
+        Airport* dest = get_airport(flight.get_edge().dest);
 
-       Coord src_c = {src->get_x(), src->get_y()};
-       Coord dest_c = {dest->get_x(), dest->get_y()};
+        Coord src_c = {src->get_x(), src->get_y()};
+        Coord dest_c = {dest->get_x(), dest->get_y()};
 
-       
+        double angle = atan2(dest_c.y - src_c.y, dest_c.x - src_c.x);
+        double angle_n = angle * 180.0 / M_PI;
+        double hyp = (double)pourcent*sqrt(pow(dest_c.y - src_c.y, 2) + pow(dest_c.x - src_c.x, 2));
+        //SDL_Log("%f et %f", hyp, sqrt(pow(src_c.y - dest_c.y , 2) + pow(-dest_c.x + src_c.x, 2)));
+
+        int x = hyp*cos(angle);
+        int y = hyp*sin(angle);
+
+        /* SDL_Log("Tracage avion src:");
+        SDL_Log("x:%d y:%d", src_c.x, src_c.y); */
+        
+        SDL_Texture* texture = IMG_LoadTexture(m_renderer, string("rsc/airplane.svg"));
+        SDL_FRect rect{src_c.x+ x -15, src_c.y + y - 15, 30, 30};
+ 
+        SDL_RenderCopyExF(m_renderer, texture, NULL, &rect, angle_n+147, NULL, SDL_RendererFlip());
+        SDL_DestroyTexture( texture );
     }
 }
 
@@ -342,7 +363,8 @@ void GameWindow::render_edges() {
 }
 
 void GameWindow::render() {
-    if (m_need_render) {
+    if (m_need_render || m_simulation.is_running()) {
+        updateTextures();
         SDL_RenderClear(m_renderer);
 
         // Render background
