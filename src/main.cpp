@@ -45,7 +45,7 @@ void martin() {
 }
 
 void total() {
-    GameWindow menu("AirCompass", 1333, 900);
+    GameWindow menu("AirCompass", 1333, 800);
     menu.launch();
     // create_db_plane();
     //setup_db();
@@ -53,7 +53,7 @@ void total() {
 
 void arnaud() {
 
-    GameWindow gwin("AirCompass", 1333, 900);
+    GameWindow gwin("AirCompass", 1333, 800);
     int number;
     Airplane t;
     system("clear");

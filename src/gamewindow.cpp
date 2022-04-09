@@ -1,8 +1,3 @@
-#include <iostream>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
-#include <map>
 #include <math.h>
 #include "gamewindow.h"
 #include "graphicelement.h"
@@ -11,14 +6,14 @@
 using namespace std;
 
 void GameWindow::updateTextures() {
-    getTextures().clear();
-    for (auto& el : getRessources())
+    m_textures.clear();
+    for (auto& el : m_ressources)
         if (!el.get_event_config()._renderable) continue;
         else if (el.getElement() == Element::IMAGE)
-            getTextures().push_back(make_pair(SDL_CreateTextureFromSurface(getRender(), el.getSurface()), 
+            m_textures.push_back(make_pair(SDL_CreateTextureFromSurface(m_renderer, el.getSurface()), 
                 SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getWidth(), el.getHeight()}));
         else if (el.getElement() == Element::TEXT || el.getElement() == Element::SELECTOR_AIRPLANE || el.getElement() == Element::SELECTOR_AIRPORT)
-            getTextures().push_back(make_pair(SDL_CreateTextureFromSurface(getRender(), el.getSurface()), 
+            m_textures.push_back(make_pair(SDL_CreateTextureFromSurface(m_renderer, el.getSurface()), 
                 SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getWidth(), el.getHeight()}));
     m_need_render =  true;
 }
@@ -26,29 +21,29 @@ void GameWindow::updateTextures() {
 void GameWindow::updateTexture(std::string _path) {
     Ressource* tmp = NULL;
     int i = 0;
-    for (auto& el : getRessources()) 
+    for (auto& el : m_ressources) 
         if (el.getPath() == _path) {
             tmp = &el;
             i++;
         }
     if (tmp == NULL) return;
-    getTextures()[i] = make_pair(SDL_CreateTextureFromSurface(getRender(), tmp->getSurface()), 
+    m_textures[i] = make_pair(SDL_CreateTextureFromSurface(m_renderer, tmp->getSurface()), 
             SDL_Rect{tmp->getRelativeX(), tmp->getRelativeY(), tmp->getWidth(), tmp->getHeight()});
 }
 
 void GameWindow::launch()
 {
     // Adding differents ressources
-    addRessource(Ressource("rsc/menu.jpg", Display::TOP_LEFT, 1333, 900, 0, 0, {false, true}));
+    addRessource(Ressource("rsc/menu2.jpg", Display::TOP_LEFT, m_screen_width, m_screen_height, 0, 0, {false, true}));
     // Texts
     addRessource(Ressource(Element::TEXT, "Simulation", "SFPro_Semibold", 24, Display::CENTER, 
-        getWidth()/2, (getHeight()/2)-25, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
+        m_screen_width/2, (m_screen_height/2)-25, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
     addRessource(Ressource(Element::TEXT, "Configuration", "SFPro_Semibold", 24, Display::CENTER, 
-        getWidth()/2, (getHeight()/2)+15, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
+        m_screen_width/2, (m_screen_height/2)+15, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
     addRessource(Ressource(Element::TEXT, "Credits", "SFPro_Semibold", 24, Display::CENTER, 
-        getWidth()/2, (getHeight()/2)+55, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
+        m_screen_width/2, (m_screen_height/2)+55, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
     addRessource(Ressource(Element::TEXT, "Quitter", "SFPro_Semibold", 24, Display::CENTER, 
-        getWidth()/2, (getHeight()/2)+95, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
+        m_screen_width/2, (m_screen_height/2)+95, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
 
     updateTextures();
     Ressource* last_ressource = NULL;
@@ -65,9 +60,12 @@ void GameWindow::launch()
                     current_state = State::LEAVING;
                     break;
                 case SDL_MOUSEMOTION:
+                    //SDL_Log("x: %d, y: %d\n", events.motion.x, events.motion.y);
                     temp = getRessourceClicked(events.motion.x, events.motion.y);
                     if (temp != last_ressource) {
-                        for (auto& el : getRessources()) 
+                        if (temp != NULL && temp->getElement() == Element::TEXT)
+                            play_sound("hovering.mp3", 30, false);
+                        for (auto& el : m_ressources) 
                             if (el.getElement() == Element::TEXT) {
                                 TTF_Init();
                                 TTF_Font* font = TTF_OpenFont(("rsc/fonts/" + string(el.get_text_params()._font) + ".ttf").c_str(), el.get_text_params()._font_size);
@@ -95,8 +93,8 @@ void GameWindow::launch()
 }
 
 void GameWindow::run() {
-    getRessources().clear();
-    addRessource(Ressource("rsc/realmap.jpg", Display::TOP_LEFT, 1333, 900, 0, 0, {false, true}));
+    m_ressources.clear();
+    addRessource(Ressource("rsc/realmap.jpg", Display::TOP_LEFT, m_screen_width, m_screen_height, 0, 0, {false, true}));
 
     // Add resssources from graph
     get_graph().load_from_file("graph.txt");
@@ -107,6 +105,8 @@ void GameWindow::run() {
         20, m_screen_height - 40, {255, 255, 255}, {0, 255, 255}, {0, 255, 255}));
     addRessource(Ressource(Element::TEXT, "Selectionner l'aeroport", "SFPro_Regular", 18, Display::TOP_LEFT, 
         20, m_screen_height - 76, {255, 255, 255}, {0, 255, 255}, {0, 255, 255}));
+    addRessource(Ressource(Element::TEXT, "Simulation aleatoire", "SFPro_Regular", 18, Display::TOP_LEFT, 
+        m_screen_width - 200, m_screen_height - 40, {255, 255, 255}, {0, 255, 255}, {0, 255, 255}));
 
     int count(0);
     for (auto& el : getAerialNetwork().get_fleet()) {
@@ -147,7 +147,7 @@ void GameWindow::run() {
 }
 
 Ressource* GameWindow::getRessourceClicked(int _x, int _y) {
-    for (auto& el : getRessources())
+    for (auto& el : m_ressources)
         if (el.get_event_config()._clickable)
             if (_x >= el.getRelativeX() && _x < el.getRelativeX() + el.getWidth() && _y >= el.getRelativeY() && _y < el.getRelativeY() + el.getHeight())
                 return &el;
@@ -155,7 +155,7 @@ Ressource* GameWindow::getRessourceClicked(int _x, int _y) {
 }
 
 bool GameWindow::isRessourceClicked(int _x, int _y) {
-    for (auto& el : getRessources())
+    for (auto& el : m_ressources)
         if (el.get_event_config()._clickable)
             if (_x >= el.getRelativeX() && _x < el.getRelativeX() + el.getWidth() && _y >= el.getRelativeY() && _y < el.getRelativeY() + el.getHeight())
                 return true;
@@ -193,9 +193,8 @@ State GameWindow::handle_click_on_menu(Ressource* _clicked_ressource) {
     string _str = _clicked_ressource->get_text_params()._text;
     if ( _str == "Quitter")
         return State::LEAVING;
-    else if (_str == "Simulation") {
+    else if (_str == "Simulation")
         return State::SIMULATE;
-    }
     return State::RUNNING;
 }
 
@@ -226,15 +225,13 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _param
 
     // Panel update
     if (_need_panel_update) {
-        for (auto& el : getRessources()) {
-            if (el.getElement() == Element::SELECTOR_AIRPLANE) {
+        for (auto& el : m_ressources)
+            if (el.getElement() == Element::SELECTOR_AIRPLANE)
                 el.get_event_config() = {_params->_airplane_selector_open, _params->_airplane_selector_open};
-            } else if (el.getElement() == Element::SELECTOR_AIRPORT) {
+            else if (el.getElement() == Element::SELECTOR_AIRPORT)
                 el.get_event_config() = {_params->_airport_selector_open, _params->_airport_selector_open};
-            } else if (el.get_text_params()._text == "Selectionner l'aeroport") {
+            else if (el.get_text_params()._text == "Selectionner l'aeroport")
                 el.get_event_config() = {!_params->_airplane_selector_open, !_params->_airplane_selector_open};
-            } 
-        }
         updateTextures();
     }
 
@@ -264,14 +261,14 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _param
 
     // Updating text color
     if (_need_text_update) {
-        for (auto& el : getRessources()) 
+        for (auto& el : m_ressources) 
             if (el.getElement() == Element::SELECTOR_AIRPLANE || el.getElement() == Element::SELECTOR_AIRPORT) {
                     if (TTF_Init() < 0) return;
                     TTF_Init();
                     TTF_Font* font = TTF_OpenFont(("rsc/fonts/" + std::string(el.get_text_params()._font) + ".ttf").c_str(), el.get_text_params()._font_size);
                     if (font != NULL)
-                        el.setSurface(TTF_RenderText_Blended(font, el.get_text_params()._text.c_str(), (el.get_text_params()._text == get_current_airplane().get_name() 
-                        || el.get_text_params()._text == get_current_airport().get_name() ) ? el.get_text_params()._active_color : el.get_text_params()._default_color));
+                        el.setSurface(TTF_RenderText_Blended(font, el.get_text_params()._text.c_str(), (el.get_text_params()._text == m_current_airplane.get_name() 
+                        || el.get_text_params()._text == m_current_airport.get_name() ) ? el.get_text_params()._active_color : el.get_text_params()._default_color));
                     TTF_CloseFont(font);
             }
         updateTextures();
@@ -279,12 +276,12 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _param
 }
 
 void GameWindow::render_edges() {
-    if (TTF_Init() < 0) return;
     m_graph_params._need_edges_update = false;
-    TTF_Font* _font = TTF_OpenFont("rsc/fonts/SFPro_Regular.ttf", 18);
+    TTF_Init();
+    TTF_Font* _font = TTF_OpenFont("rsc/fonts/SFPro_Regular.ttf", 14);
     if (_font == nullptr) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "#1 [DEBUG] > %s", TTF_GetError());
 
-    SDL_SetRenderDrawColor(getRender(), 253, 70, 38, 255);
+    SDL_SetRenderDrawColor(m_renderer, 253, 70, 38, 255);
     for (auto& edge : m_edges) {
 
         int x1 = m_graph.get_airports()[edge.src]->get_x();
@@ -295,39 +292,60 @@ void GameWindow::render_edges() {
         int mid_x = (x1 + x2) / 2;
         int mid_y = (y1 + y2) / 2;
 
-        double angle = atan2(y1 - y2, x1 - x2) * 180.0 / M_PI;
+        double angle_radian = atan2(y1 - y2, x1 - x2);    
+        double angle = angle_radian * 180.0 / M_PI;
         angle = (angle < -90) ? angle + 180 : (angle > 90 ? angle - 180 : angle);
 
         string text; 
         text.append(to_string(edge.weigth*200));
         text.append("km");
 
-        SDL_Surface* text_surface = TTF_RenderText_Blended(_font, text.c_str(), SDL_Color{253, 70, 38, 255});
-        SDL_Texture*  texture = SDL_CreateTextureFromSurface(getRender(), text_surface);
-        SDL_Rect rect{mid_x, mid_y, text_surface->w, text_surface->h};
+        SDL_Surface* text_surface = TTF_RenderText_Blended(_font, text.c_str(), SDL_Color{0, 0, 0, 255});
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer, text_surface);
+        SDL_Rect rect{mid_x + 14*abs(sin(angle_radian)), mid_y + 14*abs(cos(angle_radian)), text_surface->w, text_surface->h};
 
-        SDL_RenderCopyEx(getRender(), texture, NULL, &rect, angle , NULL, SDL_RendererFlip());
+        SDL_RenderCopyEx(m_renderer, texture, NULL, &rect, angle , NULL, SDL_RendererFlip());
 
-        SDL_RenderDrawLineF(getRender(), x1, y1, x2, y2);
+        SDL_RenderDrawLineF(m_renderer, x1, y1, x2, y2);
     }
-
+    TTF_CloseFont(_font);
 }
 
 void GameWindow::render() {
     if (m_need_render) {
-        SDL_Log("Rendering\n");
-        SDL_RenderClear(getRender());
+        SDL_RenderClear(m_renderer);
 
         // Render background
-        SDL_RenderCopy(getRender(), getTextures()[0].first, NULL, &(getTextures()[0].second));
+        SDL_RenderCopy(m_renderer, m_textures[0].first, NULL, &(m_textures[0].second));
 
         render_edges();
 
         // Render others things
-        for (auto i = getTextures().begin() + 1; i != getTextures().end(); i++)
-            SDL_RenderCopy(getRender(), (*i).first, NULL, &(*i).second);
+        for (auto i = m_textures.begin() + 1; i != m_textures.end(); i++)
+            SDL_RenderCopy(m_renderer, (*i).first, NULL, &(*i).second);
 
-        SDL_RenderPresent(getRender());  
+        SDL_RenderPresent(m_renderer);  
         m_need_render = false;
     }
+}
+
+void GameWindow::play_sound(string _music_name, int _volume, bool _loop) {
+    if (Mix_OpenAudio(96000, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) < 0)
+    {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur initialisation SDL_mixer : %s", Mix_GetError());
+        SDL_Quit();
+        return;
+    }
+
+    Mix_Music* music = Mix_LoadMUS(("rsc/sounds/" + std::string(_music_name)).c_str()); // Charge notre musique
+
+    if (music == nullptr)
+    {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur chargement de la musique : %s", Mix_GetError());
+        Mix_CloseAudio();
+        SDL_Quit();
+        return;
+    }
+    Mix_VolumeMusic(_volume);
+    Mix_PlayMusic(music, (_loop ? -1 : 0)); // Joue notre musique 
 }
