@@ -20,7 +20,6 @@ void GameWindow::updateTextures() {
         else if (el.getElement() == Element::TEXT || el.getElement() == Element::SELECTOR_AIRPLANE || el.getElement() == Element::SELECTOR_AIRPORT)
             m_textures.push_back(make_pair(SDL_CreateTextureFromSurface(m_renderer, el.getSurface()), 
                 SDL_Rect{el.getRelativeX(), el.getRelativeY(), el.getWidth(), el.getHeight()}));
-    m_need_render =  true;
 }
 
 void GameWindow::updateTexture(std::string _path) {
@@ -50,7 +49,7 @@ void GameWindow::launch() {
     addRessource(Ressource(Element::TEXT, "Quitter", "SFPro_Semibold", 30, Display::CENTER, 
         m_screen_width/2, (m_screen_height/2)+145, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
 
-    updateTextures();
+    m_need_render = true;
     Ressource* last_ressource = NULL;
 
     // Events managing
@@ -78,7 +77,7 @@ void GameWindow::launch() {
                                     (el.get_text_params()._text == temp->get_text_params()._text ? el.get_text_params()._hover_color : el.get_text_params()._default_color)));
                                 TTF_CloseFont(font);
                             }
-                        updateTextures();
+                        m_need_render = true;
                         last_ressource = temp;
                     }
                     break;
@@ -144,7 +143,7 @@ void GameWindow::run() {
     }
 
     PanelParams _params;
-    updateTextures();
+    m_need_render = true;
     Ressource* last_ressource = NULL;
 
     SDL_Event events;
@@ -172,24 +171,27 @@ void GameWindow::run() {
                                     (el.get_text_params()._text == temp->get_text_params()._text ? el.get_text_params()._hover_color : el.get_text_params()._default_color)));
                                 TTF_CloseFont(font);
                             }
-                        updateTextures();
+                        m_need_render = true;
                         last_ressource = temp;
                     }
                 case SDL_MOUSEBUTTONDOWN:
-                    if (events.button.button == SDL_BUTTON_LEFT && isRessourceClicked(events.motion.x, events.motion.y)) {
+                    if (events.button.button == SDL_BUTTON_LEFT)
+                        if(isRessourceClicked(events.motion.x, events.motion.y)) {
                         Ressource* tmp = getRessourceClicked(events.motion.x, events.motion.y, 0);
-                        if (tmp != NULL)
-                            if (tmp->get_text_params()._text == "Retour")
-                                current = State::CONFIG;
-                        handlePanels(tmp, &_params);
-                    } else {
-                        if (m_airport_to_display != NULL) {
-                            m_airport_to_display = NULL;
-                            updateTextures();
+                            if (tmp != NULL)
+                                if (tmp->get_text_params()._text == "Retour")
+                                    current = State::CONFIG;
+                            handlePanels(tmp, &_params);
+                        } else {
+                            if (m_airport_to_display != NULL) {
+                                SDL_Log("debugging");
+                                m_airport_to_display = NULL;
+                                m_need_render = true;
+                            }
                         }
-                    }
                     break;
                 default: break;
+                
             }
         }
         if (m_simulation.is_running()) {
@@ -285,7 +287,7 @@ int GameWindow::display_credit(bool credit)
 
     m_ressources[0].get_event_config()._clickable = false;
   
-    updateTextures();
+    m_need_render = true;
     Ressource* last_ressource = NULL;
 
     SDL_Event events;
@@ -313,7 +315,7 @@ int GameWindow::display_credit(bool credit)
                                     (el.get_text_params()._text == temp->get_text_params()._text ? el.get_text_params()._hover_color : el.get_text_params()._default_color)));
                                 TTF_CloseFont(font);
                             }
-                        updateTextures();
+                        m_need_render = true;
                         last_ressource = temp;
                     }
                     break;
@@ -346,7 +348,6 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _param
 
     if (_clicked_ressource->getElement() == Element::IMAGE &&
         _clicked_ressource->getPath() == "rsc/airport.gif") {
-            SDL_Log("airportclicked");
             m_airport_to_display = _clicked_ressource;
             _need_panel_update = true;
         }
@@ -380,7 +381,7 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _param
                 el.get_event_config() = {_params->_airport_selector_open, _params->_airport_selector_open};
             else if (el.get_text_params()._text == "Selectionner l'aeroport")
                 el.get_event_config() = {!_params->_airplane_selector_open, !_params->_airplane_selector_open};
-        updateTextures();
+        m_need_render = true;
     }
 
     bool _need_text_update = false;
@@ -419,7 +420,7 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _param
                         || el.get_text_params()._text == m_current_airport.get_name() ) ? el.get_text_params()._active_color : el.get_text_params()._default_color));
                     TTF_CloseFont(font);
             }
-        updateTextures();
+        m_need_render = true;
     }
 }
 
@@ -515,6 +516,9 @@ void GameWindow::render() {
 
         SDL_RenderPresent(m_renderer);  
         m_need_render = false;
+        for (auto& txt : m_textures) {
+            SDL_DestroyTexture(txt.first);
+        }
     }
 }
 
