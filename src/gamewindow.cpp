@@ -35,14 +35,8 @@ void GameWindow::updateTexture(std::string _path) {
 }
 
 void GameWindow::launch()
-<<<<<<< HEAD
 {   
-    //play_sound("theme.mp3", 10, -1);
-    playMusic("rsc/sounds/theme.wav", SDL_MIX_MAXVOLUME * 0.24);
-=======
-{
     m_ressources.clear();
->>>>>>> 6d74f258b83a2b73e78b2c7cf79d3701d2b43159
     // Adding differents ressources
     addRessource(Ressource("rsc/menu2.jpg", Display::TOP_LEFT, m_screen_width, m_screen_height, 0, 0, {false, true}));
     // Texts
@@ -70,12 +64,10 @@ void GameWindow::launch()
                     current_state = State::LEAVING;
                     break;
                 case SDL_MOUSEMOTION:
-                    //SDL_Log("x: %d, y: %d\n", events.motion.x, events.motion.y);
                     temp = getRessourceClicked(events.motion.x, events.motion.y);
                     if (temp != last_ressource) {
                         if (temp != NULL && temp->getElement() == Element::TEXT)
                             playSound("rsc/sounds/hovering.wav", SDL_MIX_MAXVOLUME);
-                            //play_sound("hovering.mp3", 30, false);
                         for (auto& el : m_ressources) 
                             if (el.getElement() == Element::TEXT) {
                                 TTF_Init();
@@ -251,7 +243,7 @@ int GameWindow::display_credits()
                    
                     if (temp != last_ressource) {
                         if (temp != NULL && temp->getElement() == Element::TEXT)
-                            play_sound("hovering.mp3", 30, false);
+                            playSound("rsc/sounds/hovering.wav", SDL_MIX_MAXVOLUME);
                         for (auto& el : m_ressources) 
                             if (el.get_text_params()._text == "Retour") {
                                 TTF_Init();
@@ -382,20 +374,19 @@ void GameWindow::render_simulation() {
         int x = hyp*cos(angle);
         int y = hyp*sin(angle);
 
+        string str = "rsc/airplanes/" + to_string(flight.get_color()) +  ".svg";
         /* SDL_Log("Tracage avion src:");
         SDL_Log("x:%d y:%d", src_c.x, src_c.y); */
-        std::random_device dev;
-        std::mt19937 rng(dev());
-        std::uniform_int_distribution<std::mt19937::result_type> dist6(1, 5); // distribution in range [1, 6]
-        string str = "rsc/airplanes/";
-        str.append("" + dist6(rng));
-        str.append(".svg");
-        SDL_Texture* texture = IMG_LoadTexture(m_renderer, str.c_str());
+        
+       /*  str.append("airplanes/" + int(rand() % 6 + 1));
+        str.append(".svg"); */
+
+        SDL_Texture* texture = IMG_LoadTexture(m_renderer, str);
         SDL_FRect rect{src_c.x+ x -15, src_c.y + y - 15, 30, 30};
  
         SDL_RenderCopyExF(m_renderer, texture, NULL, &rect, angle_n+147, NULL, SDL_RendererFlip());
         SDL_DestroyTexture( texture );
-    }
+    } 
 }
 
 void GameWindow::render_edges() {
@@ -427,7 +418,6 @@ void GameWindow::render_edges() {
         double angle_radian = atan2(y1 - y2, x1 - x2);    
         double angle = angle_radian * 180.0 / M_PI;
         angle = (angle < -90) ? angle + 180 : (angle > 90 ? angle - 180 : angle);
-
 
         SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer, text_surface);
         SDL_FRect rect{mid_x + (float)font_size*abs(sin(angle_radian)), mid_y + (float)font_size*abs(cos(angle_radian)), text_surface->w, text_surface->h};

@@ -54,12 +54,16 @@ class Graph {
         void load_from_file(std::string _file_name);
         void addEdge(Vertice u, Vertice v, int wt);
         void display_graph();
-        void BFS(Vertice u);
-        void DFS();
         void DFSUtil(int u, std::vector<bool>& visited);
+
+        // Algorithms
+        void DFS();
+        void BFS(Vertice u);
         void shortest_path(Vertice src);
         void primMST(Vertice src);
+        void welsh_powel();
         void limitEdge(int _lim);
+        
         std::vector<Edge> get_edges(); 
 };
 

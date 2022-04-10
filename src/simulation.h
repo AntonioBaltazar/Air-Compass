@@ -15,6 +15,7 @@ class Flight {
         int m_tick = 0;
         Airplane m_airplane;
         Edge m_edge;
+        int m_color;
     public:
         Flight() {}
         Flight(Airplane _airplane, Edge _edge) : m_airplane(_airplane), m_edge(_edge) {}
@@ -22,7 +23,9 @@ class Flight {
         Airplane& get_airplane() { return m_airplane; }
         Edge& get_edge() { return m_edge; }
         int get_tick() const { return m_tick; }
-        void display();
+        int get_color() const { return m_color; }
+        void set_color(int _color) { m_color = _color; }
+        void display(std::vector<Airport> _ap);
         void next_step();
 };
 
@@ -47,6 +50,7 @@ class Simulation {
         void next_step();
         void generate(int _nb_airplanes);
         void assign_flight();
+        bool can_flight(Edge _edge);
 
 };
 
