@@ -32,7 +32,7 @@ public:
         if (txt) setup_txt(); //If true : we collect datas from txt files
         else { setup_db(); read(); } //If not : we collect datas form our databases
         
-        display_fleet();
+       // display_fleet();
         // display_airports();
     }
     ~Database() {}
