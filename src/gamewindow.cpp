@@ -35,17 +35,18 @@ void GameWindow::updateTexture(std::string _path) {
 
 void GameWindow::launch()
 {
+    m_ressources.clear();
     // Adding differents ressources
     addRessource(Ressource("rsc/menu2.jpg", Display::TOP_LEFT, m_screen_width, m_screen_height, 0, 0, {false, true}));
     // Texts
-    addRessource(Ressource(Element::TEXT, "Simulation", "SFPro_Semibold", 24, Display::CENTER, 
-        m_screen_width/2, (m_screen_height/2)-25, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
-    addRessource(Ressource(Element::TEXT, "Configuration", "SFPro_Semibold", 24, Display::CENTER, 
-        m_screen_width/2, (m_screen_height/2)+15, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
-    addRessource(Ressource(Element::TEXT, "Credits", "SFPro_Semibold", 24, Display::CENTER, 
-        m_screen_width/2, (m_screen_height/2)+55, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
-    addRessource(Ressource(Element::TEXT, "Quitter", "SFPro_Semibold", 24, Display::CENTER, 
-        m_screen_width/2, (m_screen_height/2)+95, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
+    addRessource(Ressource(Element::TEXT, "Simulation", "SFPro_Semibold", 30, Display::CENTER, 
+        m_screen_width/2, (m_screen_height/2)-35, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
+    addRessource(Ressource(Element::TEXT, "Configuration", "SFPro_Semibold", 30, Display::CENTER, 
+        m_screen_width/2, (m_screen_height/2)+25, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
+    addRessource(Ressource(Element::TEXT, "Credits", "SFPro_Semibold", 30, Display::CENTER, 
+        m_screen_width/2, (m_screen_height/2)+85, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
+    addRessource(Ressource(Element::TEXT, "Quitter", "SFPro_Semibold", 30, Display::CENTER, 
+        m_screen_width/2, (m_screen_height/2)+145, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
 
     updateTextures();
     Ressource* last_ressource = NULL;
@@ -62,7 +63,7 @@ void GameWindow::launch()
                     current_state = State::LEAVING;
                     break;
                 case SDL_MOUSEMOTION:
-                    SDL_Log("x: %d, y: %d\n", events.motion.x, events.motion.y);
+                    //SDL_Log("x: %d, y: %d\n", events.motion.x, events.motion.y);
                     temp = getRessourceClicked(events.motion.x, events.motion.y);
                     if (temp != last_ressource) {
                         if (temp != NULL && temp->getElement() == Element::TEXT)
@@ -92,6 +93,11 @@ void GameWindow::launch()
 
     if (current_state == State::SIMULATE)
         run();
+    else if(current_state == State::CREDIT){
+  
+        if(display_credits() == 0)
+            launch();
+    }
 }
 
 void GameWindow::run() {
@@ -202,7 +208,67 @@ State GameWindow::handle_click_on_menu(Ressource* _clicked_ressource) {
         return State::LEAVING;
     else if (_str == "Simulation")
         return State::SIMULATE;
+    else if (_str == "Credits")
+        return State::CREDIT;
+
     return State::RUNNING;
+}
+
+int GameWindow::display_credits()
+{
+      m_ressources.clear();
+    addRessource(Ressource("rsc/credits.jpg", Display::TOP_LEFT, m_screen_width, m_screen_height, 0, 0, {false, true}));
+    
+    // Text
+    addRessource(Ressource(Element::TEXT, "Retour", "SFPro_Semibold", 30, Display::CENTER, 
+        m_screen_width/2,700, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
+
+    m_ressources[0].get_event_config()._clickable = false;
+  
+    updateTextures();
+    Ressource* last_ressource = NULL;
+
+    SDL_Event events;
+    bool isOpen{true};
+    while (isOpen) {
+        while (SDL_PollEvent(&events)) {
+            Ressource* temp = NULL;
+            switch (events.type) {
+                case SDL_QUIT:
+                    isOpen = false;
+                    return 1;
+                    break;
+                case SDL_MOUSEMOTION:
+                    temp = getRessourceClicked(events.motion.x,events.motion.y);
+                   
+                    if (temp != last_ressource) {
+                        if (temp != NULL && temp->getElement() == Element::TEXT)
+                            play_sound("hovering.mp3", 30, false);
+                        for (auto& el : m_ressources) 
+                            if (el.get_text_params()._text == "Retour") {
+                                TTF_Init();
+                                TTF_Font* font = TTF_OpenFont(("rsc/fonts/" + string(el.get_text_params()._font) + ".ttf").c_str(), el.get_text_params()._font_size);
+                                if (font == NULL) continue;
+                                el.setSurface(TTF_RenderText_Blended(font, el.get_text_params()._text.c_str(), temp == NULL ? el.get_text_params()._default_color : 
+                                    (el.get_text_params()._text == temp->get_text_params()._text ? el.get_text_params()._hover_color : el.get_text_params()._default_color)));
+                                TTF_CloseFont(font);
+                            }
+                        updateTextures();
+                        last_ressource = temp;
+                    }
+                    break;
+
+                case SDL_MOUSEBUTTONDOWN:
+                    if (events.button.button == SDL_BUTTON_LEFT && isRessourceClicked(events.motion.x, events.motion.y)) {
+                        isOpen = false;
+                    }
+                    break;
+                default: break;
+            }
+        }
+        render();
+    }
+    return 0;
 }
 
 void GameWindow::updateGraph() {
