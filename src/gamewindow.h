@@ -11,7 +11,10 @@
 #include "graph.h"
 #include "simulation.h"
 #include "database.h"
+<<<<<<< HEAD
 #include "audio.h"
+=======
+>>>>>>> cf1f04c004d466556d7d906a952b62649bae7a0f
 
 enum class Display { TOP_LEFT, TOP_RIGHT, CENTER, BOTTOM_LEFT, BOTTOM_RIGHT};
 enum class Element { SELECTOR_AIRPLANE, SELECTOR_AIRPORT, AIRPORT, TEXT, BACKGROUND, DEFAULT, IMAGE };
