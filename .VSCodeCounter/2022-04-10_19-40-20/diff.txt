@@ -1,0 +1,41 @@
+Date : 2022-04-10 19:40:20
+Directory : /home/toniobtz/Air-Compass
+Total : 13 files,  766 codes, 196 comments, 127 blanks, all 1089 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |          8 |        456 |        191 |        122 |        769 |
+| XML      |          5 |        310 |          5 |          5 |        320 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                               | files      | code       | comment    | blank      | total      |
++----------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                  |         13 |        766 |        196 |        127 |      1,089 |
+| rsc                                                |          5 |        310 |          5 |          5 |        320 |
+| rsc/airplanes                                      |          5 |        310 |          5 |          5 |        320 |
+| src                                                |          8 |        456 |        191 |        122 |        769 |
++----------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                           | language | code       | comment    | blank      | total      |
++----------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/toniobtz/Air-Compass/rsc/airplanes/1.svg     | XML      |         62 |          1 |          1 |         64 |
+| /home/toniobtz/Air-Compass/rsc/airplanes/2.svg     | XML      |         62 |          1 |          1 |         64 |
+| /home/toniobtz/Air-Compass/rsc/airplanes/3.svg     | XML      |         62 |          1 |          1 |         64 |
+| /home/toniobtz/Air-Compass/rsc/airplanes/4.svg     | XML      |         62 |          1 |          1 |         64 |
+| /home/toniobtz/Air-Compass/rsc/airplanes/5.svg     | XML      |         62 |          1 |          1 |         64 |
+| /home/toniobtz/Air-Compass/src/audio.cpp           | C++      |        298 |         93 |         78 |        469 |
+| /home/toniobtz/Air-Compass/src/audio.h             | C++      |         34 |         91 |         18 |        143 |
+| /home/toniobtz/Air-Compass/src/database.h          | C++      |         -1 |          1 |          0 |          0 |
+| /home/toniobtz/Air-Compass/src/gamewindow.cpp      | C++      |         59 |          3 |          9 |         71 |
+| /home/toniobtz/Air-Compass/src/gamewindow.h        | C++      |          7 |          1 |          2 |         10 |
+| /home/toniobtz/Air-Compass/src/handle_terminal.cpp | C++      |         52 |          1 |         13 |         66 |
+| /home/toniobtz/Air-Compass/src/handle_terminal.h   | C++      |          6 |          0 |          3 |          9 |
+| /home/toniobtz/Air-Compass/src/main.cpp            | C++      |          1 |          1 |         -1 |          1 |
+| Total                                              |          |        766 |        196 |        127 |      1,089 |
++----------------------------------------------------+----------+------------+------------+------------+------------+

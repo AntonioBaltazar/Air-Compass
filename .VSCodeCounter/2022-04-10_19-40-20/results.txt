@@ -1,0 +1,63 @@
+Date : 2022-04-10 19:40:20
+Directory : /home/toniobtz/Air-Compass
+Total : 33 files,  2407 codes, 344 comments, 473 blanks, all 3224 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |         25 |      1,972 |        338 |        466 |      2,776 |
+| XML      |          6 |        372 |          6 |          6 |        384 |
+| Database |          1 |         62 |          0 |          1 |         63 |
+| Markdown |          1 |          1 |          0 |          0 |          1 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                               | files      | code       | comment    | blank      | total      |
++----------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                  |         33 |      2,407 |        344 |        473 |      3,224 |
+| rsc                                                |          6 |        372 |          6 |          6 |        384 |
+| rsc/airplanes                                      |          5 |        310 |          5 |          5 |        320 |
+| src                                                |         25 |      1,972 |        338 |        466 |      2,776 |
++----------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                           | language | code       | comment    | blank      | total      |
++----------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/toniobtz/Air-Compass/Database.db             | Database |         62 |          0 |          1 |         63 |
+| /home/toniobtz/Air-Compass/README.md               | Markdown |          1 |          0 |          0 |          1 |
+| /home/toniobtz/Air-Compass/rsc/airplane.svg        | XML      |         62 |          1 |          1 |         64 |
+| /home/toniobtz/Air-Compass/rsc/airplanes/1.svg     | XML      |         62 |          1 |          1 |         64 |
+| /home/toniobtz/Air-Compass/rsc/airplanes/2.svg     | XML      |         62 |          1 |          1 |         64 |
+| /home/toniobtz/Air-Compass/rsc/airplanes/3.svg     | XML      |         62 |          1 |          1 |         64 |
+| /home/toniobtz/Air-Compass/rsc/airplanes/4.svg     | XML      |         62 |          1 |          1 |         64 |
+| /home/toniobtz/Air-Compass/rsc/airplanes/5.svg     | XML      |         62 |          1 |          1 |         64 |
+| /home/toniobtz/Air-Compass/src/airplane.cpp        | C++      |         73 |          0 |         24 |         97 |
+| /home/toniobtz/Air-Compass/src/airplane.h          | C++      |         43 |          4 |          9 |         56 |
+| /home/toniobtz/Air-Compass/src/airport.h           | C++      |         63 |          4 |          7 |         74 |
+| /home/toniobtz/Air-Compass/src/audio.cpp           | C++      |        298 |         93 |         78 |        469 |
+| /home/toniobtz/Air-Compass/src/audio.h             | C++      |         34 |         91 |         18 |        143 |
+| /home/toniobtz/Air-Compass/src/database.cpp        | C++      |         58 |         12 |         25 |         95 |
+| /home/toniobtz/Air-Compass/src/database.h          | C++      |        108 |          5 |         20 |        133 |
+| /home/toniobtz/Air-Compass/src/game.cpp            | C++      |         10 |          0 |          4 |         14 |
+| /home/toniobtz/Air-Compass/src/game.h              | C++      |          9 |          0 |          2 |         11 |
+| /home/toniobtz/Air-Compass/src/gamewindow.cpp      | C++      |        384 |         25 |         71 |        480 |
+| /home/toniobtz/Air-Compass/src/gamewindow.h        | C++      |        132 |         15 |         31 |        178 |
+| /home/toniobtz/Air-Compass/src/graph.cpp           | C++      |        138 |          7 |         34 |        179 |
+| /home/toniobtz/Air-Compass/src/graph.h             | C++      |         54 |          2 |         10 |         66 |
+| /home/toniobtz/Air-Compass/src/graphicelement.cpp  | C++      |         57 |          1 |         14 |         72 |
+| /home/toniobtz/Air-Compass/src/graphicelement.h    | C++      |         25 |          5 |         10 |         40 |
+| /home/toniobtz/Air-Compass/src/graphreader.cpp     | C++      |         74 |         34 |         20 |        128 |
+| /home/toniobtz/Air-Compass/src/graphreader.h       | C++      |         18 |          0 |          4 |         22 |
+| /home/toniobtz/Air-Compass/src/handle_terminal.cpp | C++      |         52 |          1 |         13 |         66 |
+| /home/toniobtz/Air-Compass/src/handle_terminal.h   | C++      |          6 |          0 |          3 |          9 |
+| /home/toniobtz/Air-Compass/src/main.cpp            | C++      |        115 |         13 |         19 |        147 |
+| /home/toniobtz/Air-Compass/src/ressource.cpp       | C++      |         88 |          0 |         13 |        101 |
+| /home/toniobtz/Air-Compass/src/simulation.cpp      | C++      |         48 |         19 |         16 |         83 |
+| /home/toniobtz/Air-Compass/src/simulation.h        | C++      |         42 |          4 |          7 |         53 |
+| /home/toniobtz/Air-Compass/src/travel.h            | C++      |         20 |          3 |         10 |         33 |
+| /home/toniobtz/Air-Compass/src/utils.h             | C++      |         23 |          0 |          4 |         27 |
+| Total                                              |          |      2,407 |        344 |        473 |      3,224 |
++----------------------------------------------------+----------+------------+------------+------------+------------+
