@@ -1,6 +1,7 @@
 #include <iostream>
 #include "graph.h"
 #include "graphreader.h"
+#include "database.h"
 #define INF 0x3f3f3f3f
 
 using namespace std;
@@ -125,6 +126,40 @@ void Graph::load_from_file(std::string _file_name) {
     }
     std::cout << "All is good\n";
     m_airports = airports;
+}
+
+void Graph::welsh_powel() {
+    int result[m_nb_vertices];
+    result[0]  = 0;
+ 
+    for (int u = 1; u < m_nb_vertices; u++)
+        result[u] = -1; 
+
+    bool available[m_nb_vertices];
+    for (int cr = 0; cr < m_nb_vertices; cr++)
+        available[cr] = false;
+ 
+    for (int u = 1; u < m_nb_vertices; u++) {
+        vector<pi>::iterator i;
+        for (i = m_adj[u].begin(); i != m_adj[u].end(); ++i)
+            if (result[(*i).first.get_num()] != -1)
+                available[result[(*i).first.get_num()]] = true;
+ 
+        int cr;
+        for (cr = 0; cr < m_nb_vertices; cr++)
+            if (available[cr] == false)
+                break;
+ 
+        result[u] = cr;
+
+        for (i = m_adj[u].begin(); i != m_adj[u].end(); ++i)
+            if (result[(*i).first.get_num()] != -1)
+                available[result[(*i).first.get_num()]] = false;
+    }
+    Database db(true);
+    for (int u = 0; u < m_nb_vertices; u++)
+        cout << db.get_airports()[u].get_name() << " --->  Couleur "
+             << result[u] << endl;
 }
 
 void Graph::primMST(Vertice src) {

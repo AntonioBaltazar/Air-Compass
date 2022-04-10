@@ -104,6 +104,7 @@ class GameWindow {
         bool m_need_render;
 
         Simulation m_simulation;
+        Ressource* m_airport_to_display = NULL;
     public:
         // Constructors & Destructor
         GameWindow(std::string _window_name, int _screen_width, int _screen_height) : m_screen_width(_screen_width), m_screen_height(_screen_height) {
@@ -117,6 +118,7 @@ class GameWindow {
             // Initialize Simple-SDL2-Audio
             initAudio();
             playMusic("rsc/sounds/theme.wav", SDL_MIX_MAXVOLUME * 0.24);
+
        }
 
         ~GameWindow() {
@@ -153,16 +155,23 @@ class GameWindow {
 
         void addRessource(Ressource _rsc) { m_ressources.push_back(_rsc); }
         bool isRessourceClicked(int _x, int _y);
-        Ressource* getRessourceClicked(int _x, int _y);
+        Ressource* getRessourceClicked(int _x, int _y, int _padding);
         Ressource* getRessourceClicked2(int _x, int _y);
         void updateTextures();
         void updateTexture(std::string _path);
 
         // Algorithm
         void updateGraph(); 
+        
+        Airport* get_airport_from_name(int _num) {
+            if(_num >= 0 && _num < m_aerialnetwork.get_airports().size())
+                return &m_aerialnetwork.get_airports()[_num];
+            return NULL;
+        }
 
         // Visual
         void render_simulation();
+        void render_airport();
         std::vector<Edge> drawGraph(Graph graph);
         int display_credit();
         int display_credit(bool credit);
