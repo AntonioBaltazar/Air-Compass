@@ -34,9 +34,7 @@ void GameWindow::updateTexture(std::string _path) {
             SDL_Rect{tmp->getRelativeX(), tmp->getRelativeY(), tmp->getWidth(), tmp->getHeight()});
 }
 
-void GameWindow::launch()
-{   
-{
+void GameWindow::launch() {
     m_ressources.clear();
     // Adding differents ressources
     addRessource(Ressource("rsc/menu2.jpg", Display::TOP_LEFT, m_screen_width, m_screen_height, 0, 0, {false, true}));
