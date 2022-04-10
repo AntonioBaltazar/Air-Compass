@@ -64,7 +64,7 @@ void Graph::DFSUtil(int u, vector<bool>& visited) {
             DFSUtil(m_adj[u][i].first.get_num(), visited);
 }
 
-void Graph::shortest_path(Vertice src) {
+void Graph::shortest_path(Vertice src , vector<Airport> airports) {
     priority_queue< pi, vector<pi>, comparePi > pq;
     vector<int> dist(m_nb_vertices, INF);
 
@@ -88,9 +88,12 @@ void Graph::shortest_path(Vertice src) {
     }
     
     // Print shortest distances stored in dist[]
-    printf("Vertex   Distance from Source\n");
-    for (int i = 0; i < m_nb_vertices; ++i)
-        printf("%d \t\t %d\n", i, dist[i]); 
+    printf("Aeroport\t\t\t  Distance from Source\n");
+    for (int i = 0; i < m_nb_vertices; ++i) {
+        cout << m_airports[i]->get_name() << "\t\t" << dist[i] << "\n";
+       // printf("%s \t\t %d\n", m_airports[i]->get_name(), dist[i]); 
+    
+    }
 }
 
 void Graph::load_from_file(std::string _file_name) {
@@ -128,7 +131,7 @@ void Graph::load_from_file(std::string _file_name) {
     m_airports = airports;
 }
 
-void Graph::welsh_powel() {
+void Graph::welsh_powel(std::vector<Airport> airports) {
     int result[m_nb_vertices];
     result[0]  = 0;
  
@@ -156,9 +159,9 @@ void Graph::welsh_powel() {
             if (result[(*i).first.get_num()] != -1)
                 available[result[(*i).first.get_num()]] = false;
     }
-    Database db(true);
+
     for (int u = 0; u < m_nb_vertices; u++)
-        cout << db.get_airports()[u].get_name() << " --->  Couleur "
+        cout << airports[u].get_name() << " --->  Couleur "
              << result[u] << endl;
 }
 

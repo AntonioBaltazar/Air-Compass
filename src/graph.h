@@ -59,9 +59,10 @@ class Graph {
         // Algorithms
         void DFS();
         void BFS(Vertice u);
-        void shortest_path(Vertice src);
+        void shortest_path(Vertice src, std::vector<Airport> airports);
         void primMST(Vertice src);
-        void welsh_powel();
+
+        void welsh_powel(std::vector<Airport> airports);
         void limitEdge(int _lim);
         
         std::vector<Edge> get_edges(); 

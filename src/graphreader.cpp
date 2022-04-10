@@ -38,7 +38,10 @@ vector<Airport> GraphReader::load_airports(std::string _file_name) {
         fget_int(ifs, "Can't read this ", {&src, &dist, &weight});
         airports[src].addAdjacentAirport(&airports[dist], weight);
     }
-
+    for (auto& el : airports) {
+        cout << "1\n";
+    }
+    cout << "\n\n";
     return airports;
 }
 
