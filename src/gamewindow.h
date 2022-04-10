@@ -171,7 +171,9 @@ class GameWindow {
         // Visual
         void render_simulation();
         std::vector<Edge> drawGraph(Graph graph);
-        int display_credits();
+        int display_credit();
+        int display_credit(bool credit);
+        int display_config();
 
         // Handling events
         void handlePanels(Ressource* _clicked_ressource, PanelParams* _params);

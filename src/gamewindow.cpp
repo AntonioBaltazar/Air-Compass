@@ -36,6 +36,7 @@ void GameWindow::updateTexture(std::string _path) {
 
 void GameWindow::launch()
 {   
+{
     m_ressources.clear();
     // Adding differents ressources
     addRessource(Ressource("rsc/menu2.jpg", Display::TOP_LEFT, m_screen_width, m_screen_height, 0, 0, {false, true}));
@@ -91,13 +92,23 @@ void GameWindow::launch()
         render();
     }
 
-    if (current_state == State::SIMULATE)
-        run();
-    else if(current_state == State::CREDIT){
-  
-        if(display_credits() == 0)
-            launch();
+    switch (current_state)
+    {
+        case State::SIMULATE:
+            run();
+            break;
+
+        case State::CREDIT:
+            if(display_credit(true) == 0)
+                launch();
+            break;
+        case State::CONFIG:
+            if(display_credit(false) == 0)
+                launch();
+            break;
+        default: break;
     }
+
 }
 
 void GameWindow::run() {
@@ -204,21 +215,29 @@ vector<Edge> GameWindow::drawGraph(Graph graph) {
 
 State GameWindow::handle_click_on_menu(Ressource* _clicked_ressource) {
     string _str = _clicked_ressource->get_text_params()._text;
-    if ( _str == "Quitter")
-        return State::LEAVING;
-    else if (_str == "Simulation")
-        return State::SIMULATE;
-    else if (_str == "Credits")
-        return State::CREDIT;
+    if ( _str == "Quitter") return State::LEAVING;
+    else if (_str == "Simulation")  return State::SIMULATE;
+    else if (_str == "Configuration")   return State::CONFIG;
+    else if (_str == "Credits") return State::CREDIT;
 
     return State::RUNNING;
 }
 
-int GameWindow::display_credits()
+
+
+int GameWindow::display_credit(bool credit)
 {
       m_ressources.clear();
-    addRessource(Ressource("rsc/credits.jpg", Display::TOP_LEFT, m_screen_width, m_screen_height, 0, 0, {false, true}));
-    
+    if(credit)
+        addRessource(Ressource("rsc/credits.jpg", Display::TOP_LEFT, m_screen_width, m_screen_height, 0, 0, {false, true}));
+    else{
+        addRessource(Ressource("rsc/configuration.jpg", Display::TOP_LEFT, m_screen_width, m_screen_height, 0, 0, {false, true}));
+        addRessource(Ressource(Element::TEXT, "Cette fonctionnalitee arrivera dans une prochaine mise a jour", "SFPro_Regular", 25, Display::CENTER, 
+            (m_screen_width)/2,500, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));   
+        m_ressources.back().get_event_config()._clickable = false;
+    }
+
+
     // Text
     addRessource(Ressource(Element::TEXT, "Retour", "SFPro_Semibold", 30, Display::CENTER, 
         m_screen_width/2,700, {206, 206, 206}, {255, 255, 255}, {255, 0, 255}));
@@ -270,6 +289,7 @@ int GameWindow::display_credits()
     }
     return 0;
 }
+
 
 void GameWindow::updateGraph() {
     Graph g = get_graph();
@@ -453,19 +473,4 @@ void GameWindow::render() {
         SDL_RenderPresent(m_renderer);  
         m_need_render = false;
     }
-}
-
-
-void GameWindow::play_sound(string _music_name, int _volume, bool _loop) {
-    Mix_Music* music = Mix_LoadMUS(("rsc/sounds/" + std::string(_music_name)).c_str()); // Charge notre musique
-
-    if (music == nullptr)
-    {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur chargement de la musique : %s", Mix_GetError());
-        Mix_CloseAudio();
-        SDL_Quit();
-        return;
-    }
-    Mix_VolumeMusic(_volume);
-    Mix_PlayMusic(music, (_loop ? -1 : 0)); // Joue notre musique 
 }
