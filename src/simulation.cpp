@@ -49,7 +49,7 @@ void Simulation::next_step() {
             assign_flight();
         } else {
             (*i).next_step();
-            (*i).display(m_aerial_network->get_airports());
+            //   (*i).display(m_aerial_network->get_airports());
         }
     }
 }

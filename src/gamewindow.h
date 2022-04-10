@@ -104,6 +104,7 @@ class GameWindow {
         bool m_need_render;
 
         Simulation m_simulation;
+        Ressource* m_airport_to_display = NULL;
     public:
         // Constructors & Destructor
         GameWindow(std::string _window_name, int _screen_width, int _screen_height) : m_screen_width(_screen_width), m_screen_height(_screen_height) {
@@ -154,7 +155,7 @@ class GameWindow {
 
         void addRessource(Ressource _rsc) { m_ressources.push_back(_rsc); }
         bool isRessourceClicked(int _x, int _y);
-        Ressource* getRessourceClicked(int _x, int _y);
+        Ressource* getRessourceClicked(int _x, int _y, int _padding);
         Ressource* getRessourceClicked2(int _x, int _y);
         void updateTextures();
         void updateTexture(std::string _path);
@@ -170,6 +171,7 @@ class GameWindow {
 
         // Visual
         void render_simulation();
+        void render_airport();
         std::vector<Edge> drawGraph(Graph graph);
         int display_credit();
         int display_credit(bool credit);
