@@ -35,14 +35,8 @@ void GameWindow::updateTexture(std::string _path) {
 }
 
 void GameWindow::launch()
-<<<<<<< HEAD
-{   
-    //play_sound("theme.mp3", 10, -1);
-    playMusic("rsc/sounds/theme.wav", SDL_MIX_MAXVOLUME * 0.24);
-=======
 {
     m_ressources.clear();
->>>>>>> 6d74f258b83a2b73e78b2c7cf79d3701d2b43159
     // Adding differents ressources
     addRessource(Ressource("rsc/menu2.jpg", Display::TOP_LEFT, m_screen_width, m_screen_height, 0, 0, {false, true}));
     // Texts
