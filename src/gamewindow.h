@@ -11,6 +11,10 @@
 #include "graph.h"
 #include "simulation.h"
 #include "database.h"
+<<<<<<< HEAD
+#include "audio.h"
+=======
+>>>>>>> cf1f04c004d466556d7d906a952b62649bae7a0f
 
 enum class Display { TOP_LEFT, TOP_RIGHT, CENTER, BOTTOM_LEFT, BOTTOM_RIGHT};
 enum class Element { SELECTOR_AIRPLANE, SELECTOR_AIRPORT, AIRPORT, TEXT, BACKGROUND, DEFAULT, IMAGE };
@@ -109,7 +113,12 @@ class GameWindow {
             SDL_Init(SDL_INIT_EVERYTHING);
             SDL_CreateWindowAndRenderer(m_screen_width, m_screen_height, SDL_WINDOW_SHOWN, &m_window, &m_renderer);        
             SDL_SetWindowTitle(m_window, _window_name.c_str());
+
             TTF_Init();
+            SDL_Init(SDL_INIT_AUDIO);
+
+            // Initialize Simple-SDL2-Audio
+            initAudio();
        }
 
         ~GameWindow() {

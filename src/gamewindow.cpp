@@ -1,6 +1,7 @@
 #include <math.h>
+#include <random>
 #include "gamewindow.h"
-
+#include "audio.h"
 #include "utils.h"
 #define M_PI           3.14159265358979323846
 
@@ -34,8 +35,14 @@ void GameWindow::updateTexture(std::string _path) {
 }
 
 void GameWindow::launch()
+<<<<<<< HEAD
+{   
+    //play_sound("theme.mp3", 10, -1);
+    playMusic("rsc/sounds/theme.wav", SDL_MIX_MAXVOLUME * 0.24);
+=======
 {
     m_ressources.clear();
+>>>>>>> 6d74f258b83a2b73e78b2c7cf79d3701d2b43159
     // Adding differents ressources
     addRessource(Ressource("rsc/menu2.jpg", Display::TOP_LEFT, m_screen_width, m_screen_height, 0, 0, {false, true}));
     // Texts
@@ -67,7 +74,8 @@ void GameWindow::launch()
                     temp = getRessourceClicked(events.motion.x, events.motion.y);
                     if (temp != last_ressource) {
                         if (temp != NULL && temp->getElement() == Element::TEXT)
-                            play_sound("hovering.mp3", 30, false);
+                            playSound("rsc/sounds/hovering.wav", SDL_MIX_MAXVOLUME);
+                            //play_sound("hovering.mp3", 30, false);
                         for (auto& el : m_ressources) 
                             if (el.getElement() == Element::TEXT) {
                                 TTF_Init();
@@ -504,8 +512,13 @@ void GameWindow::render_simulation() {
 
         /* SDL_Log("Tracage avion src:");
         SDL_Log("x:%d y:%d", src_c.x, src_c.y); */
-        
-        SDL_Texture* texture = IMG_LoadTexture(m_renderer, string("rsc/airplane.svg"));
+        std::random_device dev;
+        std::mt19937 rng(dev());
+        std::uniform_int_distribution<std::mt19937::result_type> dist6(1, 5); // distribution in range [1, 6]
+        string str = "rsc/airplanes/";
+        str.append("" + dist6(rng));
+        str.append(".svg");
+        SDL_Texture* texture = IMG_LoadTexture(m_renderer, str.c_str());
         SDL_FRect rect{src_c.x+ x -15, src_c.y + y - 15, 30, 30};
  
         SDL_RenderCopyExF(m_renderer, texture, NULL, &rect, angle_n+147, NULL, SDL_RendererFlip());
@@ -580,14 +593,8 @@ void GameWindow::render() {
     }
 }
 
-void GameWindow::play_sound(string _music_name, int _volume, bool _loop) {
-    if (Mix_OpenAudio(96000, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) < 0)
-    {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur initialisation SDL_mixer : %s", Mix_GetError());
-        SDL_Quit();
-        return;
-    }
 
+void GameWindow::play_sound(string _music_name, int _volume, bool _loop) {
     Mix_Music* music = Mix_LoadMUS(("rsc/sounds/" + std::string(_music_name)).c_str()); // Charge notre musique
 
     if (music == nullptr)
