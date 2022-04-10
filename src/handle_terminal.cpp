@@ -1,16 +1,13 @@
-#include <iostream>
+
 #include <cstdlib>
 #include <fstream>
 #include <sstream>
-
 #include "handle_terminal.h"
 #include "gamewindow.h"
-#include "database.h"
-#include "graph.h"
 
 using namespace std;
 
-int terminal_menu()
+int Terminal::terminal_menu()
 {
     int choice = 0;
     bool end = false;
@@ -51,7 +48,7 @@ int terminal_menu()
 
 }
 
-void terminal_mode()
+void Terminal::terminal_mode()
 {
     clear_screen();
     int choice = 0;
@@ -67,11 +64,14 @@ void terminal_mode()
     cout << "2) Selection d'un avion" << endl;
     cout << "3) Retour\n-> ";
     cin>> choice;
- 
+    Airport start, endap;
     while (!end){  
         switch(choice){      
         case 1: 
-            airport_choice();
+            //airport_choice();
+            
+            start = airport_choice(NULL, "depart");
+            endap = airport_choice(&start, "");
             end = true;
         break;
 
@@ -92,9 +92,32 @@ void terminal_mode()
     }
 }
 
-void airport_choice()
+Airport Terminal::airport_choice(Airport* without, string str) {
+    int choice = 0, i =1;
+    int n;
+    do {
+        cout << "Veuillez saisir l'aeroport " << str <<" parmis les aeroports suivant :\n";
+        
+        for(auto& el : m_database.get_airports()){
+            cout << "debug";
+            if (el.get_name() == without->get_name()) {
+                cout << i << ") -------------------\n";
+                n=i;
+            }
+            cout << i << ") "<< el.get_name() << "\n";
+            i++;
+        }
+        cout << "-> ";
+        cin >> choice;
+        cout << "\n\n";
+    } while (!(choice > 0 && choice <= m_database.get_airports().size() && choice != n));
+    cout << "debug";
+    return Airport();
+}
+
+void Terminal::airport_choice()
 {
-    Database dtb(true);
+ 
     int choice = 0;
     int departure = 0;
     int i = 1;
@@ -102,14 +125,14 @@ void airport_choice()
 
     do {
         cout << "Veuillez saisir l'aeroport de départ parmis les aeroports suivant :\n";
-        for(auto& el:dtb.get_airports()){
+        for(auto& el:m_database.get_airports()){
             cout << i << ") "<< el.get_name() << "\n";
             i++;
         }
         cout << "-> ";
         cin >> choice;
         cout << "\n\n";
-        if(choice<1 || choice > (dtb.get_airports().size()-1)){
+        if(choice<1 || choice > (m_database.get_airports().size()-1)){
             continu = false;
             i = 1;
         }
@@ -120,7 +143,7 @@ void airport_choice()
 
     do {
         cout << "Veuillez choisir l'aeroport d'arrive parmis les aeroports suivant : \n";
-        for(auto& el:dtb.get_airports()){
+        for(auto& el:m_database.get_airports()){
             if (!( i == departure )){ // We can't display the departure airport
                 cout << i << ") "<< el.get_name() << "\n";
                 i++;
@@ -129,14 +152,14 @@ void airport_choice()
         cout << "-> ";
         cin >> choice;
         cout << "\n\n";
-        if(choice<1 || choice > (dtb.get_airports().size()-1)){ //Choice's shielding
+        if(choice<1 || choice > (m_database.get_airports().size()-1)){ //Choice's shielding
             continu = false;
             i = 1;
         }
     } while(!continu);
 }
 
-void clear_screen()
+void Terminal::clear_screen()
 {
 #ifdef WINDOWS
     std::system("cls");

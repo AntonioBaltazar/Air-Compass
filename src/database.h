@@ -27,7 +27,9 @@ private:
 public:
     Database(char *sql_query, std::string database_path) : m_sql_query(sql_query),m_database_path(database_path) {}
     Database(char *sql_query,bool choice) : m_sql_query(sql_query){ if(choice) send_values(get_sql_query()); }
-    Database() {}
+    Database() {
+        setup_txt();
+    }
     Database(bool txt) {
         if (txt) setup_txt(); //If true : we collect datas from txt files
         else { setup_db(); read(); } //If not : we collect datas form our databases
