@@ -5,7 +5,6 @@
 #include "airport.h"
 #include "graph.h"
 #include "graphreader.h"
-#include "aerialnetwork.h"
 #include "travel.h"
 #include "game.h"
 #include "gamewindow.h"

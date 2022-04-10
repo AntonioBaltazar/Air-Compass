@@ -8,9 +8,10 @@
 
 #include <vector>
 #include <iostream>
-#include "aerialnetwork.h"
 #include "graph.h"
 #include "simulation.h"
+#include "database.h"
+#include "audio.h"
 
 enum class Display { TOP_LEFT, TOP_RIGHT, CENTER, BOTTOM_LEFT, BOTTOM_RIGHT};
 enum class Element { SELECTOR_AIRPLANE, SELECTOR_AIRPORT, AIRPORT, TEXT, BACKGROUND, DEFAULT, IMAGE };
@@ -94,7 +95,7 @@ class GameWindow {
         int m_screen_width, m_screen_height;
         std::vector<Ressource> m_ressources;
         std::vector<std::pair<SDL_Texture*, SDL_Rect>> m_textures;
-        AerialNetwork m_aerialnetwork = AerialNetwork();
+        Database m_aerialnetwork = Database(true);
         Airplane m_current_airplane;
         Airport m_current_airport;
         std::vector<Edge> m_edges;
@@ -109,7 +110,12 @@ class GameWindow {
             SDL_Init(SDL_INIT_EVERYTHING);
             SDL_CreateWindowAndRenderer(m_screen_width, m_screen_height, SDL_WINDOW_SHOWN, &m_window, &m_renderer);        
             SDL_SetWindowTitle(m_window, _window_name.c_str());
+
             TTF_Init();
+            SDL_Init(SDL_INIT_AUDIO);
+
+            // Initialize Simple-SDL2-Audio
+            initAudio();
        }
 
         ~GameWindow() {
@@ -120,7 +126,7 @@ class GameWindow {
         }
 
         // Getters
-        AerialNetwork& getAerialNetwork() { return m_aerialnetwork; }
+        Database& getAerialNetwork() { return m_aerialnetwork; }
 
         std::vector<Edge>& get_edges() { return m_edges; }
         Graph& get_graph() { return m_graph; }

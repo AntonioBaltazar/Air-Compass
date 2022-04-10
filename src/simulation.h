@@ -4,6 +4,7 @@
 #include "airport.h"
 #include "airplane.h"
 //#include "aerialnetwork.h"
+#include "database.h"
 
 struct Coord {
     int x,  y;
@@ -20,7 +21,7 @@ class Flight {
         ~Flight() {}
         Airplane& get_airplane() { return m_airplane; }
         Edge& get_edge() { return m_edge; }
-        int get_tick() { return m_tick; }
+        int get_tick() const { return m_tick; }
         void display();
         void next_step();
 };
@@ -28,13 +29,13 @@ class Flight {
 class Simulation {
     private:
         std::vector<Flight> m_flights;
-        AerialNetwork* m_aerial_network;
+        Database* m_aerial_network;
         Graph* m_graph;
         bool m_running = false;
     public:
         Simulation() {}
-        Simulation(AerialNetwork* _aerial_network, Graph* _graph) : m_aerial_network(_aerial_network), m_graph(_graph) {
-            srand(time(NULL));
+        Simulation(Database* _aerial_network, Graph* _graph) : m_aerial_network(_aerial_network), m_graph(_graph) {
+           // srand(time(NULL));
         }
         ~Simulation() {}
         // Getters & Setters

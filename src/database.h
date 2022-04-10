@@ -47,7 +47,7 @@ public:
     char** get_value_arg_received() { return m_value_arg_received; };
     char** get_column_arg_received() { return m_column_arg_received; };
     std::vector<std::string> getValue() { return value; }; 
-    std::vector<Airplane> get_fleet() const { return m_fleet; }
+    std::vector<Airplane> get_fleet() { return m_fleet; }
     std::vector<Airport> get_airports() const { return m_airports; }
 
     //Setters
