@@ -18,7 +18,7 @@
 
 enum class Display { TOP_LEFT, TOP_RIGHT, CENTER, BOTTOM_LEFT, BOTTOM_RIGHT};
 enum class Element { SELECTOR_AIRPLANE, SELECTOR_AIRPORT, AIRPORT, TEXT, BACKGROUND, DEFAULT, IMAGE };
-enum class State { RUNNING, LEAVING, SIMULATE, CONFIG };
+enum class State { RUNNING, LEAVING, SIMULATE, CONFIG, CREDIT};
 
 
 struct PanelParams {
@@ -166,6 +166,7 @@ class GameWindow {
         // Visual
         void render_simulation();
         std::vector<Edge> drawGraph(Graph graph);
+        int display_credits();
 
         // Handling events
         void handlePanels(Ressource* _clicked_ressource, PanelParams* _params);

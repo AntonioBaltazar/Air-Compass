@@ -1,0 +1,85 @@
+Date : 2022-04-10 01:11:49
+Directory : /home/toniobtz/Air-Compass
+Total : 49 files,  87 codes, -74 comments, -32 blanks, all -19 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Database |          1 |         62 |          0 |          1 |         63 |
+| C++      |         44 |         25 |        -74 |        -33 |        -82 |
+| Markdown |          2 |          0 |          0 |          0 |          0 |
+| XML      |          2 |          0 |          0 |          0 |          0 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                        | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                           |         49 |         87 |        -74 |        -32 |        -19 |
+| ..                                                          |         25 |     -1,554 |       -222 |       -378 |     -2,154 |
+| ../..                                                       |         25 |     -1,554 |       -222 |       -378 |     -2,154 |
+| ../../lliwkunl                                              |         25 |     -1,554 |       -222 |       -378 |     -2,154 |
+| ../../lliwkunl/Documents                                    |         25 |     -1,554 |       -222 |       -378 |     -2,154 |
+| ../../lliwkunl/Documents/Air-Compass                        |         25 |     -1,554 |       -222 |       -378 |     -2,154 |
+| ../../lliwkunl/Documents/Air-Compass/rsc                    |          1 |        -62 |         -1 |         -1 |        -64 |
+| ../../lliwkunl/Documents/Air-Compass/src                    |         23 |     -1,491 |       -221 |       -377 |     -2,089 |
+| rsc                                                         |          1 |         62 |          1 |          1 |         64 |
+| src                                                         |         21 |      1,516 |        147 |        344 |      2,007 |
++-------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                    | language | code       | comment    | blank      | total      |
++-------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/lliwkunl/Documents/Air-Compass/README.md              | Markdown |         -1 |          0 |          0 |         -1 |
+| /home/lliwkunl/Documents/Air-Compass/rsc/airplane.svg       | XML      |        -62 |         -1 |         -1 |        -64 |
+| /home/lliwkunl/Documents/Air-Compass/src/aerialnetwork.cpp  | C++      |        -18 |        -89 |        -40 |       -147 |
+| /home/lliwkunl/Documents/Air-Compass/src/aerialnetwork.h    | C++      |        -30 |         -6 |         -8 |        -44 |
+| /home/lliwkunl/Documents/Air-Compass/src/airplane.cpp       | C++      |        -73 |          0 |        -24 |        -97 |
+| /home/lliwkunl/Documents/Air-Compass/src/airplane.h         | C++      |        -44 |         -4 |        -11 |        -59 |
+| /home/lliwkunl/Documents/Air-Compass/src/airport.h          | C++      |        -49 |         -4 |         -7 |        -60 |
+| /home/lliwkunl/Documents/Air-Compass/src/database.cpp       | C++      |        -35 |         -6 |        -19 |        -60 |
+| /home/lliwkunl/Documents/Air-Compass/src/database.h         | C++      |        -64 |         -5 |        -18 |        -87 |
+| /home/lliwkunl/Documents/Air-Compass/src/game.cpp           | C++      |        -10 |          0 |         -4 |        -14 |
+| /home/lliwkunl/Documents/Air-Compass/src/game.h             | C++      |         -9 |          0 |         -2 |        -11 |
+| /home/lliwkunl/Documents/Air-Compass/src/gamewindow.cpp     | C++      |       -327 |        -21 |        -61 |       -409 |
+| /home/lliwkunl/Documents/Air-Compass/src/gamewindow.h       | C++      |       -125 |        -14 |        -29 |       -168 |
+| /home/lliwkunl/Documents/Air-Compass/src/graph.cpp          | C++      |       -138 |         -7 |        -34 |       -179 |
+| /home/lliwkunl/Documents/Air-Compass/src/graph.h            | C++      |        -54 |         -2 |        -10 |        -66 |
+| /home/lliwkunl/Documents/Air-Compass/src/graphicelement.cpp | C++      |        -57 |         -1 |        -14 |        -72 |
+| /home/lliwkunl/Documents/Air-Compass/src/graphicelement.h   | C++      |        -25 |         -5 |        -10 |        -40 |
+| /home/lliwkunl/Documents/Air-Compass/src/graphreader.cpp    | C++      |        -74 |        -34 |        -20 |       -128 |
+| /home/lliwkunl/Documents/Air-Compass/src/graphreader.h      | C++      |        -17 |          0 |         -4 |        -21 |
+| /home/lliwkunl/Documents/Air-Compass/src/main.cpp           | C++      |       -119 |        -15 |        -23 |       -157 |
+| /home/lliwkunl/Documents/Air-Compass/src/ressource.cpp      | C++      |        -88 |          0 |        -13 |       -101 |
+| /home/lliwkunl/Documents/Air-Compass/src/simulation.cpp     | C++      |        -48 |         -3 |         -6 |        -57 |
+| /home/lliwkunl/Documents/Air-Compass/src/simulation.h       | C++      |        -43 |         -2 |         -7 |        -52 |
+| /home/lliwkunl/Documents/Air-Compass/src/travel.h           | C++      |        -20 |         -3 |        -10 |        -33 |
+| /home/lliwkunl/Documents/Air-Compass/src/utils.h            | C++      |        -24 |          0 |         -3 |        -27 |
+| /home/toniobtz/Air-Compass/Database.db                      | Database |         62 |          0 |          1 |         63 |
+| /home/toniobtz/Air-Compass/README.md                        | Markdown |          1 |          0 |          0 |          1 |
+| /home/toniobtz/Air-Compass/rsc/airplane.svg                 | XML      |         62 |          1 |          1 |         64 |
+| /home/toniobtz/Air-Compass/src/airplane.cpp                 | C++      |         73 |          0 |         24 |         97 |
+| /home/toniobtz/Air-Compass/src/airplane.h                   | C++      |         43 |          4 |          9 |         56 |
+| /home/toniobtz/Air-Compass/src/airport.h                    | C++      |         63 |          4 |          7 |         74 |
+| /home/toniobtz/Air-Compass/src/database.cpp                 | C++      |         58 |         12 |         25 |         95 |
+| /home/toniobtz/Air-Compass/src/database.h                   | C++      |        109 |          4 |         20 |        133 |
+| /home/toniobtz/Air-Compass/src/game.cpp                     | C++      |         10 |          0 |          4 |         14 |
+| /home/toniobtz/Air-Compass/src/game.h                       | C++      |          9 |          0 |          2 |         11 |
+| /home/toniobtz/Air-Compass/src/gamewindow.cpp               | C++      |        325 |         22 |         62 |        409 |
+| /home/toniobtz/Air-Compass/src/gamewindow.h                 | C++      |        125 |         14 |         29 |        168 |
+| /home/toniobtz/Air-Compass/src/graph.cpp                    | C++      |        138 |          7 |         34 |        179 |
+| /home/toniobtz/Air-Compass/src/graph.h                      | C++      |         54 |          2 |         10 |         66 |
+| /home/toniobtz/Air-Compass/src/graphicelement.cpp           | C++      |         57 |          1 |         14 |         72 |
+| /home/toniobtz/Air-Compass/src/graphicelement.h             | C++      |         25 |          5 |         10 |         40 |
+| /home/toniobtz/Air-Compass/src/graphreader.cpp              | C++      |         74 |         34 |         20 |        128 |
+| /home/toniobtz/Air-Compass/src/graphreader.h                | C++      |         18 |          0 |          4 |         22 |
+| /home/toniobtz/Air-Compass/src/main.cpp                     | C++      |        114 |         12 |         20 |        146 |
+| /home/toniobtz/Air-Compass/src/ressource.cpp                | C++      |         88 |          0 |         13 |        101 |
+| /home/toniobtz/Air-Compass/src/simulation.cpp               | C++      |         48 |         19 |         16 |         83 |
+| /home/toniobtz/Air-Compass/src/simulation.h                 | C++      |         42 |          4 |          7 |         53 |
+| /home/toniobtz/Air-Compass/src/travel.h                     | C++      |         20 |          3 |         10 |         33 |
+| /home/toniobtz/Air-Compass/src/utils.h                      | C++      |         23 |          0 |          4 |         27 |
+| Total                                                       |          |         87 |        -74 |        -32 |        -19 |
++-------------------------------------------------------------+----------+------------+------------+------------+------------+
