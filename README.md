@@ -15,13 +15,19 @@ Ubuntu est une distribution de Linux parfaite pour s'initier à ce nouvel enviro
 > - [Rufus](https://lecrabeinfo.net/telecharger/rufus)
 
 
-## Installation de la SDL2
+## Installation de SDL2
 
-La SDL2 est une librairie graphique très simple d'utilisation avec de nombreux tuto disponibles sur internet tel que celui de [Devopssec](https://devopssec.fr/category/apprendre-la-sdl-2).
-
+La SDL2 est une librairie graphique très simple d'utilisation avec de nombreuses ressources disponibles sur internet.
 Pour l'installer, rien de plus simple, suivez le tutoriel de la [documentation officiel Ubuntu](https://doc.ubuntu-fr.org/sdl) 
 
->  Vous trouverez d'ailleurs un super tuto sur les bases de la SDL sur le site [Devopssec](https://devopssec.fr/category/apprendre-la-sdl-2).
+> [La doc officielle](https://wiki.libsdl.org/)
+> [Un petit tuto pour aller plus loin](https://devopssec.fr/category/apprendre-la-sdl-2).
+
+## Installation de SQLite3
+
+SQLite est une librairie C/C++ permettant d'executer des requêtes SQL à une base de données, pour l'installer veuiller suivre le rapide tuto de la [documentation officiel Ubuntu](https://doc.ubuntu-fr.org/sqlite)
+> [La doc officielle](https://www.sqlite.org/docs.html)
+> [Un tuto pour aller plus loin](https://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm).
 
 ## Création d'un fichier makefile 
 
