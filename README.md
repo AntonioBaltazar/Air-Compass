@@ -14,3 +14,9 @@ Si vous souhaitez ré-exploiter ce projet vous le pouvez, voici un petit tuto po
 SQL 
 
 > Un grand merci à [Devopssec](https://devopssec.fr/category/apprendre-la-sdl-2) pour son excellent tutoriel qui nous a permis d'apprendre les bases de la SDL.
+
+
+> Lien image Ubuntu 20.04 : [Image Ubuntu 20.04] (https://releases.ubuntu.com/20.04/)
+
+> Lien Rufus : [Rufus] (https://lecrabeinfo.net/telecharger/rufus)
+
