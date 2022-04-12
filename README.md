@@ -15,8 +15,11 @@ SQL
 
 > Un grand merci à [Devopssec](https://devopssec.fr/category/apprendre-la-sdl-2) pour son excellent tutoriel qui nous a permis d'apprendre les bases de la SDL.
 
+## Installation de Ubuntu (Linux)
+Ubuntu est une distribution de Linux parfaite pour s'initier à ce nouvel environnement, je vous mets à disposition un super lien du site LeCrabInfo ainsi que le lien de téléchargement de l'image iso et du logiciel Rufus que j'ai utilisé :
+> - [Lecrabinfo](https://lecrabeinfo.net/installer-ubuntu-20-04-lts-le-guide-complet.html) 
+> - [Image Ubuntu 20.04](https://releases.ubuntu.com/20.04/)
+> - [Rufus](https://lecrabeinfo.net/telecharger/rufus)
 
-> Lien image Ubuntu 20.04 : [Image Ubuntu 20.04] (https://releases.ubuntu.com/20.04/)
 
-> Lien Rufus : [Rufus] (https://lecrabeinfo.net/telecharger/rufus)
-
+### Installation de la SDL 
