@@ -21,5 +21,14 @@ Ubuntu est une distribution de Linux parfaite pour s'initier à ce nouvel enviro
 > - [Image Ubuntu 20.04](https://releases.ubuntu.com/20.04/)
 > - [Rufus](https://lecrabeinfo.net/telecharger/rufus)
 
+## Creation d'un fichier makefile 
 
-### Installation de la SDL 
+1. Installer l'extension suivante :
+
+
+## Installation de la SDL2
+La SDL2 est une librairie graphique très simple d'utilisation avec de nombreux tuto disponibles sur internet tel que celui de [Devopssec](https://devopssec.fr/category/apprendre-la-sdl-2).
+
+Pour l'installer, rien de plus simple, suivez le tutoriel de la [documentation officiel Ubuntu](https://doc.ubuntu-fr.org/sdl) 
+
+>  Vous trouverez d'ailleurs un super tuto sur les bases de la SDL sur le site [Devopssec](https://devopssec.fr/category/apprendre-la-sdl-2).
