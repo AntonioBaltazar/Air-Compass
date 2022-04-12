@@ -368,7 +368,7 @@ void GameWindow::handlePanels(Ressource* _clicked_ressource, PanelParams* _param
     if (_clicked_ressource->get_text_params()._text == "Simulation aleatoire") {
         SDL_Log("Simulation | / -");
         m_simulation = Simulation(&m_aerialnetwork, &m_graph);
-        m_simulation.generate(500);
+        m_simulation.generate(50);
         _need_panel_update = true;
     }
 
