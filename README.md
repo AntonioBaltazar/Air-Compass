@@ -20,14 +20,14 @@ Ubuntu est une distribution de Linux parfaite pour s'initier à ce nouvel enviro
 La SDL2 est une librairie graphique très simple d'utilisation avec de nombreuses ressources disponibles sur internet.
 Pour l'installer, rien de plus simple, suivez le tutoriel de la [documentation officiel Ubuntu](https://doc.ubuntu-fr.org/sdl) 
 
-> [La doc officielle](https://wiki.libsdl.org/)
-> [Un petit tuto pour aller plus loin](https://devopssec.fr/category/apprendre-la-sdl-2).
+> - [La doc officielle](https://wiki.libsdl.org/)  
+> - [Un petit tuto pour aller plus loin](https://devopssec.fr/category/apprendre-la-sdl-2).
 
 ## Installation de SQLite3
 
 SQLite est une librairie C/C++ permettant d'executer des requêtes SQL à une base de données, pour l'installer veuiller suivre le rapide tuto de la [documentation officiel Ubuntu](https://doc.ubuntu-fr.org/sqlite)
-> [La doc officielle](https://www.sqlite.org/docs.html)
-> [Un tuto pour aller plus loin](https://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm).
+> - [La doc officielle](https://www.sqlite.org/docs.html)  
+> - [Un tuto pour aller plus loin](https://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm).
 
 ## Création d'un fichier makefile 
 
