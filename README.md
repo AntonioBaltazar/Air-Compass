@@ -7,13 +7,6 @@ Ce projet à été développé sous __Linux__ et a l'aide de différents langage
   - SQL ( à l'aide de la bibliothèque SQLITE3)
   - Fonctions graphiques de la bibliothèque SDL
 
-____
-
-Si vous souhaitez ré-exploiter ce projet vous le pouvez, voici un petit tuto pour installer les bibliothèques utilisées sous Linux : 
-
-SQL 
-
-> Un grand merci à [Devopssec](https://devopssec.fr/category/apprendre-la-sdl-2) pour son excellent tutoriel qui nous a permis d'apprendre les bases de la SDL.
 
 ## Installation de Ubuntu (Linux)
 Ubuntu est une distribution de Linux parfaite pour s'initier à ce nouvel environnement, je vous mets à disposition un super lien du site LeCrabInfo ainsi que le lien de téléchargement de l'image iso et du logiciel Rufus que j'ai utilisé :
@@ -21,14 +14,34 @@ Ubuntu est une distribution de Linux parfaite pour s'initier à ce nouvel enviro
 > - [Image Ubuntu 20.04](https://releases.ubuntu.com/20.04/)
 > - [Rufus](https://lecrabeinfo.net/telecharger/rufus)
 
-## Creation d'un fichier makefile 
 
-1. Installer l'extension suivante :
+## Installation de SDL2
 
-
-## Installation de la SDL2
-La SDL2 est une librairie graphique très simple d'utilisation avec de nombreux tuto disponibles sur internet tel que celui de [Devopssec](https://devopssec.fr/category/apprendre-la-sdl-2).
-
+La SDL2 est une librairie graphique très simple d'utilisation avec de nombreuses ressources disponibles sur internet.
 Pour l'installer, rien de plus simple, suivez le tutoriel de la [documentation officiel Ubuntu](https://doc.ubuntu-fr.org/sdl) 
 
->  Vous trouverez d'ailleurs un super tuto sur les bases de la SDL sur le site [Devopssec](https://devopssec.fr/category/apprendre-la-sdl-2).
+> - [La doc officielle](https://wiki.libsdl.org/)  
+> - [Un petit tuto pour aller plus loin](https://devopssec.fr/category/apprendre-la-sdl-2).
+
+## Installation de SQLite3
+
+SQLite est une librairie C/C++ permettant d'executer des requêtes SQL à une base de données, pour l'installer veuiller suivre le rapide tuto de la [documentation officiel Ubuntu](https://doc.ubuntu-fr.org/sqlite)
+> - [La doc officielle](https://www.sqlite.org/docs.html)  
+> - [Un tuto pour aller plus loin](https://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm).
+
+## Création d'un fichier makefile 
+
+Le fichier Makefile permettra de relier les bibliothèques précédemment installé à notre compliateur, pour l'installer suivez les 4 courtes étapes suivantes :
+
+1. Installer l'extension suivante :
+<img src="Markdown rsc/makefile.png"/>
+
+2. Executer le raccourci `ctrl shift p` et selectionner ceci :
+ <img src="Markdown rsc/makefile2.png"/>
+
+3. Ensuite taper sur la touche `entrer` et faire le choix suivant :
+<img src="Markdown rsc/makefile3.png"/>
+
+4. Le fichier Makefile est crée, il ne reste plus qu'à préciser dans la partie `LDFLAGS` les bibliothèques que vous souhaitez utiliser à l'aide de la commande suivante :
+  `-lsqlite3 -lSDL2main -lSDL2_image -lSDL2 -lGL -lGLEW -lSDL2_ttf -lSDL`
+  <img src="Markdown rsc/makefile4.png"/>
