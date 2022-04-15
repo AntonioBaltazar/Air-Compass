@@ -1,5 +1,5 @@
 # Air-Compass
-Vous découvrirez dans ce projet un système de contrôle du trafic aérien international, une version graphique et console vous est sera proposé. 
+Vous découvrirez dans ce projet un système de contrôle du trafic aérien international à travers une interface graphique et console. 
 L'application se veut intuitive et simple d'utilisation, lancez donc le fichier "Air-compass.exe" et laissez vous guider !
 
 Ce projet à été développé sous __Linux__ et a l'aide de différents langages de programmation :
