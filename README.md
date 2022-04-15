@@ -9,13 +9,14 @@ Ce projet à été développé sous __Linux__ et a l'aide de différents langage
 
 ## Aperçu 
 <img src="Markdown rsc/Terminal_menu.png"/>
-<center> <b> Menu console </b> </center>
+<div align="center"><b>Menu Console</b></div>
 <br> </br>   
 <img src="Markdown rsc/Graphic_menu.png"/>
 <div align="center"><b>Menu Graphique</b></div>
+<br> </br> 
 <img src="Markdown rsc/Simulation.png"/>
 <div align="center"><b>Simulation</b></div>
-
+<br> </br> 
 ## Installation de Ubuntu (Linux)
 Ubuntu est une distribution de Linux parfaite pour s'initier à ce nouvel environnement, je vous mets à disposition un super lien du site LeCrabInfo ainsi que le lien de téléchargement de l'image iso et du logiciel Rufus que j'ai utilisé :
 > - [Lecrabinfo](https://lecrabeinfo.net/installer-ubuntu-20-04-lts-le-guide-complet.html) 
