@@ -9,7 +9,7 @@ Ce projet à été développé sous __Linux__ et a l'aide de différents langage
 
 ## Aperçu 
 <img src="Markdown rsc/Terminal_menu.png"/>
-### <center> <b> Menu console </b> </center>
+<center> <b> Menu console </b> </center>
 <br> </br>   
 <img src="Markdown rsc/Graphic_menu.png"/>
 <div align="center"><b>Menu Graphique</b></div>
