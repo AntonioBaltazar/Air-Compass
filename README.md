@@ -9,8 +9,11 @@ Ce projet à été développé sous __Linux__ et a l'aide de différents langage
 
 ## Aperçu 
 <img src="Markdown rsc/Terminal_menu.png"/>
+<div align="center"><b>Menu console </b></div>
 <img src="Markdown rsc/Graphic_menu.png"/>
+<div align="center"><b>Menu Graphique</b></div>
 <img src="Markdown rsc/Simulation.png"/>
+<div align="center"><b>Simulation</b></div>
 
 ## Installation de Ubuntu (Linux)
 Ubuntu est une distribution de Linux parfaite pour s'initier à ce nouvel environnement, je vous mets à disposition un super lien du site LeCrabInfo ainsi que le lien de téléchargement de l'image iso et du logiciel Rufus que j'ai utilisé :
