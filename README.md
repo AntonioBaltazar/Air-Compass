@@ -7,6 +7,10 @@ Ce projet à été développé sous __Linux__ et a l'aide de différents langage
   - SQL ( à l'aide de la bibliothèque SQLITE3)
   - Fonctions graphiques de la bibliothèque SDL
 
+## Aperçu 
+<img src="Markdown rsc/Terminal_menu.png"/>
+<img src="Markdown rsc/Graphic_menu.png"/>
+<img src="Markdown rsc/Simulation.png"/>
 
 ## Installation de Ubuntu (Linux)
 Ubuntu est une distribution de Linux parfaite pour s'initier à ce nouvel environnement, je vous mets à disposition un super lien du site LeCrabInfo ainsi que le lien de téléchargement de l'image iso et du logiciel Rufus que j'ai utilisé :
