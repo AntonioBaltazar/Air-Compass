@@ -2,7 +2,7 @@
 Vous découvrirez dans ce projet un système de contrôle du trafic aérien international à travers une interface graphique et console. 
 L'application se veut intuitive et simple d'utilisation, lancez donc le fichier "aircompass.exe" et laissez vous guider !
 
-Ce projet à été développé sous __Linux__ et a l'aide de différents langages de programmation :
+Ce projet à été développé sous __Linux__ à l'aide de différents langages de programmation :
   - C et C++
   - SQL ( à l'aide de la bibliothèque SQLITE3)
   - Fonctions graphiques de la bibliothèque SDL
